@@ -1,0 +1,73 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context=".CreateAccount"
+  android:background="@drawable/serenebg">
+
+  <EditText
+    android:id="@+id/unField"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="115dp"
+    android:ems="10"
+    android:inputType="textPersonName" />
+
+  <EditText
+    android:id="@+id/pwField"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="192dp"
+    android:ems="10"
+    android:inputType="textPassword" />
+
+  <TextView
+    android:id="@+id/unText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/unField"
+    android:layout_alignStart="@+id/unField"
+    android:layout_marginBottom="-115dp"
+    android:text="Username" />
+
+  <TextView
+    android:id="@+id/pwText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/pwField"
+    android:layout_alignStart="@+id/unField"
+    android:layout_marginBottom="-192dp"
+    android:text="Password" />
+
+  <TextView
+    android:id="@+id/forgotPWText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignStart="@+id/unField"
+    android:layout_centerVertical="true"
+    android:text="Forgot password?" />
+
+  <Button
+    android:id="@+id/loginButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="161dp"
+    android:text="Log in" />
+
+  <Button
+    android:id="@+id/registerButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="16dp"
+    android:text="Register" />
+</RelativeLayout>
