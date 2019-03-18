@@ -8,4 +8,9 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="checkBoxStyle" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+    <item name="colorAccent">#FFF</item>
+    <item name="android:textColorSecondary">#FFF</item>
+  </style>
+
 </resources>

@@ -16,15 +16,14 @@ public class StartingScreen extends AppCompatActivity {
 
     getSupportActionBar().hide();
 
-    //ImageView SereneLogo = (ImageView) findViewById(R.id.SereneLogo);
     Button startButton = (Button) findViewById(R.id.startButton);
 
     startButton.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
-        Intent showMain = new Intent(getApplicationContext(), Main.class);
-        startActivity(showMain);
+        Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
+        startActivity(showLogin);
       }
 
     });

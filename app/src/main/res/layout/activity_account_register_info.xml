@@ -1,73 +1,102 @@
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   xmlns:tools="http://schemas.android.com/tools"
-  tools:context=".WelcomeScreen"
+  tools:context=".AccountRegisterInfo"
   android:background="@drawable/serenebg">
+
+  <ImageView
+    android:id="@+id/serenelogocreate"
+    android:layout_width="127dp"
+    android:layout_height="75dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="50dp"
+    app:srcCompat="@drawable/selogo_lotus_white" />
 
   <TextView
     android:id="@+id/welcomeText"
-    android:layout_width="wrap_content"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_alignStart="@+id/welcomeSubtext"
-    android:layout_marginTop="50dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="10dp"
+    android:layout_below="@id/serenelogocreate"
+    android:textColor="#234A56"
+    android:textSize="24sp"
+    android:textStyle="bold"
     android:text="Hi [Username], welcome to Serene." />
 
   <TextView
     android:id="@+id/welcomeSubtext"
-    android:layout_width="317dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="98dp"
+    android:layout_below="@id/welcomeText"
+    android:textColor="#418094"
+    android:textSize="19sp"
     android:text="Before you use the application, we have a few questions that will help us personalize your experience." />
 
   <Button
-    android:id="@+id/next1Button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
+    android:id="@+id/down1Button"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
     android:layout_centerHorizontal="true"
-    android:layout_marginBottom="74dp"
-    android:text=">" />
+    android:layout_marginTop="40dp"
+    android:layout_marginBottom="40dp"
+    android:layout_below="@id/welcomeSubtext"
+    android:background="@drawable/seui_down_button" />
 
   <TextView
     android:id="@+id/question1Text"
-    android:layout_width="wrap_content"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
-    android:layout_above="@+id/answer1Field"
     android:layout_centerHorizontal="true"
-    android:layout_marginBottom="-214dp"
+    android:layout_below="@id/down1Button"
+    android:textColor="#418094"
     android:text="What would you like us to call you?" />
 
   <EditText
     android:id="@+id/answer1Field"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
+    android:layout_width="280dp"
+    android:layout_height="30dp"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="214dp"
+    android:layout_below="@id/question1Text"
+    android:background="#FFF"
     android:ems="10"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
     android:inputType="textPersonName" />
 
   <TextView
     android:id="@+id/question2Text"
-    android:layout_width="wrap_content"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
-    android:layout_above="@+id/answer2Field"
     android:layout_centerHorizontal="true"
+    android:layout_marginTop="20dp"
+    android:layout_below="@id/answer1Field"
+    android:textColor="#418094"
     android:text="How old are you?" />
 
   <EditText
     android:id="@+id/answer2Field"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
+    android:layout_width="280dp"
+    android:layout_height="30dp"
     android:layout_centerHorizontal="true"
-    android:layout_marginBottom="164dp"
+    android:layout_below="@id/question2Text"
+    android:background="#FFF"
     android:ems="10"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
     android:inputType="textPersonName" />
+
+  <Button
+    android:id="@+id/next1Button"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@id/answer2Field"
+    android:layout_marginTop="60dp"
+    android:background="@drawable/seui_next_button" />
+
 </RelativeLayout>
