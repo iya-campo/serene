@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class AccountRegisterInfo extends AppCompatActivity {
 
   EditText usernickname, age;
-  String userNickname;
+  String userNickname, userName, userEmail, userPassword;
   int user_age;
   DatabaseReference ref;
   Users user;
@@ -53,23 +53,33 @@ public class AccountRegisterInfo extends AppCompatActivity {
     Button next1Button = (Button) findViewById(R.id.next1Button);
     Intent myIntent = getIntent();
       if(myIntent.hasExtra("myExtra")) {
+        userName = myIntent.getStringExtra("myExtra");
         TextView text = (TextView) findViewById(R.id.welcomeText);
-        text.setText("Hi " + myIntent.getStringExtra("myExtra") + " welcome to Serene!");
+        text.setText("Hi " + userName + " welcome to Serene!");
+      }
+      if(myIntent.hasExtra("useremail")){
+        userEmail = myIntent.getStringExtra("useremail");
+      }
+      if(myIntent.hasExtra("userpassword")){
+        userPassword = myIntent.getStringExtra(userPassword);
       }
 
     next1Button.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
-        Intent showNotifs = new Intent(getApplicationContext(), AccountRegisterNotifs.class);
-        startActivity(showNotifs);
+
         userNickname = usernickname.getText().toString();
         user_age = Integer.parseInt(age.getText().toString());
 
-        user.setUserNickName(userNickname);
-        user.setAge(user_age);
+        Intent showNotifs = new Intent(getApplicationContext(), AccountRegisterNotifs.class);
+        startActivity(showNotifs);
+        showNotifs.putExtra("username", userName);
+        showNotifs.putExtra("useremail", userEmail);
+        showNotifs.putExtra("userpassword", userPassword);
+        showNotifs.putExtra("usernickname", userNickname);
+        showNotifs.putExtra("userage", user_age);
 
-        ref.child(String.valueOf(maxid+1)).setValue(user);
         Toast.makeText(AccountRegisterInfo.this, "data inserted successfully", Toast.LENGTH_LONG).show();
       }
 

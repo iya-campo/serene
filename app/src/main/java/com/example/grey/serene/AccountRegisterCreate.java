@@ -36,7 +36,6 @@ public class AccountRegisterCreate extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_account_register_create);
       getSupportActionBar().hide();
-      final TextView tv = (TextView) findViewById(R.id.textView);
       final MyDBHandler db = new MyDBHandler(this);
        username=(EditText) findViewById(R.id.newUnField);
        email=(EditText) findViewById(R.id.newEmailField);
@@ -70,13 +69,12 @@ public class AccountRegisterCreate extends AppCompatActivity {
               user_email = email.getText().toString();
               user_pass = password.getText().toString();
 
-              user.setUsersName(user_name);
-              user.setEmail(user_email);
-              user.setPassword(user_pass);
 
                Toast.makeText(AccountRegisterCreate.this, "data inserted successfully", Toast.LENGTH_LONG).show();
               Intent showInfo = new Intent(getApplicationContext(), AccountRegisterInfo.class);
               showInfo.putExtra("myExtra", user_name);
+              showInfo.putExtra("useremail", user_email);
+              showInfo.putExtra("userpassword", user_pass);
               startActivity(showInfo);
              /* List<Users> usersList = db.getAllUsersList();
               for(Users users:usersList){

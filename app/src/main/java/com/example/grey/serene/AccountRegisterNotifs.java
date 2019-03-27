@@ -19,7 +19,14 @@ import com.google.firebase.database.ValueEventListener;
 public class AccountRegisterNotifs extends AppCompatActivity {
 
     Button yes, no;
-    String notif, alarmTitle, alarm;
+    String notif;
+    String alarmTitle;
+    String alarm;
+    String userName;
+    String userEmail;
+    String userPassword;
+    String userNickname;
+    int userAge;
     EditText alarmName;
     DatabaseReference ref;
     Spinner time, day;
@@ -59,6 +66,23 @@ public class AccountRegisterNotifs extends AppCompatActivity {
       time=(Spinner) findViewById(R.id.timeSpinner);
       day=(Spinner) findViewById(R.id.daySpinner);
 
+        Intent myIntent = getIntent();
+        if(myIntent.hasExtra("username")) {
+            userName = myIntent.getStringExtra("myExtra");
+        }
+        if(myIntent.hasExtra("useremail")){
+            userEmail = myIntent.getStringExtra("useremail");
+        }
+        if(myIntent.hasExtra("userpassword")){
+            userPassword = myIntent.getStringExtra("userpassword");
+        }
+        if(myIntent.hasExtra("usernickname")){
+            userNickname = myIntent.getStringExtra("usernickname");
+        }
+        if(myIntent.hasExtra("userage")){
+            userAge = Integer.parseInt(myIntent.getStringExtra("userage"));
+        }
+
       yes.setOnClickListener(new View.OnClickListener() {
 
           @Override
@@ -80,14 +104,12 @@ public class AccountRegisterNotifs extends AppCompatActivity {
       next2Button.setOnClickListener((new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              Intent showNotifs = new Intent(getApplicationContext(), AccountLogin.class);
-              startActivity(showNotifs);
               alarm = time.getSelectedItem().toString() + " " + day.getSelectedItem().toString();
               alarmTitle = alarmName.getText().toString();
 
-              user.setAlarmName(alarmTitle);
-              user.setAlarm(alarm);
-              user.setNotifications(notif);
+              Intent showNotifs = new Intent(getApplicationContext(), AccountLogin.class);
+              startActivity(showNotifs);
+              user = new Users(maxid, userName, userEmail, userNickname, userAge, alarmTitle, alarm, notif, userPassword);
 
               ref.child(String.valueOf(maxid+1)).setValue(user);
               Toast.makeText(AccountRegisterNotifs.this, "Congratulations! You have signed up.", Toast.LENGTH_LONG).show();
