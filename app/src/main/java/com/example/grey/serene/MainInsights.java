@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 /**
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
  */
 public class MainInsights extends Fragment {
 
+  TextView textView;
 
   public MainInsights() {
     // Required empty public constructor
@@ -26,4 +28,7 @@ public class MainInsights extends Fragment {
     return inflater.inflate(R.layout.fragment_main_insights, container, false);
   }
 
+  public void addArticles(){
+    
+  }
 }
