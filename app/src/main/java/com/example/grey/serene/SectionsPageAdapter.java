@@ -1,4 +1,4 @@
 package com.example.grey.serene;
 
-public class ProfileFriends {
+public class SectionsPageAdapter {
 }
