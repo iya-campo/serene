@@ -9,6 +9,10 @@
     android:roundIcon="@mipmap/sereneicon"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
+    <activity
+      android:name=".Profile"
+      android:label="@string/title_activity_profile"
+      android:theme="@style/AppTheme.NoActionBar"></activity>
     <activity android:name=".StartingScreen">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -21,14 +25,12 @@
     <activity android:name=".AccountRegisterInfo" />
     <activity android:name=".AccountRegisterNotifs" />
     <activity android:name=".JournalEntry" />
-    <activity android:name=".ProfileJourney" />
-    <activity android:name=".ProfileFriends" />
     <activity android:name=".SettingsNotifs" />
     <activity android:name=".SettingsTC" />
     <activity android:name=".SettingsPP" />
     <activity android:name=".SettingsData" />
     <activity android:name=".Main" />
-    <activity android:name=".Settings"></activity>
+    <activity android:name=".Settings" />
   </application>
 
 </manifest>

@@ -1,9 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/relativeLayout"
+  android:id="@+id/main_content"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:visibility="visible"
-  tools:context=".Settings"/>
+  android:fitsSystemWindows="true"
+  tools:context=".Settings">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#FFF"
+    android:contentInsetLeft="0dp"
+    android:contentInsetStart="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    android:contentInsetRight="0dp"
+    android:contentInsetEnd="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp">
+
+    <Button
+      android:id="@+id/profileButton"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_gravity="start|center_vertical"
+      android:layout_marginLeft="15dp"
+      android:background="@drawable/account_icon" />
+
+    <ImageView
+      android:id="@+id/sereneLogo"
+      android:layout_width="60dp"
+      android:layout_height="40dp"
+      android:layout_gravity="center|center_vertical"
+      android:background="@drawable/selogo_lotus" />
+
+  </android.support.v7.widget.Toolbar>
+
+  <FrameLayout
+    android:id="@+id/user"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="20dp"
+    android:layout_below="@id/header"
+    android:background="#E1EDF2"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/userText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="28sp"
+      android:textStyle="bold"
+      android:text="Bob Bobson" />
+
+    <Button
+      android:id="@+id/settingsButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="end|center_vertical"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/notifs"
+    android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_below="@+id/user">
+
+    <TextView
+      android:id="@+id/notifsText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="18sp"
+      android:textAllCaps="true"
+      android:layout_marginLeft="20dp"
+      android:text="Notifications" />
+
+    <Button
+      android:id="@+id/notifsButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="right|center_vertical"
+      android:layout_marginRight="10dp"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+
+  <FrameLayout
+    android:id="@+id/notifs"
+    android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_below="@+id/user">
+
+    <TextView
+      android:id="@+id/notifsText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="18sp"
+      android:textAllCaps="true"
+      android:layout_marginLeft="20dp"
+      android:text="Notifications" />
+
+    <Button
+      android:id="@+id/notifsButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="right|center_vertical"
+      android:layout_marginRight="10dp"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+
+  <FrameLayout
+    android:id="@+id/tc"
+    android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_below="@+id/notifs">
+
+    <TextView
+      android:id="@+id/tcText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="18sp"
+      android:textAllCaps="true"
+      android:layout_marginLeft="20dp"
+      android:text="Terms and Conditions" />
+
+    <Button
+      android:id="@+id/tcButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="right|center_vertical"
+      android:layout_marginRight="10dp"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/pp"
+    android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_below="@+id/tc">
+
+    <TextView
+      android:id="@+id/ppText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="18sp"
+      android:textAllCaps="true"
+      android:layout_marginLeft="20dp"
+      android:text="Privacy Policy" />
+
+    <Button
+      android:id="@+id/privacyButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="right|center_vertical"
+      android:layout_marginRight="10dp"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/data"
+    android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_below="@+id/pp">
+
+    <TextView
+      android:id="@+id/dataText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="18sp"
+      android:textAllCaps="true"
+      android:layout_marginLeft="20dp"
+      android:text="Account Settings" />
+
+    <Button
+      android:id="@+id/dataButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="right|center_vertical"
+      android:layout_marginRight="10dp"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+
+  <FrameLayout
+    android:id="@+id/notifs"
+    android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_below="@+id/user">
+
+    <TextView
+      android:id="@+id/notifsText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="18sp"
+      android:textAllCaps="true"
+      android:layout_marginLeft="20dp"
+      android:text="Notifications" />
+
+    <Button
+      android:id="@+id/notifsButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="right|center_vertical"
+      android:layout_marginRight="10dp"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+
+</RelativeLayout>
