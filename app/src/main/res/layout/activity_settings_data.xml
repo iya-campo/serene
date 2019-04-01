@@ -191,7 +191,7 @@
   <Button
     android:id="@+id/deactivateButton"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="50dp"
     android:background="#613E3E"
     android:layout_alignParentBottom="true"
     android:textSize="19sp"

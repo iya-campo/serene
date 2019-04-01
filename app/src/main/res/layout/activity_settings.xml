@@ -78,9 +78,8 @@
   <FrameLayout
     android:id="@+id/notifs"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_below="@+id/user"
-    android:layout_marginTop="0dp">
+    android:layout_height="70dp"
+    android:layout_below="@+id/user">
 
     <TextView
       android:id="@+id/notifsText"
@@ -91,7 +90,7 @@
       android:text="Notifications"
       android:textAllCaps="true"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <Button
       android:id="@+id/notifsButton"
@@ -115,9 +114,8 @@
   <FrameLayout
     android:id="@+id/tc"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_below="@+id/notifs"
-    android:layout_marginTop="-2dp">
+    android:layout_height="70dp"
+    android:layout_below="@+id/notifs">
 
     <TextView
       android:id="@+id/tcText"
@@ -128,7 +126,7 @@
       android:text="Terms and Conditions"
       android:textAllCaps="true"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <Button
       android:id="@+id/tcButton"
@@ -153,7 +151,7 @@
     android:id="@+id/pp"
     android:layout_marginTop="0dp"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="70dp"
     android:layout_below="@+id/tc">
 
     <TextView
@@ -162,7 +160,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:textColor="#234A56"
-      android:textSize="18sp"
+      android:textSize="16sp"
       android:textAllCaps="true"
       android:layout_marginLeft="20dp"
       android:text="Privacy Policy" />
@@ -188,9 +186,8 @@
 
   <FrameLayout
     android:id="@+id/data"
-    android:layout_marginTop="0dp"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="70dp"
     android:layout_below="@+id/pp">
 
     <TextView
@@ -199,7 +196,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:textColor="#234A56"
-      android:textSize="18sp"
+      android:textSize="16sp"
       android:textAllCaps="true"
       android:layout_marginLeft="20dp"
       android:text="Account Settings" />
@@ -228,11 +225,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="45dp"
+    android:layout_marginTop="60dp"
     android:layout_below="@+id/data"
     android:textAlignment="center"
     android:textColor="#234A56"
-    android:textSize="18sp"
+    android:textSize="16sp"
     android:text="Logged in as" />
 
   <TextView
@@ -243,7 +240,7 @@
     android:layout_below="@+id/loggedInText"
     android:textAlignment="center"
     android:textColor="#234A56"
-    android:textSize="18sp"
+    android:textSize="16sp"
     android:text="bbobson@donbosco.edu.ph" />
 
   <Button

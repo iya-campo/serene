@@ -17,7 +17,6 @@ public class SettingsTC extends AppCompatActivity {
 
     //Header Buttons
     Button profileButton = (Button) findViewById(R.id.profileButton);
-    Button settingsButton = (Button) findViewById(R.id.settingsButton);
 
     //Return Button
     Button settingsTitleButton = (Button) findViewById(R.id.settingsTitleButton);
@@ -28,16 +27,6 @@ public class SettingsTC extends AppCompatActivity {
       public void onClick(View v) {
         Intent showProfile = new Intent(getApplicationContext(), Profile.class);
         startActivity(showProfile);
-      }
-
-    });
-
-    settingsButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        Intent showSettings = new Intent(getApplicationContext(), Settings.class);
-        startActivity(showSettings);
       }
 
     });

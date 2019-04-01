@@ -28,7 +28,7 @@
       android:textStyle="bold"
       android:textAllCaps="true"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <TextView
       android:id="@+id/startDateDetails"
@@ -38,7 +38,7 @@
       android:layout_marginRight="20dp"
       android:text="08 December, 2018"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
   </FrameLayout>
 
@@ -61,7 +61,7 @@
       android:textStyle="bold"
       android:textAllCaps="true"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <TextView
       android:id="@+id/durationDetails"
@@ -72,7 +72,7 @@
       android:text="1 DAY"
       android:textAllCaps="true"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
   </FrameLayout>
 
@@ -95,7 +95,7 @@
       android:textStyle="bold"
       android:textAllCaps="true"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <TextView
       android:id="@+id/medicineDetails"
@@ -105,7 +105,7 @@
       android:layout_marginRight="20dp"
       android:text="See stats"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <Button
       android:id="@+id/medicineButton"
@@ -139,7 +139,7 @@
       android:textStyle="bold"
       android:textAllCaps="true"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <TextView
       android:id="@+id/sleepDetails"
@@ -149,7 +149,7 @@
       android:layout_marginRight="20dp"
       android:text="See stats"
       android:textColor="#234A56"
-      android:textSize="18sp" />
+      android:textSize="16sp" />
 
     <Button
       android:id="@+id/sleepButton"

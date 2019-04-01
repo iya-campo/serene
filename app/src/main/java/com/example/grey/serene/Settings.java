@@ -17,7 +17,6 @@ public class Settings extends AppCompatActivity {
 
     //Header Buttons
     Button profileButton = (Button) findViewById(R.id.profileButton);
-    Button settingsButton = (Button) findViewById(R.id.settingsButton);
 
     //Settings Buttons
     Button notifsButton = (Button) findViewById(R.id.notifsButton);
@@ -29,16 +28,6 @@ public class Settings extends AppCompatActivity {
     Button logoutButton = (Button) findViewById(R.id.logoutButton);
 
     profileButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        Intent showProfile = new Intent(getApplicationContext(), Profile.class);
-        startActivity(showProfile);
-      }
-
-    });
-
-    settingsButton.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
