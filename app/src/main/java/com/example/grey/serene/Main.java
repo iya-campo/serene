@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +33,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
   private MainHome homeFragment;
   private MainJournal journalFragment;
   private MainInsights insightsFragment;
-  private MainAccount accountFragment;
   private NotificationManagerCompat notificationManager;
   DatabaseReference ref;
   String notif;
@@ -51,7 +48,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     homeFragment = new MainHome();
     journalFragment = new MainJournal();
     insightsFragment = new MainInsights();
-    accountFragment = new MainAccount();
 
     bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
