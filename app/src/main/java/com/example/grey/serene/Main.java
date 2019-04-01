@@ -33,6 +33,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
   private MainHome homeFragment;
   private MainJournal journalFragment;
   private MainInsights insightsFragment;
+
   private NotificationManagerCompat notificationManager;
   DatabaseReference ref;
   String notif;
