@@ -4,6 +4,110 @@
   android:layout_height="match_parent"
   xmlns:tools="http://schemas.android.com/tools"
   tools:context=".SettingsPP"
-  android:background="@drawable/serenebg">
+  android:background="#C1D0D6">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#FFF"
+    android:contentInsetLeft="0dp"
+    android:contentInsetStart="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    android:contentInsetRight="0dp"
+    android:contentInsetEnd="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp">
+
+    <Button
+      android:id="@+id/profileButton"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_gravity="start|center_vertical"
+      android:layout_marginLeft="15dp"
+      android:background="@drawable/account_icon" />
+
+    <ImageView
+      android:id="@+id/sereneLogo"
+      android:layout_width="60dp"
+      android:layout_height="40dp"
+      android:layout_gravity="center|center_vertical"
+      android:background="@drawable/selogo_lotus" />
+
+  </android.support.v7.widget.Toolbar>
+
+  <FrameLayout
+    android:id="@+id/user"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="20dp"
+    android:layout_below="@id/header"
+    android:background="#E1EDF2"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/userText"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textColor="#234A56"
+      android:textSize="28sp"
+      android:textStyle="bold"
+      android:text="Bob Bobson" />
+
+    <Button
+      android:id="@+id/settingsButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_gravity="end|center_vertical"
+      android:background="@drawable/settings_button" />
+
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/settingsTitle"
+    android:layout_width="match_parent"
+    android:layout_height="25dp"
+    android:layout_marginTop="15dp"
+    android:layout_below="@id/user"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/settingsTitleText"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginRight="30dp"
+      android:layout_gravity="end"
+      android:textAlignment="center"
+      android:textAllCaps="true"
+      android:textColor="#FFFFFF"
+      android:gravity="center_vertical"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      android:text="Privacy Policy" />
+
+    <Button
+      android:id="@+id/settingsTitleButton"
+      android:layout_width="25dp"
+      android:layout_height="match_parent"
+      android:layout_marginLeft="15dp"
+      android:background="@drawable/seui_back_button" />
+
+  </FrameLayout>
+
+  <MultiAutoCompleteTextView
+    android:id="@+id/ppText"
+    android:layout_below="@id/settingsTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingRight="40dp"
+    android:paddingLeft="40dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="25dp"
+    android:textColor="#234A56"
+    android:dropDownHeight="100dp"
+    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et odio ac tellus sollicitudin dictum sed nec felis. Sed lobortis magna vitae mi mattis faucibus. Integer purus purus, tempus a interdum at, pellentesque a nunc. Nullam nec justo sit amet lacus bibendum tincidunt. Etiam est elit, maximus ultrices metus vel, finibus eleifend nisi. \n\nDonec id justo ac risus mattis bibendum sit amet eget magna. Sed arcu metus, condimentum vel leo sit amet, hendrerit iaculis leo. Praesent semper lacus sit amet sapien congue posuere. Cras congue nec lacus vel varius. Aenean et quam fringilla, interdum turpis sit amet, porttitor quam. Nullam quis vulputate dui. \n\nProin vitae convallis metus, et tristique nisl. Nam et sapien ut mi dictum elementum. Quisque ipsum magna, venenatis sed mi at, malesuada sollicitudin velit. Etiam ultrices tellus vitae varius fermentum. Ut euismod tempus vulputate. Aenean ligula lacus, egestas sed turpis nec, dignissim pharetra purus. Pellentesque ornare leo ligula, eget sollicitudin sapien viverra sed. Nullam velit augue, gravida et eleifend vitae, venenatis eget nunc. Etiam dignissim lorem sed erat ornare pretium. Nulla vulputate tortor nec lectus aliquet, eget faucibus nisi ornare. Maecenas metus metus, placerat et egestas sed, volutpat ac purus. Nullam eu arcu pretium, dapibus dolor sit amet, semper lacus.
+                  Praesent vitae cursus erat, et cursus sapien. Nunc vestibulum metus ut lectus consectetur, quis ultricies eros vehicula. Vivamus vulputate ultricies risus, et semper risus convallis vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam dictum dui at tempus scelerisque. Cras pharetra placerat dolor, eu suscipit est sodales nec. Aenean iaculis metus aliquet fringilla facilisis. Ut accumsan enim dignissim facilisis aliquam. Pellentesque egestas est vel neque porta accumsan. Nullam id diam a nisl porttitor rhoncus. Nunc at eleifend enim. Ut accumsan nisl in risus sodales, a pulvinar tellus maximus. Praesent commodo nec mauris in posuere." />
 
 </RelativeLayout>

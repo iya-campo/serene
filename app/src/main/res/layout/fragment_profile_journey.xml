@@ -8,19 +8,177 @@
   android:paddingRight="25dp"
   android:paddingBottom="25dp"
   android:paddingLeft="25dp"
-  android:background="@drawable/serenebg">
+  android:background="@drawable/serenebg_inv">
+
+  <FrameLayout
+    android:id="@+id/startDate"
+    android:layout_width="330dp"
+    android:layout_height="50dp"
+    android:background="#FFFFFF"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp">
+
+    <TextView
+      android:id="@+id/startDateText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|start"
+      android:layout_marginLeft="20dp"
+      android:text="Start Date"
+      android:textStyle="bold"
+      android:textAllCaps="true"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+    <TextView
+      android:id="@+id/startDateDetails"
+      android:layout_width="155dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|end"
+      android:layout_marginRight="20dp"
+      android:text="08 December, 2018"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/duration"
+    android:layout_width="330dp"
+    android:layout_height="50dp"
+    android:layout_below="@+id/startDate"
+    android:background="#FFFFFF"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp">
+
+    <TextView
+      android:id="@+id/durationText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|start"
+      android:layout_marginLeft="20dp"
+      android:text="Duration"
+      android:textStyle="bold"
+      android:textAllCaps="true"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+    <TextView
+      android:id="@+id/durationDetails"
+      android:layout_width="155dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|end"
+      android:layout_marginRight="20dp"
+      android:text="1 DAY"
+      android:textAllCaps="true"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/medicine"
+    android:layout_width="330dp"
+    android:layout_height="50dp"
+    android:layout_below="@+id/duration"
+    android:background="#FFFFFF"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp">
+
+    <TextView
+      android:id="@+id/medicineText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|start"
+      android:layout_marginLeft="20dp"
+      android:text="Medicine"
+      android:textStyle="bold"
+      android:textAllCaps="true"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+    <TextView
+      android:id="@+id/medicineDetails"
+      android:layout_width="155dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|end"
+      android:layout_marginRight="20dp"
+      android:text="See stats"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+    <Button
+      android:id="@+id/medicineButton"
+      android:layout_width="32dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|end"
+      android:layout_marginRight="10dp"
+      android:background="@null"
+      android:textSize="18sp"
+      android:textColor="#234A56"
+      android:text=">" />
+
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/sleep"
+    android:layout_width="330dp"
+    android:layout_height="50dp"
+    android:layout_below="@+id/medicine"
+    android:background="#FFFFFF"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp">
+
+    <TextView
+      android:id="@+id/sleepText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|start"
+      android:layout_marginLeft="20dp"
+      android:text="Sleep"
+      android:textStyle="bold"
+      android:textAllCaps="true"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+    <TextView
+      android:id="@+id/sleepDetails"
+      android:layout_width="155dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|end"
+      android:layout_marginRight="20dp"
+      android:text="See stats"
+      android:textColor="#234A56"
+      android:textSize="18sp" />
+
+    <Button
+      android:id="@+id/sleepButton"
+      android:layout_width="32dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical|end"
+      android:layout_marginRight="10dp"
+      android:background="@null"
+      android:textSize="18sp"
+      android:textColor="#234A56"
+      android:text=">" />
+
+  </FrameLayout>
+
 
   <TextView
     android:id="@+id/textView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_above="@id/btnTest1"
+    android:layout_centerHorizontal="true"
     android:text="Journey" />
 
   <Button
     android:id="@+id/btnTest1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/textView"
-    android:text="Button1" />
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:text="Journey Button" />
 
 </RelativeLayout>

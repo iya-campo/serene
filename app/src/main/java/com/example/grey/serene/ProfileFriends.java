@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class ProfileFriends extends Fragment {
 
@@ -19,7 +18,7 @@ public class ProfileFriends extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
     View view = inflater.inflate(R.layout.fragment_profile_friends, container, false);
-
+/*
     btnTest2 = (Button) view.findViewById(R.id.btnTest2);
     btnTest2.setOnClickListener(new View.OnClickListener() {
 
@@ -29,6 +28,7 @@ public class ProfileFriends extends Fragment {
       }
 
     });
+*/
     return view;
   }
 

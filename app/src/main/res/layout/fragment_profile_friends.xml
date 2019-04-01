@@ -4,21 +4,11 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@drawable/serenebg">
-<!--
-  <TextView
-    android:id="@+id/textView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Friends" />
+  android:paddingTop="25dp"
+  android:background="@drawable/serenebg_inv">
 
-  <Button
-    android:id="@+id/btnTest2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/textView"
-    android:text="Button2" />
--->
+  <!-- Need list here -->
+
   <TextView
     android:id="@+id/friendsText"
     android:layout_width="match_parent"
@@ -51,9 +41,24 @@
       android:layout_width="30dp"
       android:layout_height="30dp"
       android:layout_gravity="center_vertical|end"
-      android:layout_marginRight="120dp"
+      android:layout_marginRight="100dp"
       android:background="@drawable/settings_button" />
 
   </FrameLayout>
+
+  <TextView
+    android:id="@+id/textView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:text="Friends" />
+
+  <Button
+    android:id="@+id/btnTest2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/textView"
+    android:layout_centerHorizontal="true"
+    android:text="Friends Button" />
 
 </RelativeLayout>
