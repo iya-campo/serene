@@ -258,5 +258,4 @@
     android:textStyle="bold"
     android:text="Log Out" />
 
-
 </RelativeLayout>

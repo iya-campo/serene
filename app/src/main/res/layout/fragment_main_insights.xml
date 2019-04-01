@@ -4,17 +4,74 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@drawable/serenebg"
-  android:layout_marginTop="50dp"
-  android:paddingTop="25dp"
-  android:paddingRight="25dp"
-  android:paddingBottom="25dp"
-  android:paddingLeft="25dp"
   tools:context=".MainInsights">
 
   <!-- TODO: Update blank fragment layout -->
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="Insights" />
+
+  <RelativeLayout
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+    <LinearLayout
+      android:id="@+id/spinnerContainer"
+      android:layout_width="match_parent"
+      android:layout_height="150dp"
+      android:gravity="center_vertical|center_horizontal"
+      android:background="#B4BFC2">
+
+      <Spinner
+        android:id="@+id/spinnerInsight"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:background="#FFFFFF" />
+
+    </LinearLayout>
+
+    <!-- Need list here -->
+
+    <LinearLayout
+      android:id="@+id/article"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"
+      android:layout_below="@id/spinnerContainer"
+      android:gravity="center_vertical"
+      android:layout_marginTop="5dp"
+      android:paddingRight="20dp"
+      android:paddingLeft="30dp"
+      android:background="#FFF">
+
+      <TextView
+        android:id="@+id/articleText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="#234A56"
+        android:text="Good posture may ease symptoms of depression" />
+
+      <View
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" />
+
+      <Button
+        android:id="@+id/heartButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/seui_save_article_button" />
+
+      <Button
+        android:id="@+id/articleButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/seui_next_button" />
+
+    </LinearLayout>
+
+
+  </RelativeLayout>
 
 </FrameLayout>
