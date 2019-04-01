@@ -11,7 +11,6 @@ import android.widget.Toast;
 public class AccountLogin extends AppCompatActivity {
 
   EditText pass, usr;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,8 +32,8 @@ public class AccountLogin extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        Intent showMain = new Intent(getApplicationContext(), Main.class);
-        startActivity(showMain);
+          Intent showMain = new Intent(getApplicationContext(), Main.class);
+          startActivity(showMain);
 
       }
 
@@ -50,4 +49,13 @@ public class AccountLogin extends AppCompatActivity {
 
     });
   }
+
+  public void loginBtn(View view){
+      String user = usr.getText().toString();
+      String pw = pass.getText().toString();
+      String method = "login";
+      tutorial tutorial1 = new tutorial(this);
+      tutorial1.execute(method,user,pw);
+  }
+
 }
