@@ -14,12 +14,15 @@ public class ProfileJourney extends Fragment {
   private static final String TAG = "ProfileJourney";
 
   private Button btnTest1;
+  private Button medicineButton;
+  private Button sleepButton;
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
     View view = inflater.inflate(R.layout.fragment_profile_journey, container, false);
 
+    //Button Test
     btnTest1 = (Button) view.findViewById(R.id.btnTest1);
     btnTest1.setOnClickListener(new View.OnClickListener() {
 
@@ -29,6 +32,28 @@ public class ProfileJourney extends Fragment {
       }
 
     });
+
+    medicineButton = (Button) view.findViewById(R.id.medicineButton);
+    sleepButton = (Button) view.findViewById(R.id.sleepButton);
+
+    medicineButton.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        //Function to view stats on medicine
+      }
+
+    });
+
+    sleepButton.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        //Function to view stats on sleep
+      }
+
+    });
+
     return view;
   }
 

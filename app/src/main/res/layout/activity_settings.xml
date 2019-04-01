@@ -246,8 +246,8 @@
     android:textSize="18sp"
     android:text="bbobson@donbosco.edu.ph" />
 
-  <TextView
-    android:id="@+id/logoutText"
+  <Button
+    android:id="@+id/logoutButton"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_centerHorizontal="true"

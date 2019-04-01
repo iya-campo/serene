@@ -120,12 +120,14 @@
     android:orientation="horizontal">
 
     <Button
+      android:id="@+id/addButton"
       android:layout_width="115dp"
       android:layout_height="match_parent"
       android:layout_marginRight="3dp"
       android:background="@drawable/create_button" />
 
     <Button
+      android:id="@+id/deleteButton"
       android:layout_width="115dp"
       android:layout_height="match_parent"
       android:layout_marginLeft="3dp"
@@ -158,12 +160,14 @@
     android:orientation="horizontal">
 
     <Button
+      android:id="@+id/onButton"
       android:layout_width="115dp"
       android:layout_height="match_parent"
       android:layout_marginRight="3dp"
       android:background="@drawable/on_button" />
 
     <Button
+      android:id="@+id/offButton"
       android:layout_width="115dp"
       android:layout_height="match_parent"
       android:layout_marginLeft="3dp"
