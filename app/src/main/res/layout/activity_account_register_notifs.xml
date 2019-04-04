@@ -33,14 +33,14 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/alarmText"
     android:layout_centerHorizontal="true"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="15dp"
     android:background="#8EBCC7"
     android:ems="10"
     android:inputType="textPersonName"
     android:text="ALARM TITLE"
     android:paddingTop="2dp"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
     android:paddingBottom="2dp"
     android:textColor="#FFF" />
 
@@ -52,18 +52,16 @@
     android:layout_below="@id/alarmTitleField"
     android:orientation="horizontal">
 
-    <Spinner
-      android:id="@+id/timeSpinner"
-      android:layout_width="80dp"
-      android:layout_height="31dp"
-      android:background="#234A56" />
+    <Button
+      android:id="@+id/timeButton"
+      android:layout_width="wrap_content"
+      android:layout_height="30dp"
+      android:paddingRight="5dp"
+      android:paddingLeft="5dp"
+      android:background="#234A56"
+      android:textColor="#FFFFFF"
+      android:text="Choose time" />
 
-    <Spinner
-      android:id="@+id/daySpinner"
-      android:layout_width="48dp"
-      android:layout_height="31dp"
-      android:layout_marginLeft="10dp"
-      android:background="#234A56" />
   </LinearLayout>
 
   <TextView

@@ -15,16 +15,35 @@
     <LinearLayout
       android:id="@+id/spinnerContainer"
       android:layout_width="match_parent"
-      android:layout_height="150dp"
+      android:layout_height="wrap_content"
+      android:padding="30dp"
       android:gravity="center_vertical|center_horizontal"
       android:background="#B4BFC2">
 
+      <ExpandableListView
+        android:id="@+id/insightsMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
+        android:divider="#00000000"
+        android:dividerHeight="10dp"
+        android:background="#FFFFFF"></ExpandableListView>
+<!--
+      <Button
+        android:id="@+id/insightButton"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        android:textAllCaps="true"
+        android:text="Menu" />
+-->
+<!--
       <Spinner
         android:id="@+id/spinnerInsight"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:background="#FFFFFF" />
-
+-->
     </LinearLayout>
 
     <!-- Need list here -->
