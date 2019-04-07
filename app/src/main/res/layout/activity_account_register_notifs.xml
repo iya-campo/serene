@@ -34,7 +34,7 @@
     android:layout_below="@id/alarmText"
     android:layout_centerHorizontal="true"
     android:layout_marginBottom="15dp"
-    android:background="#8EBCC7"
+    android:background="@drawable/bg_alarm_title"
     android:ems="10"
     android:inputType="textPersonName"
     android:text="ALARM TITLE"
@@ -58,7 +58,7 @@
       android:layout_height="30dp"
       android:paddingRight="5dp"
       android:paddingLeft="5dp"
-      android:background="#234A56"
+      android:background="@drawable/bg_alarm_time"
       android:textColor="#FFFFFF"
       android:text="Choose time" />
 
@@ -85,17 +85,23 @@
     android:layout_below="@id/notifsText"
     android:orientation="horizontal">
 
-    <Button
-      android:id="@+id/yes1Button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Yes" />
+      <Button
+          android:id="@+id/yes1Button"
+          android:layout_width="45dp"
+          android:layout_height="25dp"
+          android:background="@drawable/bg_button2"
+          android:layout_marginHorizontal="5dp"
+          android:textColor="#FFFFFF"
+          android:text="Yes" />
 
-    <Button
-      android:id="@+id/no1Button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="No" />
+      <Button
+          android:id="@+id/no1Button"
+          android:layout_width="45dp"
+          android:layout_height="25dp"
+          android:background="@drawable/bg_button2"
+          android:layout_marginHorizontal="5dp"
+          android:textColor="#FFFFFF"
+          android:text="No" />
 
   </LinearLayout>
 
@@ -131,17 +137,24 @@
     android:layout_below="@id/cameraSubtext"
     android:orientation="horizontal">
 
-    <Button
-      android:id="@+id/yes2Button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Yes" />
+      <Button
+          android:id="@+id/yes2Button"
+          android:layout_width="45dp"
+          android:layout_height="25dp"
+          android:background="@drawable/bg_button2"
+          android:layout_marginHorizontal="5dp"
+          android:textColor="#FFFFFF"
+          android:text="Yes" />
 
-    <Button
-      android:id="@+id/no2Button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="No" />
+      <Button
+          android:id="@+id/no2Button"
+          android:layout_width="45dp"
+          android:layout_height="25dp"
+          android:background="@drawable/bg_button2"
+          android:layout_marginHorizontal="5dp"
+          android:textColor="#FFFFFF"
+          android:text="No" />
+
   </LinearLayout>
 
   <Button

@@ -34,6 +34,7 @@ public class MainJournal extends Fragment {
       public void onClick(View v) {
         Intent showJournalEntry = new Intent(getActivity().getApplicationContext(), JournalEntry.class);
         startActivity(showJournalEntry);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });

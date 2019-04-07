@@ -4,10 +4,14 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingTop="25dp"
   android:background="@drawable/serenebg_inv">
 
-  <!-- Need list here -->
+  <ListView
+      android:id="@+id/friendsListView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:divider="#00000000"></ListView>
 
   <TextView
     android:id="@+id/friendsText"
@@ -33,6 +37,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:gravity="center_vertical"
+      android:textColor="#234A56"
       android:textAlignment="center"
       android:text="Add a friend" />
 
@@ -42,23 +47,11 @@
       android:layout_height="30dp"
       android:layout_gravity="center_vertical|end"
       android:layout_marginRight="100dp"
-      android:background="@drawable/settings_button" />
+      android:textColor="#234A56"
+      android:background="@null"
+      android:textSize="24sp"
+      android:text="+" />
 
   </FrameLayout>
-
-  <TextView
-    android:id="@+id/textView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:text="Friends" />
-
-  <Button
-    android:id="@+id/btnTest2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/textView"
-    android:layout_centerHorizontal="true"
-    android:text="Friends Button" />
 
 </RelativeLayout>
