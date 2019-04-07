@@ -2,19 +2,22 @@ package com.example.grey.serene;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
+
+
 
 public class AccountRegisterInfo extends AppCompatActivity {
 
   EditText usernickname, age;
   String userNickname, userName, userEmail, userPassword;
   int user_age;
-  DatabaseReference ref;
   Users user;
   long maxid;
 
@@ -27,27 +30,13 @@ public class AccountRegisterInfo extends AppCompatActivity {
 
     Button next1Button = (Button) findViewById(R.id.next1Button);
 
-    /**Commented for testing purposes**/
-    /*
+
     usernickname = (EditText) findViewById(R.id.answer1Field);
     age  = (EditText) findViewById(R.id.answer2Field);
     user = new Users();
     user.setID(0);
     maxid = user.getID();
-    ref= FirebaseDatabase.getInstance().getReference().child("Users");
-    ref.addValueEventListener(new ValueEventListener() {
 
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        if(dataSnapshot.exists()){
-          maxid = (dataSnapshot.getChildrenCount());
-        }
-      }
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-
-      }
-    });
 
     Intent myIntent = getIntent();
 
@@ -60,19 +49,21 @@ public class AccountRegisterInfo extends AppCompatActivity {
       userEmail = myIntent.getStringExtra("useremail");
     }
     if(myIntent.hasExtra("userpassword")){
-      userPassword = myIntent.getStringExtra(userPassword);
+      userPassword = myIntent.getStringExtra("userpassword");
     }
-    */
+
 
     next1Button.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
-        Intent showNotifs = new Intent(getApplicationContext(), AccountRegisterNotifs.class);
-        /**Commented for testing purposes**/
-        /*
+        Intent showNotifs = new Intent(AccountRegisterInfo.this, AccountRegisterNotifs.class);
+
         userNickname = usernickname.getText().toString();
         user_age = Integer.parseInt(age.getText().toString());
+
+
+        Toast.makeText(AccountRegisterInfo.this, "data inserted successfully", Toast.LENGTH_LONG).show();
 
         showNotifs.putExtra("username", userName);
         showNotifs.putExtra("useremail", userEmail);
@@ -80,24 +71,11 @@ public class AccountRegisterInfo extends AppCompatActivity {
         showNotifs.putExtra("usernickname", userNickname);
         showNotifs.putExtra("userage", user_age);
 
-        Toast.makeText(AccountRegisterInfo.this, "data inserted successfully", Toast.LENGTH_LONG).show();
-        */
+
         startActivity(showNotifs);
       }
 
     });
   }
-  /*
-  public void addFruits(View view) {
-    String userNickname = usernickname.getText().toString();
-    String user_age = age.getText().toString();
-    String method = "register_info";
-    tutorial tutorial = new tutorial(this);
-    tutorial.execute(method, userNickname, user_age);
-    finish();
 
-    usernickname.setText("");
-    age.setText("");
-   }
-   */
 }

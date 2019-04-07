@@ -32,6 +32,8 @@
     <activity android:name=".SettingsData" />
     <activity android:name=".Main" />
     <activity android:name=".Settings" />
+
+    <receiver android:name=".NotificationReceiver"/>
   </application>
 
 </manifest>

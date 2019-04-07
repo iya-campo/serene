@@ -11,7 +11,7 @@ public class Users {
 
     private int age;
 
-    private String alarm;
+    //private String alarm;
 
     private String notifications;
 
@@ -25,7 +25,7 @@ public class Users {
 
     public Users() {}
 
-    public Users(long id, String userName,String email, String userNickName, int age, String alarmName, String alarm, String notifications, String password) {
+    public Users(long id, String userName,String email, String userNickName, int age, String alarmName, String notifications, String password) {
 
         this.userID = id;
 
@@ -41,37 +41,16 @@ public class Users {
 
         this.password=password;
 
-        this.alarm=alarm;
+
 
         this.alarmName = alarmName;
 
     }
 
-    public Users(String userName,String email, String password) {
 
-        this.userName = userName;
 
-        this.email=email;
 
-        this.password=password;
 
-    }
-
-    public Users(String userNickName,int age) {
-
-        this.userNickName = userNickName;
-
-        this.age=age;
-
-    }
-
-    public Users(String notifications,String alarm) {
-
-        this.notifications = notifications;
-
-        this.alarm=alarm;
-
-    }
 
     // properties
 
@@ -130,7 +109,7 @@ public class Users {
         return this.age;
 
     }
-
+/*
     public void setAlarm(String alarm) {
 
         this.alarm = alarm;
@@ -141,7 +120,7 @@ public class Users {
 
         return this.alarm;
 
-    }
+    }*/
 
     public void setPassword(String password) {
 

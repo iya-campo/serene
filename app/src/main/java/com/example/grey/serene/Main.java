@@ -1,5 +1,8 @@
 package com.example.grey.serene;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,9 +14,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class Main extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -28,7 +43,9 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
   private NotificationManagerCompat notificationManager;
   DatabaseReference ref;
-  String notif;
+  String notif,userId;
+
+  Boolean menuState;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +53,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     setContentView(R.layout.activity_main);
 
     getSupportActionBar().hide();
+
 
     //Header Buttons
     Button profileButton = (Button) findViewById(R.id.profileButton);
@@ -61,13 +79,25 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
-    /**Commented for testing purposes**/
-    /*
-    ref = FirebaseDatabase.getInstance().getReference().child("Users").child("1");
+
+    Intent myIntent = getIntent();
+
+    if(myIntent.hasExtra("userID")) {
+      userId = myIntent.getStringExtra("userID");
+     }
+
+
+    ref = FirebaseDatabase.getInstance().getReference().child("Users").child("12");
     ref.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         notif = dataSnapshot.child("notifications").getValue().toString();
+        System.out.print(dataSnapshot.child("usersName").getValue());
+        Calendar calendar = Calendar.getInstance();
+
+        if(notif.equals("yes")){
+          startAlarm(calendar);
+        }
       }
 
       @Override
@@ -76,10 +106,8 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
       }
     });
 
-    if(notif.equals("yes")){
-      sendOnChannel1();
-    }
-    */
+
+
   }
 
   @Override
@@ -135,4 +163,18 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     notificationManager.notify(1,notification);
   }
   */
+
+  private void startAlarm(Calendar c) {
+    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    Intent intent = new Intent(this, NotificationReceiver.class);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+    if (c.before(Calendar.getInstance())) {
+      c.add(Calendar.DATE, 1);
+    }
+
+    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+  }
+
+
 }

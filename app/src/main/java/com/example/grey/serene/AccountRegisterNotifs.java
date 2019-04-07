@@ -1,16 +1,26 @@
 package com.example.grey.serene;
 
+import android.app.AlarmManager;
+import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
 public class AccountRegisterNotifs extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -22,7 +32,6 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
   String notif;
   String alarmTitle;
-  String alarm;
   String userName;
   String userEmail;
   String userPassword;
@@ -43,12 +52,8 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
     timeButton = (Button) findViewById(R.id.timeButton);
     Button next2Button = (Button) findViewById(R.id.next2Button);
 
-    /**Commented for testing purposes**/
-    /*
     alarmName = (EditText) findViewById(R.id.alarmTitleField);
-    user = new Users();
-    user.setID(0);
-    maxid = user.getID();
+    maxid = 0;
     ref= FirebaseDatabase.getInstance().getReference().child("Users");
     ref.addValueEventListener(new ValueEventListener() {
       @Override
@@ -65,13 +70,11 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
     yes = (Button) findViewById(R.id.yes1Button);
     no = (Button) findViewById(R.id.no1Button);
-    time = (Spinner) findViewById(R.id.timeSpinner);
-    day = (Spinner) findViewById(R.id.daySpinner);
 
     Intent myIntent = getIntent();
 
     if(myIntent.hasExtra("username")) {
-      userName = myIntent.getStringExtra("myExtra");
+      userName = myIntent.getStringExtra("username");
     }
     if(myIntent.hasExtra("useremail")){
       userEmail = myIntent.getStringExtra("useremail");
@@ -83,7 +86,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
       userNickname = myIntent.getStringExtra("usernickname");
     }
     if(myIntent.hasExtra("userage")){
-      userAge = Integer.parseInt(myIntent.getStringExtra("userage"));
+      userAge = myIntent.getIntExtra("userage", userAge);
     }
 
     yes.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +104,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         notif = "no";
       }
     });
-    */
+
     timeButton.setOnClickListener(new View.OnClickListener(){
       @Override
       public void onClick(View view){
@@ -111,22 +114,23 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         TimePickerDialog timePickerDialog = new TimePickerDialog(AccountRegisterNotifs.this,
           (TimePickerDialog.OnTimeSetListener) AccountRegisterNotifs.this, hour, minute, false);
         timePickerDialog.show();
+        TimePickerFragment timePicker = new TimePickerFragment();
+        timePicker.show(getSupportFragmentManager(), "time picker");
       }
     });
     next2Button.setOnClickListener((new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
-        /**Commented for testing purposes**/
-        /*
-        alarm = time.getSelectedItem().toString() + " " + day.getSelectedItem().toString();
+
+        //alarm = time.getSelectedItem().toString() + " " + day.getSelectedItem().toString();
         alarmTitle = alarmName.getText().toString();
 
-        user = new Users(maxid, userName, userEmail, userNickname, userAge, alarmTitle, alarm, notif, userPassword);
+        user = new Users(maxid+1, userName, userEmail, userNickname, userAge, alarmTitle, notif, userPassword);
 
         ref.child(String.valueOf(maxid+1)).setValue(user);
         Toast.makeText(AccountRegisterNotifs.this, "Congratulations! You have signed up.", Toast.LENGTH_LONG).show();
-        */
+
         startActivity(showLogin);
       }
     }));
@@ -140,17 +144,4 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
     timeButton.setText(String.format("%02d:%02d %s", hour, minute, hourOfDay < 12 ? "am" : "pm"));
   }
 
-    /*
-    public void addFruits(View view) {
-      EditText userNickname=(EditText) findViewById(R.id.answer1Field);
-      MyDBHandler dbHandler = new MyDBHandler(this);
-
-      String userName = userNickname.getText().toString();
-      String method = "register_notif";
-      tutorial tutorial = new tutorial(this);
-      tutorial.execute(method, userName, alarm, notif);
-      finish();
-      userNickname.setText("");
-    }
-    */
 }

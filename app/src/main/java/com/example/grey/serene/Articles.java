@@ -1,18 +1,27 @@
 package com.example.grey.serene;
 
-public class Articles {
+
+public class Articles{
     private long id;
     private String title;
     private String author;
     private String type;
+    private String content;
+    private String source;
 
     Articles(){}
 
-    Articles(long id, String title, String author, String type){
+    Articles(long id, String title, String author, String type, String content, String source){
         this.id = id;
         this.title = title;
         this.author = author;
-        this.type = author;
+        this.type = type;
+        this.content = content;
+        this.source = source;
+    }
+
+    Articles(String title){
+        this.title = title;
     }
 
     public long getId() {
@@ -27,23 +36,24 @@ public class Articles {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getAuthor() {
         return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getContent() {
+        return content;
     }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
 }
