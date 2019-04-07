@@ -1,4 +1,5 @@
 package com.example.grey.serene;
+
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.SQLException;
@@ -14,7 +15,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyDBHandler extends SQLiteOpenHelper{
+public class MyDBHandler extends SQLiteOpenHelper {
     //information of database
 
     private static final int DATABASE_VERSION = 2;
@@ -29,15 +30,15 @@ public class MyDBHandler extends SQLiteOpenHelper{
                     DatabaseContract.Users_Info.COLUMN_PASSWORD + " TEXT NOT NULL, " +
                     DatabaseContract.Users_Info.COLUMN_NICKNAME + " TEXT NOT NULL, " +
                     DatabaseContract.Users_Info.COLUMN_AGE + " INTEGER NOT NULL, " +
-                    DatabaseContract.Users_Info.COLUMN_ALARM + " TEXT NOT NULL, "+
-                    DatabaseContract.Users_Info.COLUMN_NOTIFICATIONS + " TEXT NOT NULL " +"); ";
+                    DatabaseContract.Users_Info.COLUMN_ALARM + " TEXT NOT NULL, " +
+                    DatabaseContract.Users_Info.COLUMN_NOTIFICATIONS + " TEXT NOT NULL " + "); ";
 
     private static final String SQL_CREATE_ARTICLES_TABLE =
             "CREATE TABLE " + DatabaseContract.Articles.TABLE_NAME + " (" +
                     DatabaseContract.Articles.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     DatabaseContract.Articles.COLUMN_TITLE + " TEXT NOT NULL, " +
                     DatabaseContract.Articles.COLUMN_DATE + " DATE NOT NULL, " +
-                    DatabaseContract.Articles.COLUMN_CONTENTS + " TEXT NOT NULL " +"); ";
+                    DatabaseContract.Articles.COLUMN_CONTENTS + " TEXT NOT NULL " + "); ";
 
 
     private static final String SQL_CREATE_JOURNAL_TABLE =
@@ -47,21 +48,22 @@ public class MyDBHandler extends SQLiteOpenHelper{
                     DatabaseContract.Journal.COLUMN_SLEEPHOURS + " INTEGER NOT NULL, " +
                     DatabaseContract.Journal.COLUMN_FOODINTAKE + " INTEGER NOT NULL, " +
                     DatabaseContract.Journal.COLUMN_MEDICINALTAKE + " INTEGER NOT NULL, " +
-                    DatabaseContract.Journal.COLUMN_DATE + " DATE NOT NULL "  +"); ";
+                    DatabaseContract.Journal.COLUMN_DATE + " DATE NOT NULL " + "); ";
 
     private static final String SQL_CREATE_USERSFRIEND_TABLE =
             "CREATE TABLE " + DatabaseContract.Users_Friends.TABLE_NAME + " (" +
                     DatabaseContract.Users_Friends.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     DatabaseContract.Users_Friends.COLUMN_USERID + " TEXT NOT NULL, " +
                     DatabaseContract.Users_Friends.COLUMN_NAME + " TEXT NOT NULL, " +
-                    DatabaseContract.Users_Friends.COLUMN_EMAIL + " INTEGER NOT NULL " +"); ";
+                    DatabaseContract.Users_Friends.COLUMN_EMAIL + " INTEGER NOT NULL " + "); ";
 
     //initialize the database
 
 
-    public MyDBHandler(Context context){
+    public MyDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
 
     public void onCreate(SQLiteDatabase db) {
@@ -74,7 +76,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     @Override
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+DatabaseContract.Users_Info.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.Users_Info.TABLE_NAME);
 
         onCreate(db);
     }
@@ -97,7 +99,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
             String result_2 = cursor.getString(2);
 
-            result +=String.valueOf(result_0) + " ---> " + result_1 +"---> "+ result_2+ System.getProperty("line.separator");
+            result += String.valueOf(result_0) + " ---> " + result_1 + "---> " + result_2 + System.getProperty("line.separator");
 
         }
 

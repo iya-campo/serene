@@ -11,50 +11,50 @@ import android.widget.Toast;
 
 public class ProfileJourney extends Fragment {
 
-  private static final String TAG = "ProfileJourney";
+    private static final String TAG = "ProfileJourney";
 
-  private Button btnTest1;
-  private Button medicineButton;
-  private Button sleepButton;
+    private Button btnTest1;
+    private Button medicineButton;
+    private Button sleepButton;
 
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-    View view = inflater.inflate(R.layout.fragment_profile_journey, container, false);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile_journey, container, false);
 
-    //Button Test
-    btnTest1 = (Button) view.findViewById(R.id.btnTest1);
-    btnTest1.setOnClickListener(new View.OnClickListener() {
+        //Button Test
+        btnTest1 = (Button) view.findViewById(R.id.btnTest1);
+        btnTest1.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        Toast.makeText(getActivity(),"Testing Button Click 1", Toast.LENGTH_SHORT).show();
-      }
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Testing Button Click 1", Toast.LENGTH_SHORT).show();
+            }
 
-    });
+        });
 
-    medicineButton = (Button) view.findViewById(R.id.medicineButton);
-    sleepButton = (Button) view.findViewById(R.id.sleepButton);
+        medicineButton = (Button) view.findViewById(R.id.medicineButton);
+        sleepButton = (Button) view.findViewById(R.id.sleepButton);
 
-    medicineButton.setOnClickListener(new View.OnClickListener() {
+        medicineButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        //Function to view stats on medicine
-      }
+            @Override
+            public void onClick(View v) {
+                //Function to view stats on medicine
+            }
 
-    });
+        });
 
-    sleepButton.setOnClickListener(new View.OnClickListener() {
+        sleepButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        //Function to view stats on sleep
-      }
+            @Override
+            public void onClick(View v) {
+                //Function to view stats on sleep
+            }
 
-    });
+        });
 
-    return view;
-  }
+        return view;
+    }
 
 }

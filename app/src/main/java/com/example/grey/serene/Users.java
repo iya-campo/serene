@@ -23,33 +23,29 @@ public class Users {
 
     // constructors
 
-    public Users() {}
+    public Users() {
+    }
 
-    public Users(long id, String userName,String email, String userNickName, int age, String alarmName, String notifications, String password) {
+    public Users(long id, String userName, String email, String userNickName, int age, String alarmName, String notifications, String password) {
 
         this.userID = id;
 
         this.userName = userName;
 
-        this.email=email;
+        this.email = email;
 
-        this.userNickName=userNickName;
+        this.userNickName = userNickName;
 
         this.age = age;
 
-        this.notifications=notifications;
+        this.notifications = notifications;
 
-        this.password=password;
-
+        this.password = password;
 
 
         this.alarmName = alarmName;
 
     }
-
-
-
-
 
 
     // properties

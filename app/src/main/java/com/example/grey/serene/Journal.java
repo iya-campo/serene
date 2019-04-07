@@ -9,9 +9,10 @@ public class Journal {
     private String content;
     private long user_id;
 
-    Journal(){}
+    Journal() {
+    }
 
-    Journal(long id, int hours_slept, String food_intake, String medicinal_intake, String date, String content, long user_id){
+    Journal(long id, int hours_slept, String food_intake, String medicinal_intake, String date, String content, long user_id) {
         this.id = id;
         this.hours_slept = hours_slept;
         this.food_intake = food_intake;

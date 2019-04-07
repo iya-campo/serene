@@ -7,29 +7,29 @@
         android:id="@+id/friend"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingRight="25dp"
-        android:paddingLeft="15dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="25dp">
 
         <ImageView
             android:id="@+id/friendIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="15dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
             android:background="@drawable/account_icon" />
 
         <TextView
             android:id="@+id/friendMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_buttons"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="12dp"
-            android:textSize="15sp"
-            android:textColor="#234A56"
-            android:layout_toRightOf="@+id/friendIcon"
             android:layout_centerVertical="true"
-            android:text="Message goes here."/>
+            android:layout_toRightOf="@+id/friendIcon"
+            android:background="@drawable/bg_buttons"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp"
+            android:text="Message goes here."
+            android:textColor="#234A56"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

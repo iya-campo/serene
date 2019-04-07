@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@drawable/serenebg"
-  tools:context=".MainInsights">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/serenebg"
+    tools:context=".MainInsights">
 
-  <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment layout -->
 
-  <RelativeLayout
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-
-    <LinearLayout
-      android:id="@+id/spinnerContainer"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="30dp"
-      android:gravity="center_vertical|center_horizontal"
-      android:background="@drawable/bg_menu_container">
-
-      <ExpandableListView
-        android:id="@+id/insightsMenu"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutDirection="rtl"
-        android:childDivider="@drawable/child_divider"
-        android:dividerHeight="10dp"></ExpandableListView>
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/spinnerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_menu_container"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="30dp">
 
-    <ListView
-        android:id="@+id/articleListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerContainer"></ListView>
+            <ExpandableListView
+                android:id="@+id/insightsMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:childDivider="@drawable/child_divider"
+                android:dividerHeight="10dp"
+                android:layoutDirection="rtl"></ExpandableListView>
 
-  </RelativeLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/articleListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerContainer"></ListView>
+
+    </RelativeLayout>
 
 </FrameLayout>

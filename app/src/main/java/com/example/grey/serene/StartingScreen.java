@@ -9,24 +9,24 @@ import android.widget.Button;
 
 public class StartingScreen extends AppCompatActivity {
 
-  private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 3000;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_starting_screen);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_starting_screen);
 
-    getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
-    new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
 
-      @Override
-      public void run() {
-        Intent showLogin = new Intent(StartingScreen.this, AccountLogin.class);
-        startActivity(showLogin);
-        finish();
-      }
-    }, SPLASH_TIME_OUT);
+            @Override
+            public void run() {
+                Intent showLogin = new Intent(StartingScreen.this, AccountLogin.class);
+                startActivity(showLogin);
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
 
-  }
+    }
 }

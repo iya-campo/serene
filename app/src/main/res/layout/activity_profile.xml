@@ -1,101 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/main_content"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:fitsSystemWindows="true"
-  tools:context=".Profile">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Profile">
 
     <android.support.v7.widget.Toolbar
-      android:id="@+id/header"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:background="#FFF"
-      android:contentInsetLeft="0dp"
-      android:contentInsetStart="0dp"
-      app:contentInsetLeft="0dp"
-      app:contentInsetStart="0dp"
-      android:contentInsetRight="0dp"
-      android:contentInsetEnd="0dp"
-      app:contentInsetRight="0dp"
-      app:contentInsetEnd="0dp">
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFF"
+        android:contentInsetStart="0dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetEnd="0dp"
+        android:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp">
 
-      <Button
-        android:id="@+id/profileButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginLeft="15dp"
-        android:background="@drawable/account_icon" />
+        <Button
+            android:id="@+id/profileButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/account_icon" />
 
-      <ImageView
-        android:id="@+id/sereneLogo"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center|center_vertical"
-        android:background="@drawable/selogo_lotus" />
+        <ImageView
+            android:id="@+id/sereneLogo"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|center_vertical"
+            android:background="@drawable/selogo_lotus" />
 
     </android.support.v7.widget.Toolbar>
 
-  <FrameLayout
-    android:id="@+id/user"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:padding="20dp"
-    android:layout_below="@id/header"
-    android:background="#E1EDF2"
-    android:orientation="horizontal">
+    <FrameLayout
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/header"
+        android:background="#E1EDF2"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
-    <TextView
-      android:id="@+id/userText"
-      android:layout_width="200dp"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:textColor="#234A56"
-      android:textSize="28sp"
-      android:textStyle="bold"
-      android:text="Bob Bobson" />
+        <TextView
+            android:id="@+id/userText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Bob Bobson"
+            android:textColor="#234A56"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
-    <Button
-      android:id="@+id/settingsButton"
-      android:layout_width="50dp"
-      android:layout_height="50dp"
-      android:layout_gravity="end|center_vertical"
-      android:background="@drawable/settings_button" />
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/settings_button" />
 
-  </FrameLayout>
+    </FrameLayout>
 
-  <android.support.design.widget.TabLayout
-    android:id="@+id/tabs"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/user"
-    android:background="#CBF8F2"
-    app:tabSelectedTextColor="#234A56"
-    app:tabTextColor="#234A56">
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user"
+        android:background="#CBF8F2"
+        app:tabSelectedTextColor="#234A56"
+        app:tabTextColor="#234A56">
 
-    <android.support.design.widget.TabItem
-      android:id="@+id/tabItem"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/tab_text_1" />
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_text_1" />
 
-    <android.support.design.widget.TabItem
-      android:id="@+id/tabItem2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/tab_text_2" />
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_text_2" />
 
-  </android.support.design.widget.TabLayout>
+    </android.support.design.widget.TabLayout>
 
-  <android.support.v4.view.ViewPager
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/tabs"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabs"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </RelativeLayout>

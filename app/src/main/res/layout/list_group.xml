@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
-  
-  <TextView
-      android:id="@+id/listHeader"
-      android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-      android:textSize="24sp"
-      android:paddingVertical="12dp"
-      android:paddingHorizontal="18dp"
-      android:background="@drawable/bg_menu"
-      android:textColor="#234A56"
-      android:textAllCaps="true"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/listHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_menu"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="12dp"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:textAllCaps="true"
+        android:textColor="#234A56"
+        android:textSize="24sp" />
 
 </LinearLayout>
