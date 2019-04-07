@@ -8,90 +8,91 @@ import android.widget.Button;
 
 public class Settings extends AppCompatActivity {
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_settings);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
 
-    getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
-    //Header Buttons
-    Button profileButton = (Button) findViewById(R.id.profileButton);
+        //Header Buttons
+        Button profileButton = (Button) findViewById(R.id.profileButton);
 
-    //Settings Buttons
-    Button notifsButton = (Button) findViewById(R.id.notifsButton);
-    Button tcButton = (Button) findViewById(R.id.tcButton);
-    Button ppButton = (Button) findViewById(R.id.ppButton);
-    Button dataButton = (Button) findViewById(R.id.dataButton);
+        //Settings Buttons
+        Button notifsButton = (Button) findViewById(R.id.notifsButton);
+        Button tcButton = (Button) findViewById(R.id.tcButton);
+        Button ppButton = (Button) findViewById(R.id.ppButton);
+        Button dataButton = (Button) findViewById(R.id.dataButton);
 
-    //Logout Button
-    Button logoutButton = (Button) findViewById(R.id.logoutButton);
+        //Logout Button
+        Button logoutButton = (Button) findViewById(R.id.logoutButton);
 
-    profileButton.setOnClickListener(new View.OnClickListener() {
+        profileButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        finish();
-      }
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
 
-    });
+        });
 
-    notifsButton.setOnClickListener(new View.OnClickListener() {
+        notifsButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        Intent showSettingsNotifs = new Intent(getApplicationContext(), SettingsNotifs.class);
-        startActivity(showSettingsNotifs);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-      }
+            @Override
+            public void onClick(View v) {
+                Intent showSettingsNotifs = new Intent(getApplicationContext(), SettingsNotifs.class);
+                startActivity(showSettingsNotifs);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
 
-    });
+        });
 
-    tcButton.setOnClickListener(new View.OnClickListener() {
+        tcButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        Intent showSettingsTC = new Intent(getApplicationContext(), SettingsTC.class);
-        startActivity(showSettingsTC);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-      }
+            @Override
+            public void onClick(View v) {
+                Intent showSettingsTC = new Intent(getApplicationContext(), SettingsTC.class);
+                startActivity(showSettingsTC);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
 
-    });
+        });
 
-    ppButton.setOnClickListener(new View.OnClickListener() {
+        ppButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        Intent showSettingsPP = new Intent(getApplicationContext(), SettingsPP.class);
-        startActivity(showSettingsPP);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-      }
+            @Override
+            public void onClick(View v) {
+                Intent showSettingsPP = new Intent(getApplicationContext(), SettingsPP.class);
+                startActivity(showSettingsPP);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
 
-    });
+        });
 
-    dataButton.setOnClickListener(new View.OnClickListener() {
+        dataButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        Intent showSettingsData = new Intent(getApplicationContext(), SettingsData.class);
-        startActivity(showSettingsData);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-      }
+            @Override
+            public void onClick(View v) {
+                Intent showSettingsData = new Intent(getApplicationContext(), SettingsData.class);
+                startActivity(showSettingsData);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
 
-    });
+        });
 
-    logoutButton.setOnClickListener(new View.OnClickListener() {
+        logoutButton.setOnClickListener(new View.OnClickListener() {
 
-      @Override
-      public void onClick(View v) {
-        //Function to logout account
-      }
+            @Override
+            public void onClick(View v) {
+                //Function to logout account
+            }
 
-    });
+        });
 
-  }
-  public void finish(){
-    super.finish();
-    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-  }
+    }
+
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }

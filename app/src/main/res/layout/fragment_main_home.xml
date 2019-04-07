@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@drawable/serenebg_inv"
-  tools:context=".MainHome">
-
-  <!-- TODO: Update blank fragment layout -->
-
-  <RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/serenebg_inv"
+    tools:context=".MainHome">
 
-  <TextView
-    android:id="@+id/dateTodayText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="#234A56"
-    android:padding="20dp"
-    android:layout_marginBottom="5dp"
-    android:textSize="16sp"
-    android:text="08 December, 2018" />
+    <!-- TODO: Update blank fragment layout -->
 
-  <TextView
-    android:id="@+id/homeText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="#FFF"
-    android:textSize="25sp"
-    android:layout_marginBottom="25dp"
-    android:layout_below="@id/dateTodayText"
-    android:textAlignment="center"
-    android:text="How do you feel today?" />
-
-    <Button
-      android:id="@+id/homeJournalButton"
-      android:layout_width="180dp"
-      android:layout_height="35dp"
-      android:layout_below="@id/homeText"
-      android:layout_marginBottom="25dp"
-      android:layout_centerHorizontal="true"
-      android:background="@drawable/home_go_to_journal_button" />
-
-    <TextView
-      android:id="@+id/recentlyReadText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center_vertical"
-      android:textAllCaps="true"
-      android:textStyle="bold"
-      android:paddingTop="10dp"
-      android:paddingRight="10dp"
-      android:paddingBottom="10dp"
-      android:paddingLeft="15dp"
-      android:textColor="#234A56"
-      android:textSize="15sp"
-      android:layout_below="@+id/homeJournalButton"
-      android:background="#BBDADF"
-      android:text="Recently Read" />
-
-    <ListView
-        android:id="@+id/recentArticleListView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recentlyReadText"></ListView>
+        android:layout_height="match_parent">
 
-  </RelativeLayout>
+        <TextView
+            android:id="@+id/dateTodayText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="20dp"
+            android:text="08 December, 2018"
+            android:textColor="#234A56"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/homeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dateTodayText"
+            android:layout_marginBottom="25dp"
+            android:text="How do you feel today?"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/homeJournalButton"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/homeText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/home_go_to_journal_button" />
+
+        <TextView
+            android:id="@+id/recentlyReadText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/homeJournalButton"
+            android:background="#BBDADF"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:text="Recently Read"
+            android:textAllCaps="true"
+            android:textColor="#234A56"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/recentArticleListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recentlyReadText"></ListView>
+
+    </RelativeLayout>
 
 </FrameLayout>

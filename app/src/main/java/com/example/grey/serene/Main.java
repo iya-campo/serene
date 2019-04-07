@@ -33,66 +33,66 @@ import java.util.List;
 
 public class Main extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-  private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
-  private BottomNavigationView bottomNavigationView;
-  private FrameLayout frameLayout;
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout frameLayout;
 
-  private MainHome homeFragment;
-  private MainJournal journalFragment;
-  private MainInsights insightsFragment;
+    private MainHome homeFragment;
+    private MainJournal journalFragment;
+    private MainInsights insightsFragment;
 
-  private NotificationManagerCompat notificationManager;
-  DatabaseReference ref;
-  String notif,userId;
+    private NotificationManagerCompat notificationManager;
+    DatabaseReference ref;
+    String notif, userId;
 
-  Boolean menuState;
+    Boolean menuState;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    getSupportActionBar().hide();
-
-
-    //Header Buttons
-    Button profileButton = (Button) findViewById(R.id.profileButton);
-
-    profileButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        Intent showProfile = new Intent(getApplicationContext(), Profile.class);
-        startActivity(showProfile);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-      }
-
-    });
-
-    bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-    frameLayout = findViewById(R.id.container);
-
-    homeFragment = new MainHome();
-    journalFragment = new MainJournal();
-    insightsFragment = new MainInsights();
-
-    bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
-    bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        getSupportActionBar().hide();
 
 
-    Intent myIntent = getIntent();
+        //Header Buttons
+        Button profileButton = (Button) findViewById(R.id.profileButton);
 
-    if(myIntent.hasExtra("userID")) {
-      userId = myIntent.getStringExtra("userID");
-     }
+        profileButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent showProfile = new Intent(getApplicationContext(), Profile.class);
+                startActivity(showProfile);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+
+        });
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        frameLayout = findViewById(R.id.container);
+
+        homeFragment = new MainHome();
+        journalFragment = new MainJournal();
+        insightsFragment = new MainInsights();
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
 
-    ref = FirebaseDatabase.getInstance().getReference().child("Users").child("12");
-    ref.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        Intent myIntent = getIntent();
+
+        if (myIntent.hasExtra("userID")) {
+            userId = myIntent.getStringExtra("userID");
+        }
+
+
+        ref = FirebaseDatabase.getInstance().getReference().child("Users").child("12");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         /*
         notif = dataSnapshot.child("notifications").getValue().toString();
         System.out.print(dataSnapshot.child("usersName").getValue());
@@ -102,45 +102,46 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
           startAlarm(calendar);
         }
         */
-      }
+            }
 
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-      }
-    });
+            }
+        });
 
 
-
-  }
-
-  @Override
-  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-    switch(item.getItemId()){
-      case R.id.navigation_home:
-        setFragment(homeFragment);
-        return true;
-      case R.id.navigation_journal:
-        setFragment(journalFragment);
-        return true;
-      case R.id.navigation_insights:
-        setFragment(insightsFragment);
-        return true;
     }
-    return false;
-  }
 
-  private void setFragment(Fragment fragment){
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-    fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-    fragmentTransaction.replace(R.id.container, fragment);
-    fragmentTransaction.commit();
+        switch (item.getItemId()) {
+            case R.id.navigation_home:
+                setFragment(homeFragment);
+                return true;
+            case R.id.navigation_journal:
+                setFragment(journalFragment);
+                return true;
+            case R.id.navigation_insights:
+                setFragment(insightsFragment);
+                return true;
+        }
+        return false;
+    }
 
-  }
+    private void setFragment(Fragment fragment) {
 
-  /**Commented for testing purposes**/
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
+
+    }
+
+    /**
+     * Commented for testing purposes
+     **/
   /*
   public void sendOnChannel1(){
     String title = "Hello Test!";
@@ -167,22 +168,21 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     notificationManager.notify(1,notification);
   }
   */
+    private void startAlarm(Calendar c) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
-  private void startAlarm(Calendar c) {
-    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-    Intent intent = new Intent(this, NotificationReceiver.class);
-    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1);
+        }
 
-    if (c.before(Calendar.getInstance())) {
-      c.add(Calendar.DATE, 1);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
-    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-  }
-
-  public void finish(){
-    super.finish();
-    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-  }
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 
 }

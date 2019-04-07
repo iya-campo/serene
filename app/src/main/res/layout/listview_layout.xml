@@ -7,28 +7,28 @@
         android:id="@+id/article"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:gravity="center_vertical"
         android:layout_marginTop="5dp"
-        android:paddingRight="20dp"
+        android:background="#FFF"
+        android:gravity="center_vertical"
         android:paddingLeft="30dp"
-        android:background="#FFF">
+        android:paddingRight="20dp">
 
         <TextView
             android:id="@+id/articleText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:text="Article name goes here!"
             android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textSize="14sp"
             android:textColor="#234A56"
-            android:text="Article name goes here!" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/heartButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toLeftOf="@id/articleButton"
             android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/articleButton"
             android:background="@drawable/seui_save_article_button" />
 
         <Button

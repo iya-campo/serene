@@ -24,43 +24,43 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainInsights extends Fragment{
+public class MainInsights extends Fragment {
 
-  private ExpandableListView listViewArticles;
-  private ExpandableListAdapter listAdapter;
-  private List<String> listDataHeader;
-  private HashMap<String, List<String>> listHash;
-  DatabaseReference databaseReference;
-  List<Articles> articlesList;
-  Boolean menuState;
-  //Button insightButton;
-  Context myContext;
+    private ExpandableListView listViewArticles;
+    private ExpandableListAdapter listAdapter;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listHash;
+    DatabaseReference databaseReference;
+    List<Articles> articlesList;
+    Boolean menuState;
+    //Button insightButton;
+    Context myContext;
 
-  public MainInsights() {
-    // Required empty public constructor
-  }
+    public MainInsights() {
+        // Required empty public constructor
+    }
 
-  @SuppressLint("ValidFragment")
-  public MainInsights(Context context){
-      this.myContext = context;
-  }
+    @SuppressLint("ValidFragment")
+    public MainInsights(Context context) {
+        this.myContext = context;
+    }
 
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-    databaseReference = FirebaseDatabase.getInstance().getReference("Articles");
-    listViewArticles = (ExpandableListView) getView().findViewById(R.id.insightsMenu);
-    articlesList = new ArrayList<>();
-    // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Articles");
+        listViewArticles = (ExpandableListView) getView().findViewById(R.id.insightsMenu);
+        articlesList = new ArrayList<>();
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
 
-    initData();
-    listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listHash);
-    listViewArticles.setAdapter(listAdapter);
+        initData();
+        listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listHash);
+        listViewArticles.setAdapter(listAdapter);
 
-    //insightButton = (Button) view.findViewById(R.id.insightButton);
-    menuState = false;
+        //insightButton = (Button) view.findViewById(R.id.insightButton);
+        menuState = false;
 /*
     insightButton.setOnClickListener(new View.OnClickListener() {
 
@@ -75,21 +75,21 @@ public class MainInsights extends Fragment{
       }
     });
 */
-    return view;
-  }
+        return view;
+    }
 
-  private void initData() {
-    listDataHeader = new ArrayList<>();
-    listHash = new HashMap<>();
+    private void initData() {
+        listDataHeader = new ArrayList<>();
+        listHash = new HashMap<>();
 
-    listDataHeader.add("Menu");
+        listDataHeader.add("Menu");
 
-    List<String> menu1 = new ArrayList<>();
-    menu1.add("Serene Insights");
-    menu1.add("Saved Insights");
+        List<String> menu1 = new ArrayList<>();
+        menu1.add("Serene Insights");
+        menu1.add("Saved Insights");
 
-    listHash.put(listDataHeader.get(0), menu1);
-  }
+        listHash.put(listDataHeader.get(0), menu1);
+    }
 
     @Override
     public void onStart() {
