@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
@@ -19,7 +20,7 @@ public class ArticlesList extends ArrayAdapter<Articles> {
     private List<Articles> articlesList;
 
     public ArticlesList(Activity context,List<Articles> articlesList){
-        super(context, R.layout.fragment_main_insights, articlesList);
+        super(context, R.layout.listview_layout, articlesList);
         this.context = context;
         this.articlesList = articlesList;
     }
@@ -29,7 +30,8 @@ public class ArticlesList extends ArrayAdapter<Articles> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = inflater.inflate(R.layout.fragment_main_insights, null, true);
+        @SuppressLint("ViewHolder")
+        View listViewItem = inflater.inflate(R.layout.listview_layout, null, true);
 
         TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.articleText);
         //TextView textViewAuthor = (TextView) listViewItem.findViewById(R.id.aasda);

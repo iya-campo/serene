@@ -40,7 +40,6 @@ public class JournalEntry extends AppCompatActivity {
     textView = (TextView) findViewById(R.id.entryMACText);
     content = textView.getText().toString();
     hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
-    hours_slept = Integer.parseInt(hoursSlept.getSelectedItem().toString());
     ref= FirebaseDatabase.getInstance().getReference().child("Journal");
     ref.addValueEventListener(new ValueEventListener() {
       @Override
@@ -77,14 +76,6 @@ public class JournalEntry extends AppCompatActivity {
 
     });
 
-    saveEntryButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        //Function to save journal entry
-      }
-
-    });
 
     breakfastButton.setOnClickListener(new View.OnClickListener() {
 
@@ -139,6 +130,8 @@ public class JournalEntry extends AppCompatActivity {
     saveEntryButton.setOnClickListener((new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        hours_slept = Integer.parseInt(hoursSlept.getSelectedItem().toString());
+
         journal = new Journal(maxid, hours_slept, food_intake, medicinal_intake, date, content, user_id);
 
         ref.child(String.valueOf(maxid+1)).setValue(journal);
