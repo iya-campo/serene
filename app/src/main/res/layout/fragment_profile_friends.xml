@@ -37,6 +37,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:gravity="center_vertical"
+      android:textColor="#234A56"
       android:textAlignment="center"
       android:text="Add a friend" />
 
@@ -46,7 +47,10 @@
       android:layout_height="30dp"
       android:layout_gravity="center_vertical|end"
       android:layout_marginRight="100dp"
-      android:background="@drawable/settings_button" />
+      android:textColor="#234A56"
+      android:background="@null"
+      android:textSize="24sp"
+      android:text="+" />
 
   </FrameLayout>
 

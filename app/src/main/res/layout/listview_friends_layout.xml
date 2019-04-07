@@ -14,7 +14,7 @@
             android:id="@+id/friendIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="15dp"
             android:layout_centerVertical="true"
             android:background="@drawable/account_icon" />
 
@@ -22,11 +22,9 @@
             android:id="@+id/friendMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:paddingTop="5dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
+            android:background="@drawable/bg_buttons"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="12dp"
             android:textSize="15sp"
             android:textColor="#234A56"
             android:layout_toRightOf="@+id/friendIcon"

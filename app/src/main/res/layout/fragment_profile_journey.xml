@@ -14,7 +14,7 @@
     android:id="@+id/startDate"
     android:layout_width="330dp"
     android:layout_height="50dp"
-    android:background="#FFFFFF"
+    android:background="@drawable/bg_buttons"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="15dp">
 
@@ -47,7 +47,7 @@
     android:layout_width="330dp"
     android:layout_height="50dp"
     android:layout_below="@+id/startDate"
-    android:background="#FFFFFF"
+      android:background="@drawable/bg_buttons"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="15dp">
 
@@ -81,7 +81,7 @@
     android:layout_width="330dp"
     android:layout_height="50dp"
     android:layout_below="@+id/duration"
-    android:background="#FFFFFF"
+      android:background="@drawable/bg_buttons"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="15dp">
 
@@ -125,7 +125,7 @@
     android:layout_width="330dp"
     android:layout_height="50dp"
     android:layout_below="@+id/medicine"
-    android:background="#FFFFFF"
+      android:background="@drawable/bg_buttons"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="15dp">
 

@@ -18,7 +18,7 @@
       android:layout_height="wrap_content"
       android:padding="30dp"
       android:gravity="center_vertical|center_horizontal"
-      android:background="#B4BFC2">
+      android:background="@drawable/bg_menu_container">
 
       <ExpandableListView
         android:id="@+id/insightsMenu"
