@@ -31,8 +31,7 @@ public class Settings extends AppCompatActivity {
 
       @Override
       public void onClick(View v) {
-        Intent showProfile = new Intent(getApplicationContext(), Profile.class);
-        startActivity(showProfile);
+        finish();
       }
 
     });
@@ -43,6 +42,7 @@ public class Settings extends AppCompatActivity {
       public void onClick(View v) {
         Intent showSettingsNotifs = new Intent(getApplicationContext(), SettingsNotifs.class);
         startActivity(showSettingsNotifs);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -53,6 +53,7 @@ public class Settings extends AppCompatActivity {
       public void onClick(View v) {
         Intent showSettingsTC = new Intent(getApplicationContext(), SettingsTC.class);
         startActivity(showSettingsTC);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -63,6 +64,7 @@ public class Settings extends AppCompatActivity {
       public void onClick(View v) {
         Intent showSettingsPP = new Intent(getApplicationContext(), SettingsPP.class);
         startActivity(showSettingsPP);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -73,6 +75,7 @@ public class Settings extends AppCompatActivity {
       public void onClick(View v) {
         Intent showSettingsData = new Intent(getApplicationContext(), SettingsData.class);
         startActivity(showSettingsData);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -86,5 +89,9 @@ public class Settings extends AppCompatActivity {
 
     });
 
+  }
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 }

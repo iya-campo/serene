@@ -60,7 +60,6 @@ public class AccountRegisterCreate extends AppCompatActivity {
         @Override
         public void onClick(View v) {
           Intent showInfo = new Intent(getApplicationContext(), AccountRegisterInfo.class);
-
           /**Commented for testing purposes**/
           /*
           user_name = username.getText().toString();
@@ -74,6 +73,7 @@ public class AccountRegisterCreate extends AppCompatActivity {
           */
 
           startActivity(showInfo);
+          overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
           //List<Users> usersList = db.getAllUsersList();
           //for(Users users:usersList){
           //  String frDet = "\n\nName: " + users.getUsersName() + "\n\tEmail: " + users.getEmail() + "\n\tPassword: " + users.getPassword();
@@ -97,5 +97,9 @@ public class AccountRegisterCreate extends AppCompatActivity {
       password.setText("");
     }
     */
+    public void finish(){
+      super.finish();
+      overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 
 }

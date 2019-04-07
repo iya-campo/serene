@@ -39,6 +39,7 @@ public class AccountLogin extends AppCompatActivity {
       public void onClick(View v) {
         Intent showMain = new Intent(getApplicationContext(), Main.class);
         startActivity(showMain);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -49,6 +50,7 @@ public class AccountLogin extends AppCompatActivity {
       public void onClick(View v) {
         Intent showCreate = new Intent(getApplicationContext(), AccountRegisterCreate.class);
         startActivity(showCreate);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -64,5 +66,9 @@ public class AccountLogin extends AppCompatActivity {
       tutorial1.execute(method,user,pw);
   }
   */
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+  }
 
 }

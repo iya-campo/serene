@@ -46,6 +46,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
       public void onClick(View v) {
         Intent showProfile = new Intent(getApplicationContext(), Profile.class);
         startActivity(showProfile);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -135,4 +136,8 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     notificationManager.notify(1,notification);
   }
   */
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+  }
 }

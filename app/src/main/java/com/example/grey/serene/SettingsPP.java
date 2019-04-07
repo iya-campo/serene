@@ -27,6 +27,7 @@ public class SettingsPP extends AppCompatActivity {
       public void onClick(View v) {
         Intent showProfile = new Intent(getApplicationContext(), Profile.class);
         startActivity(showProfile);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
       }
 
     });
@@ -35,10 +36,13 @@ public class SettingsPP extends AppCompatActivity {
 
       @Override
       public void onClick(View v) {
-        Intent showSettings = new Intent(getApplicationContext(), Settings.class);
-        startActivity(showSettings);
+        finish();
       }
 
     });
+  }
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 }

@@ -83,6 +83,7 @@ public class AccountRegisterInfo extends AppCompatActivity {
         Toast.makeText(AccountRegisterInfo.this, "data inserted successfully", Toast.LENGTH_LONG).show();
         */
         startActivity(showNotifs);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -100,4 +101,8 @@ public class AccountRegisterInfo extends AppCompatActivity {
     age.setText("");
    }
    */
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+  }
 }

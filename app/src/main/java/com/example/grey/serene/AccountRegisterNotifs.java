@@ -128,6 +128,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         Toast.makeText(AccountRegisterNotifs.this, "Congratulations! You have signed up.", Toast.LENGTH_LONG).show();
         */
         startActivity(showLogin);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
     }));
   }
@@ -153,4 +154,8 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
       userNickname.setText("");
     }
     */
+    public void finish(){
+      super.finish();
+      overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }

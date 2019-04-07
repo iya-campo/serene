@@ -31,8 +31,7 @@ public class JournalEntry extends AppCompatActivity {
 
       @Override
       public void onClick(View v) {
-        Intent showJournal = new Intent(getApplicationContext(), MainJournal.class);
-        startActivity(showJournal);
+        finish();
       }
 
     });
@@ -91,5 +90,9 @@ public class JournalEntry extends AppCompatActivity {
 
     });
 
+  }
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 }

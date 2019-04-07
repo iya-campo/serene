@@ -59,41 +59,11 @@
       android:background="#BBDADF"
       android:text="Recently Read" />
 
-    <!-- Need list here -->
-
-    <LinearLayout
-      android:id="@+id/recentlyRead"
-      android:layout_width="match_parent"
-      android:layout_height="80dp"
-      android:layout_below="@id/recentlyReadText"
-      android:gravity="center_vertical"
-      android:layout_marginBottom="5dp"
-      android:paddingRight="20dp"
-      android:paddingLeft="30dp"
-      android:background="#FFF">
-
-      <TextView
-        android:id="@+id/articleText"
-        android:layout_width="200dp"
+    <ListView
+        android:id="@+id/recentArticleListView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textColor="#234A56"
-        android:text="Good posture may ease symptoms of depression" />
-
-      <View
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" />
-
-      <Button
-        android:id="@+id/articleButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/seui_next_button" />
-
-    </LinearLayout>
+        android:layout_below="@id/recentlyReadText"></ListView>
 
   </RelativeLayout>
 

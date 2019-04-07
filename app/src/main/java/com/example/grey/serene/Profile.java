@@ -23,18 +23,7 @@ public class Profile extends AppCompatActivity {
     setContentView(R.layout.activity_profile);
 
     //Header Buttons
-    Button profileButton = (Button) findViewById(R.id.profileButton);
     Button settingsButton = (Button) findViewById(R.id.settingsButton);
-
-    profileButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        Intent showProfile = new Intent(getApplicationContext(), Profile.class);
-        startActivity(showProfile);
-      }
-
-    });
 
     settingsButton.setOnClickListener(new View.OnClickListener() {
 
@@ -42,6 +31,7 @@ public class Profile extends AppCompatActivity {
       public void onClick(View v) {
         Intent showSettings = new Intent(getApplicationContext(), Settings.class);
         startActivity(showSettings);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -62,5 +52,9 @@ public class Profile extends AppCompatActivity {
     adapter.addFragment(new ProfileJourney(), "Journey");
     adapter.addFragment(new ProfileFriends(), "Friends");
     viewPager.setAdapter(adapter);
+  }
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 }
