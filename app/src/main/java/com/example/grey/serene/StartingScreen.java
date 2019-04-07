@@ -27,5 +27,6 @@ public class StartingScreen extends AppCompatActivity {
         finish();
       }
     }, SPLASH_TIME_OUT);
+
   }
 }

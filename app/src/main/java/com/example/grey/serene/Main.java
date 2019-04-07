@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,6 +65,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
       public void onClick(View v) {
         Intent showProfile = new Intent(getApplicationContext(), Profile.class);
         startActivity(showProfile);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
       }
 
     });
@@ -91,6 +93,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     ref.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        /*
         notif = dataSnapshot.child("notifications").getValue().toString();
         System.out.print(dataSnapshot.child("usersName").getValue());
         Calendar calendar = Calendar.getInstance();
@@ -98,6 +101,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         if(notif.equals("yes")){
           startAlarm(calendar);
         }
+        */
       }
 
       @Override
@@ -176,5 +180,9 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
   }
 
+  public void finish(){
+    super.finish();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+  }
 
 }

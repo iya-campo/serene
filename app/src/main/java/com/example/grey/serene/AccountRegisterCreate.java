@@ -18,67 +18,64 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AccountRegisterCreate extends AppCompatActivity {
 
-  Button submitButton;
+    Button submitButton;
 
-  EditText username, email, password;
-  String user_name, user_email, user_pass;
-  Users user;
-  long maxid;
-  //FirebaseAuth auth;
+    EditText username, email, password;
+    String user_name, user_email, user_pass;
+    Users user;
+    long maxid;
+    //FirebaseAuth auth;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_account_register_create);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account_register_create);
 
-      getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
-    //auth = FirebaseAuth.getInstance();
+        //auth = FirebaseAuth.getInstance();
 
-      submitButton = (Button) findViewById(R.id.submitButton);
+        submitButton = (Button) findViewById(R.id.submitButton);
 
-     username=(EditText) findViewById(R.id.newUnField);
-      email=(EditText) findViewById(R.id.newEmailField);
-      password=(EditText) findViewById(R.id.newPwField);
-      user = new Users();
-      user.setID(0);
-      maxid = user.getID();
-
-
+        username = (EditText) findViewById(R.id.newUnField);
+        email = (EditText) findViewById(R.id.newEmailField);
+        password = (EditText) findViewById(R.id.newPwField);
+        user = new Users();
+        user.setID(0);
+        maxid = user.getID();
 
 
-      submitButton.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
 
-        @Override
-        public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-          user_name = username.getText().toString();
-          user_email = email.getText().toString().trim();
-          user_pass = password.getText().toString().trim();
+                user_name = username.getText().toString();
+                user_email = email.getText().toString().trim();
+                user_pass = password.getText().toString().trim();
 
-            if (TextUtils.isEmpty(user_email)) {
-                Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+                if (TextUtils.isEmpty(user_email)) {
+                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-            if (TextUtils.isEmpty(user_pass)) {
-                Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+                if (TextUtils.isEmpty(user_pass)) {
+                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-            Intent showInfo = new Intent(getApplicationContext(), AccountRegisterInfo.class);
+                Intent showInfo = new Intent(getApplicationContext(), AccountRegisterInfo.class);
 
-            Toast.makeText(AccountRegisterCreate.this, "data inserted successfully", Toast.LENGTH_LONG).show();
-            showInfo.putExtra("myExtra", user_name);
-            showInfo.putExtra("useremail", user_email);
-            showInfo.putExtra("userpassword", user_pass);
+                Toast.makeText(AccountRegisterCreate.this, "data inserted successfully", Toast.LENGTH_LONG).show();
+                showInfo.putExtra("myExtra", user_name);
+                showInfo.putExtra("useremail", user_email);
+                showInfo.putExtra("userpassword", user_pass);
 
+                startActivity(showInfo);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-            startActivity(showInfo);
-
-
-            //create user
-            /*auth.createUserWithEmailAndPassword(user_email, user_pass)
+                //create user
+                /*auth.createUserWithEmailAndPassword(user_email, user_pass)
                     .addOnCompleteListener(AccountRegisterCreate.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -103,14 +100,15 @@ public class AccountRegisterCreate extends AppCompatActivity {
                             }
                         }
                     });*/
+            }
 
 
-        }
-
-
-      });
+        });
     }
 
-
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 
 }

@@ -2,129 +2,92 @@ package com.example.grey.serene;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class AccountLogin extends AppCompatActivity {
 
-  EditText pass, usr;
-  //FirebaseAuth auth;
-  ProgressBar progressBar;
-  String email, password, userid, firebaseEmail, firebasePassword, child;
-  Boolean login = false;
-  long UserId;
-  long childID = 1;
+    EditText pass, user;
+    String fbUsername, fbPassword;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_account_login);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account_login);
 
-    getSupportActionBar().hide();
-    child = String.valueOf(childID);
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference usersChildRef = database.getReference("Users").child(child);
+        getSupportActionBar().hide();
 
-    //auth = FirebaseAuth.getInstance();
-  /*
-    if(auth.getCurrentUser() != null){
-      startActivity(new Intent(AccountLogin.this, Main.class));
-      finish();
-    }*/
+        user = (EditText) findViewById(R.id.unField);
+        pass = (EditText) findViewById(R.id.pwField);
+        Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button registerButton = (Button) findViewById(R.id.registerButton);
 
-    usr = (EditText) findViewById(R.id.unField);
-    pass = (EditText) findViewById(R.id.pwField);
-    progressBar = (ProgressBar) findViewById(R.id.progressBar);
-    Button loginButton = (Button) findViewById(R.id.loginButton);
-    Button registerButton = (Button) findViewById(R.id.registerButton);
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference userRef = database.getReference().child("Users");
 
+        loginButton.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
 
-    usersChildRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
-      @Override
-      public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
-        firebaseEmail = (String)dataSnapshot.child("usersName").getValue();
-        firebasePassword = (String)dataSnapshot.child("password").getValue();
+                final String username = user.getText().toString();
+                final String password = pass.getText().toString();
 
-        while(dataSnapshot.hasChildren()){
-          if(firebaseEmail == email && firebasePassword == password){
-            login = true;
-          } else {
-            childID++;
-          }
+                userRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+                    @Override
+                    public void onDataChange(final com.google.firebase.database.DataSnapshot dataSnapshot) {
 
-        }
+                        long refCount = dataSnapshot.getChildrenCount();
+                        //Log.i("myTag", String.valueOf(refCount));
 
+                        if (TextUtils.isEmpty(username) && TextUtils.isEmpty(password)) {
+                            Toast.makeText(getApplicationContext(), "Please enter your username and password.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            for (int i = 1; i <= refCount; i++) {
+                                fbUsername = (String) dataSnapshot.child(String.valueOf(i)).child("username").getValue();
+                                fbPassword = (String) dataSnapshot.child(String.valueOf(i)).child("password").getValue();
+                                //Log.i("myTag", String.valueOf(fbUsername));
 
-      }
+                                if ((username.equals(fbUsername)) && (password.equals(fbPassword))) {
+                                    Intent showMain = new Intent(getApplicationContext(), Main.class);
+                                    startActivity(showMain);
+                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Incorrect username or password.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
 
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
-      }
-    });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
+                    }
+                });
+            }
+        });
 
+        registerButton.setOnClickListener(new View.OnClickListener() {
 
-    //getting Firebase auth instance
-    //auth = FirebaseAuth.getInstance();
+            @Override
+            public void onClick(View v) {
+                Intent showCreate = new Intent(getApplicationContext(), AccountRegisterCreate.class);
+                startActivity(showCreate);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
 
-    loginButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        email = usr.getText().toString();
-        password = pass.getText().toString();
-
-        //Toast.makeText(getApplicationContext(), email + " = " + test, Toast.LENGTH_LONG).show();
-        if(TextUtils.isEmpty(email)){
-          Toast.makeText(getApplicationContext(), "Enter email or password.", Toast.LENGTH_SHORT).show();
-        }
-        if(TextUtils.isEmpty(password)){
-          Toast.makeText(getApplicationContext(), "Enter email or password.", Toast.LENGTH_SHORT).show();
-        }
-
-
-        if(login){
-          Intent showMain = new Intent(getApplicationContext(), Main.class);
-          userid = Long.toString(UserId);
-          showMain.putExtra("userID", userid);
-          startActivity(showMain);
-        } else {
-          Toast.makeText(getApplicationContext(), password + " = " + firebasePassword, Toast.LENGTH_LONG).show();
-        }
-
-      }
-
-    });
-
-    registerButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        Intent showCreate = new Intent(getApplicationContext(), AccountRegisterCreate.class);
-        startActivity(showCreate);
-      }
-
-    });
-  }
-
+        });
+    }
 
 }
