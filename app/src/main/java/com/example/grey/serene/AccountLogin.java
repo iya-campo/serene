@@ -30,7 +30,7 @@ public class AccountLogin extends AppCompatActivity {
   ProgressBar progressBar;
   String email, password, userid, firebaseEmail, firebasePassword, child;
   Boolean login = false;
-  long UserId, count;
+  long UserId;
   long childID = 1;
 
   @Override
@@ -42,7 +42,7 @@ public class AccountLogin extends AppCompatActivity {
     child = String.valueOf(childID);
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference usersChildRef = database.getReference("Users").child(child);
-    final DatabaseReference usersRef = database.getReference().child("Users");
+
     //auth = FirebaseAuth.getInstance();
   /*
     if(auth.getCurrentUser() != null){
@@ -64,7 +64,7 @@ public class AccountLogin extends AppCompatActivity {
         firebaseEmail = (String)dataSnapshot.child("usersName").getValue();
         firebasePassword = (String)dataSnapshot.child("password").getValue();
 
-        while(childID <= count){
+        while(dataSnapshot.hasChildren()){
           if(firebaseEmail == email && firebasePassword == password){
             login = true;
           } else {
@@ -81,18 +81,8 @@ public class AccountLogin extends AppCompatActivity {
       }
     });
 
-    usersRef.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
-        count = dataSnapshot.getChildrenCount();
-      }
 
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
-      }
-    });
 
-    Toast.makeText(getApplicationContext(), "" + count, Toast.LENGTH_SHORT).show();
     //getting Firebase auth instance
     //auth = FirebaseAuth.getInstance();
 
