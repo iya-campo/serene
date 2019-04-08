@@ -88,12 +88,19 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
             userId = myIntent.getStringExtra("userID");
         }
 
+        Bundle bundle = new Bundle();
+        bundle.putString("id", userId);
+        // set Fragmentclass Arguments
+        MainJournal fragobj = new MainJournal();
+        fragobj.setArguments(bundle);
+
+
 
         ref = FirebaseDatabase.getInstance().getReference().child("Users").child("12");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        /*
+
         notif = dataSnapshot.child("notifications").getValue().toString();
         System.out.print(dataSnapshot.child("usersName").getValue());
         Calendar calendar = Calendar.getInstance();
@@ -101,7 +108,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         if(notif.equals("yes")){
           startAlarm(calendar);
         }
-        */
+
             }
 
             @Override

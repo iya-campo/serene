@@ -2,19 +2,25 @@ package com.example.grey.serene;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
+import com.google.firebase.ml.naturallanguage.languageid.FirebaseLanguageIdentification;
 
 public class JournalEntry extends AppCompatActivity {
 
@@ -40,7 +46,6 @@ public class JournalEntry extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.entryMACText);
         content = textView.getText().toString();
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
-        hours_slept = Integer.parseInt(hoursSlept.getSelectedItem().toString());
         ref = FirebaseDatabase.getInstance().getReference().child("Journal");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -55,6 +60,13 @@ public class JournalEntry extends AppCompatActivity {
 
             }
         });
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("date")) {
+            date = intent.getStringExtra("myExtra");
+            TextView text = (TextView) findViewById(R.id.entryDateText);
+            text.setText(date);
+        }
 
         //Entry Header Buttons
         Button backButton = (Button) findViewById(R.id.backButton);
@@ -139,6 +151,7 @@ public class JournalEntry extends AppCompatActivity {
         saveEntryButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hours_slept = Integer.parseInt(hoursSlept.getSelectedItem().toString());
                 journal = new Journal(maxid, hours_slept, food_intake, medicinal_intake, date, content, user_id);
 
                 ref.child(String.valueOf(maxid + 1)).setValue(journal);
@@ -146,5 +159,30 @@ public class JournalEntry extends AppCompatActivity {
             }
         }));
 
+    }
+
+    private void identifyText(String text){
+        FirebaseLanguageIdentification languageIdentifier =
+                FirebaseNaturalLanguage.getInstance().getLanguageIdentification();
+        languageIdentifier.identifyLanguage(text)
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(@Nullable String languageCode) {
+                                if (languageCode != "und") {
+                                    Toast.makeText(getApplicationContext(), languageCode, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Can't identify language.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Model couldn’t be loaded or other internal error.
+                                // ...
+                            }
+                        });
     }
 }
