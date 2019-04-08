@@ -2,6 +2,7 @@ package com.example.grey.serene;
 
 
 public class Articles {
+
     private long id;
     private String title;
     private String author;
@@ -9,7 +10,8 @@ public class Articles {
     private String content;
     private String source;
 
-    Articles() {
+    public Articles() {
+
     }
 
     Articles(long id, String title, String author, String type, String content, String source) {

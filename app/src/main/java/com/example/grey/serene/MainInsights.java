@@ -32,98 +32,76 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainInsights extends Fragment{
+public class MainInsights extends Fragment {
 
-  private ListView listViewArticles;
-  private ExpandableListView menu;
-  private ExpandableListAdapter listAdapter;
-  private List<String> listDataHeader;
-  private HashMap<String, List<String>> listHash;
-  DatabaseReference databaseReference;
-  List<Articles> articlesList;
-  Boolean menuState;
-  FirebaseListAdapter adapter;
-  //Button insightButton;
+    private ListView listViewArticles;
+    private ExpandableListView menu;
+    private ExpandableListAdapter listAdapter;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listHash;
+    FirebaseListAdapter adapter;
 
-  public MainInsights() {
-    // Required empty public constructor
-  }
+    public MainInsights() {
+        // Required empty public constructor
+    }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
 
-    menu = (ExpandableListView) view.findViewById(R.id.insightsMenu);
-    initData();
-    listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listHash);
-    menu.setAdapter(listAdapter);
+        menu = (ExpandableListView) view.findViewById(R.id.insightsMenu);
+        initData();
+        listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listHash);
+        menu.setAdapter(listAdapter);
 
-    listViewArticles = (ListView) view.findViewById(R.id.articleListView);
+        listViewArticles = (ListView) view.findViewById(R.id.articleListView);
 
-    Query query = FirebaseDatabase.getInstance().getReference().child("Articles");
-    FirebaseListOptions<Articles> articlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
-            .setLayout(R.layout.listview_layout)
-            .setQuery(query, Articles.class)
-            .build();
+        Query query = FirebaseDatabase.getInstance().getReference().child("Articles");
+        FirebaseListOptions<Articles> articlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
+                .setLayout(R.layout.listview_layout)
+                .setQuery(query, Articles.class)
+                .build();
 
-    adapter = new FirebaseListAdapter(articlesFirebaseListOptions) {
-        @Override
-        protected void populateView(@NonNull View v, @NonNull Object model, int position) {
-            final TextView articleTitle = v.findViewById(R.id.articleText);
-
-            String articleKey = this.getRef(position).getKey();
-
-          FirebaseDatabase.getInstance().getReference().child("Articles").child(articleKey).child("Title").addListenerForSingleValueEvent(new ValueEventListener(){
-
+        adapter = new FirebaseListAdapter(articlesFirebaseListOptions) {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                 articleTitle.setText(dataSnapshot.getValue().toString());
+            protected void populateView(@NonNull View v, @NonNull Object model, int position) {
+                final TextView articleTitle = v.findViewById(R.id.articleText);
+
+                String articleKey = this.getRef(position).getKey();
+
+                FirebaseDatabase.getInstance().getReference().child("Articles").child(articleKey).child("Title").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        articleTitle.setText(dataSnapshot.getValue().toString());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
+        };
+        listViewArticles.setAdapter(adapter);
+        return view;
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+    private void initData() {
+        listDataHeader = new ArrayList<>();
+        listHash = new HashMap<>();
 
-            }
-          });
+        listDataHeader.add("Menu");
 
-        }
+        List<String> menu1 = new ArrayList<>();
+        menu1.add("Serene Insights");
+        menu1.add("Saved Insights");
 
-    };
-    listViewArticles.setAdapter(adapter);
-    //insightButton = (Button) view.findViewById(R.id.insightButton);
-    menuState = false;
-/*
-    insightButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        if(menuState == false){
-          menuState = true;
-        } else {
-          menuState = false;
-        }
-        Toast.makeText(getActivity(), "" + menuState, Toast.LENGTH_SHORT).show();
-      }
-    });
-*/
-    return view;
-  }
-
-  private void initData() {
-    listDataHeader = new ArrayList<>();
-    listHash = new HashMap<>();
-
-    listDataHeader.add("Menu");
-
-    List<String> menu1 = new ArrayList<>();
-    menu1.add("Serene Insights");
-    menu1.add("Saved Insights");
-
-    listHash.put(listDataHeader.get(0), menu1);
-  }
+        listHash.put(listDataHeader.get(0), menu1);
+    }
 
     @Override
     public void onStart() {
@@ -136,5 +114,4 @@ public class MainInsights extends Fragment{
         super.onStop();
         adapter.stopListening();
     }
-
 }

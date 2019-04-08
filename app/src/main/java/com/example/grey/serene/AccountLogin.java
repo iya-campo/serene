@@ -47,7 +47,6 @@ public class AccountLogin extends AppCompatActivity {
                 userRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
                     @Override
                     public void onDataChange(final com.google.firebase.database.DataSnapshot dataSnapshot) {
-
                         long refCount = dataSnapshot.getChildrenCount();
                         //Log.i("myTag", String.valueOf(refCount));
 
