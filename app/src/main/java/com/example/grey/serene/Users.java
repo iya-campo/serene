@@ -1,161 +1,90 @@
 package com.example.grey.serene;
 
 public class Users {
+
     private long userID;
-
-    private String userName;
-
-    private String email;
-
-    private String userNickName;
-
-    private int age;
-
-    //private String alarm;
-
-    private String notifications;
-
+    private String username;
     private String password;
+    private String email;
+    private String nickname;
+    private int age;
+    private String notifications;
+    private String alarm;
 
-    private String alarmName;
-
-    private Float th;
-
-    // constructors
-
-    public Users() {
-    }
-
-    public Users(long id, String userName, String email, String userNickName, int age, String alarmName, String notifications, String password) {
-
+    public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm) {
         this.userID = id;
-
-        this.userName = userName;
-
-        this.email = email;
-
-        this.userNickName = userNickName;
-
-        this.age = age;
-
-        this.notifications = notifications;
-
+        this.username = username;
         this.password = password;
-
-
-        this.alarmName = alarmName;
-
-    }
-
-
-    // properties
-
-    public void setID(long id) {
-
-        this.userID = id;
+        this.email = email;
+        this.nickname = nickname;
+        this.age = age;
+        this.notifications = notifications;
+        this.alarm = alarm;
 
     }
 
     public long getID() {
-
         return this.userID;
-
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setID(long id) {
+        this.userID = id;
+    }
+
+    public String getUsersname() {
+        return this.username;
+    }
+
+    public void setUsersname(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setUsersName(String username) {
-
-        this.userName = username;
-
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUsersName() {
-
-        return this.userName;
-
+    public String getNickname() {
+        return this.nickname;
     }
 
-    public void setUserNickName(String userNickname) {
-
-        this.userNickName = userNickname;
-
-    }
-
-    public String getUserNickName() {
-
-        return this.userNickName;
-
-    }
-
-    public void setAge(int age) {
-
-        this.age = age;
-
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public int getAge() {
-
         return this.age;
-
-    }
-/*
-    public void setAlarm(String alarm) {
-
-        this.alarm = alarm;
-
     }
 
-    public String getAlarm() {
-
-        return this.alarm;
-
-    }*/
-
-    public void setPassword(String password) {
-
-        this.password = password;
-
-    }
-
-    public String getPassword() {
-
-        return this.password;
-
-    }
-
-    public void setNotifications(String notifications) {
-
-        this.notifications = notifications;
-
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getNotifications() {
-
         return this.notifications;
-
     }
 
-    public String getAlarmName() {
-        return alarmName;
+    public void setNotifications(String notifications) {
+        this.notifications = notifications;
     }
 
-    public void setAlarmName(String alarmName) {
-        this.alarmName = alarmName;
+    public String getAlarm() {
+        return alarm;
     }
 
-    public Float getTh() {
-        return th;
-    }
-
-    public void setTh(Float th) {
-        this.th = th;
+    public void setAlarm(String alarm) {
+        this.alarm = alarm;
     }
 
 }

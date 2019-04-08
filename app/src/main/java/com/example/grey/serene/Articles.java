@@ -2,15 +2,13 @@ package com.example.grey.serene;
 
 
 public class Articles {
+
     private long id;
     private String title;
     private String author;
     private String type;
     private String content;
     private String source;
-
-    Articles() {
-    }
 
     Articles(long id, String title, String author, String type, String content, String source) {
         this.id = id;
