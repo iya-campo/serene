@@ -10,6 +10,10 @@ public class Articles {
     private String content;
     private String source;
 
+    public Articles() {
+
+    }
+
     Articles(long id, String title, String author, String type, String content, String source) {
         this.id = id;
         this.title = title;

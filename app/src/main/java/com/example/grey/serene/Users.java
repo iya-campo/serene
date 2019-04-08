@@ -11,6 +11,10 @@ public class Users {
     private String notifications;
     private String alarm;
 
+    public Users() {
+
+    }
+
     public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm) {
         this.userID = id;
         this.username = username;

@@ -30,17 +30,17 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
     Button timeButton;
     Button yes, no;
 
-    String notif;
-    String alarmTitle;
-    String userName;
-    String userEmail;
-    String userPassword;
-    String userNickname;
-    int userAge;
-    EditText alarmName;
-    DatabaseReference ref;
     Users user;
     long maxid;
+    String userName;
+    String userPassword;
+    String userEmail;
+    String userNickname;
+    int userAge;
+    String notif;
+    String alarmTitle;
+
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
         timeButton = (Button) findViewById(R.id.timeButton);
         Button next2Button = (Button) findViewById(R.id.next2Button);
+        final EditText alarmName = (EditText) findViewById(R.id.alarmTitleField);
 
-        alarmName = (EditText) findViewById(R.id.alarmTitleField);
         maxid = 0;
         ref = FirebaseDatabase.getInstance().getReference().child("Users");
         ref.addValueEventListener(new ValueEventListener() {
@@ -127,7 +127,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
                 //alarm = time.getSelectedItem().toString() + " " + day.getSelectedItem().toString();
                 alarmTitle = alarmName.getText().toString();
 
-                user = new Users(maxid + 1, userName, userEmail, userNickname, userAge, alarmTitle, notif, userPassword);
+                user = new Users(maxid + 1, userName, userPassword, userEmail, userNickname, userAge, notif, alarmTitle);
 
                 ref.child(String.valueOf(maxid + 1)).setValue(user);
                 Toast.makeText(AccountRegisterNotifs.this, "Congratulations! You have signed up.", Toast.LENGTH_LONG).show();
