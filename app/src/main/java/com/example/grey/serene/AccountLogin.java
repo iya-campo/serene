@@ -15,11 +15,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AccountLogin extends AppCompatActivity {
 
     EditText pass, user;
-    String fbUsername, fbPassword;
+    String fbUsername, fbPassword, fbUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,10 @@ public class AccountLogin extends AppCompatActivity {
                 final String username = user.getText().toString();
                 final String password = pass.getText().toString();
 
-                userRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(final com.google.firebase.database.DataSnapshot dataSnapshot) {
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
                         long refCount = dataSnapshot.getChildrenCount();
-                        //Log.i("myTag", String.valueOf(refCount));
 
                         if (TextUtils.isEmpty(username) && TextUtils.isEmpty(password)) {
                             Toast.makeText(getApplicationContext(), "Please enter your username and password.", Toast.LENGTH_SHORT).show();
@@ -56,10 +56,12 @@ public class AccountLogin extends AppCompatActivity {
                             for (int i = 1; i <= refCount; i++) {
                                 fbUsername = (String) dataSnapshot.child(String.valueOf(i)).child("username").getValue();
                                 fbPassword = (String) dataSnapshot.child(String.valueOf(i)).child("password").getValue();
-                                //Log.i("myTag", String.valueOf(fbUsername));
+                                Long userID = (Long) dataSnapshot.child(String.valueOf(i)).child("id").getValue();
+                                fbUserID = String.valueOf(userID);
 
                                 if ((username.equals(fbUsername)) && (password.equals(fbPassword))) {
                                     Intent showMain = new Intent(getApplicationContext(), Main.class);
+                                    showMain.putExtra("userID", fbUserID);
                                     startActivity(showMain);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                 } else {
@@ -88,5 +90,4 @@ public class AccountLogin extends AppCompatActivity {
 
         });
     }
-
 }

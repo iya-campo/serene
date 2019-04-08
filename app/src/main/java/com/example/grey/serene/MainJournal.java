@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 
 /**
@@ -28,6 +29,7 @@ public class MainJournal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        userID = getArguments().getString("id");
         View view = inflater.inflate(R.layout.fragment_main_journal, container, false);
 
         calendarView = (CalendarView) view.findViewById(R.id.calendar);
@@ -44,7 +46,9 @@ public class MainJournal extends Fragment {
             }
         });
 
-        userID = getArguments().getString("id");
+
+        Toast.makeText(getContext(), userID, Toast.LENGTH_LONG).show();
+
 
         Button addEntryButton = (Button) view.findViewById(R.id.addEntryButton);
 

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,6 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
 import com.google.firebase.ml.naturallanguage.languageid.FirebaseLanguageIdentification;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class JournalEntry extends AppCompatActivity {
 
@@ -45,7 +51,6 @@ public class JournalEntry extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.entryMACText);
         content = textView.getText().toString();
-        hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
         ref = FirebaseDatabase.getInstance().getReference().child("Journal");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,6 +73,23 @@ public class JournalEntry extends AppCompatActivity {
             text.setText(date);
         }
 
+        hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
+        List<String> list = new ArrayList<String>();
+        list.add("01");
+        list.add("02");
+        list.add("03");
+        list.add("04");
+        list.add("05");
+        list.add("06");
+        list.add("07");
+        list.add("08");
+        list.add("09");
+        list.add("10");
+        list.add("11");
+        list.add("12");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_style, list);
+        hoursSlept.setAdapter(adapter);
+
         //Entry Header Buttons
         Button backButton = (Button) findViewById(R.id.backButton);
         Button saveEntryButton = (Button) findViewById(R.id.saveEntryButton);
@@ -83,17 +105,7 @@ public class JournalEntry extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent showJournal = new Intent(getApplicationContext(), MainJournal.class);
-                startActivity(showJournal);
-            }
-
-        });
-
-        saveEntryButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //Function to save journal entry
+                finish();
             }
 
         });
@@ -184,5 +196,10 @@ public class JournalEntry extends AppCompatActivity {
                                 // ...
                             }
                         });
+    }
+
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

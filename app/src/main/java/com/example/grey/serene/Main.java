@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -55,6 +56,11 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         getSupportActionBar().hide();
 
+        Intent myIntent = getIntent();
+
+        if (myIntent.hasExtra("userID")) {
+            userId = myIntent.getStringExtra("userID");
+        }
 
         //Header Buttons
         Button profileButton = (Button) findViewById(R.id.profileButton);
@@ -64,6 +70,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
             @Override
             public void onClick(View v) {
                 Intent showProfile = new Intent(getApplicationContext(), Profile.class);
+                showProfile.putExtra("userID", userId);
                 startActivity(showProfile);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -81,34 +88,16 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
-
-        Intent myIntent = getIntent();
-
-        if (myIntent.hasExtra("userID")) {
-            userId = myIntent.getStringExtra("userID");
-        }
-
-        Bundle bundle = new Bundle();
-        bundle.putString("id", userId);
-        // set Fragmentclass Arguments
-        MainJournal fragobj = new MainJournal();
-        fragobj.setArguments(bundle);
-
-
-
-        ref = FirebaseDatabase.getInstance().getReference().child("Users").child("12");
+        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                notif = dataSnapshot.child("notifications").getValue().toString();
+                Calendar calendar = Calendar.getInstance();
 
-        notif = dataSnapshot.child("notifications").getValue().toString();
-        System.out.print(dataSnapshot.child("usersName").getValue());
-        Calendar calendar = Calendar.getInstance();
-
-        if(notif.equals("yes")){
-          startAlarm(calendar);
-        }
-
+                if (notif.equals("yes")) {
+                    startAlarm(calendar);
+                }
             }
 
             @Override
@@ -116,8 +105,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
             }
         });
-
-
     }
 
     @Override
@@ -138,6 +125,10 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     }
 
     private void setFragment(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", userId);
+
+        fragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -146,35 +137,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     }
 
-    /**
-     * Commented for testing purposes
-     **/
-  /*
-  public void sendOnChannel1(){
-    String title = "Hello Test!";
-    String message = "Hello user! It's time to use Serene!";
-
-    Intent activityIntent = new Intent(this, Main.class);
-    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, activityIntent, 0);
-
-    Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
-    broadcastIntent.putExtra("toastMessage", message);
-    PendingIntent actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-    Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID).setSmallIcon(R.drawable.ic_event_notification)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-            .setColor(Color.BLUE)
-            .setContentIntent(contentIntent)
-            .setAutoCancel(true)
-            .setOnlyAlertOnce(true)
-            .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
-            .build();
-    notificationManager.notify(1,notification);
-  }
-  */
     private void startAlarm(Calendar c) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotificationReceiver.class);
@@ -191,5 +153,4 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-
 }

@@ -10,6 +10,7 @@ public class Journal {
     private long user_id;
 
     Journal() {
+
     }
 
     Journal(long id, int hours_slept, String food_intake, String medicinal_intake, String date, String content, long user_id) {
