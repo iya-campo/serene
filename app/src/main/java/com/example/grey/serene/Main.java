@@ -130,6 +130,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         fragment.setArguments(bundle);
 
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.container, fragment);

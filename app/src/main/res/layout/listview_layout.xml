@@ -29,7 +29,8 @@
             android:layout_height="30dp"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@id/articleButton"
-            android:background="@drawable/seui_save_article_button" />
+            android:background="@drawable/seui_save_article_button"
+            />
 
         <Button
             android:id="@+id/articleButton"

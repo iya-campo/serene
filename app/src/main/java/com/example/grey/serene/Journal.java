@@ -7,20 +7,18 @@ public class Journal {
     private String medicinal_intake;
     private String date;
     private String content;
-    private long user_id;
 
     Journal() {
 
     }
 
-    Journal(long id, int hours_slept, String food_intake, String medicinal_intake, String date, String content, long user_id) {
+    Journal(long id, int hours_slept, String food_intake, String medicinal_intake, String date, String content) {
         this.id = id;
         this.hours_slept = hours_slept;
         this.food_intake = food_intake;
         this.medicinal_intake = medicinal_intake;
         this.date = date;
         this.content = content;
-        this.user_id = user_id;
     }
 
     public long getId() {
@@ -71,11 +69,4 @@ public class Journal {
         this.content = content;
     }
 
-    public long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
-    }
 }
