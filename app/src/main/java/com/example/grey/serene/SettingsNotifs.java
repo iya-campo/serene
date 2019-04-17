@@ -13,7 +13,6 @@ public class SettingsNotifs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_notifs);
 
-        getSupportActionBar().hide();
 
         //Header Buttons
         Button profileButton = (Button) findViewById(R.id.profileButton);

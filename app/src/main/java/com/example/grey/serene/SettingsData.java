@@ -13,7 +13,6 @@ public class SettingsData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_data);
 
-        getSupportActionBar().hide();
 
         //Header Buttons
         Button profileButton = (Button) findViewById(R.id.profileButton);

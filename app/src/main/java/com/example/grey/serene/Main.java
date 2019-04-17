@@ -54,8 +54,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide();
-
         Intent myIntent = getIntent();
 
         if (myIntent.hasExtra("userID")) {

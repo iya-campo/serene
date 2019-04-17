@@ -13,7 +13,6 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        getSupportActionBar().hide();
 
         //Header Buttons
         Button profileButton = (Button) findViewById(R.id.profileButton);

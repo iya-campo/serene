@@ -27,8 +27,6 @@ public class AccountLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
 
-        getSupportActionBar().hide();
-
         user = (EditText) findViewById(R.id.unField);
         pass = (EditText) findViewById(R.id.pwField);
         Button loginButton = (Button) findViewById(R.id.loginButton);

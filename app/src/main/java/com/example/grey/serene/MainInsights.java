@@ -3,6 +3,7 @@ package com.example.grey.serene;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -53,7 +54,7 @@ public class MainInsights extends Fragment {
     DatabaseReference ref, savedRef;
     long maxid;
     Articles articleData;
-    String title, author, type, content, source,id;
+    String title, author, type, content, source, id;
 
     public MainInsights() {
         // Required empty public constructor
@@ -130,7 +131,6 @@ public class MainInsights extends Fragment {
                 savedRef = database.getReference().child("Saved Insights").child(userID);
 
 
-
                 FirebaseDatabase.getInstance().getReference().child("Articles").child(articleKey).child("Title").addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
@@ -145,23 +145,31 @@ public class MainInsights extends Fragment {
                     }
                 });
 
+                Button articleButton = (Button) v.findViewById(R.id.articleButton);
+                articleButton.setOnClickListener(new View.OnClickListener() {
 
+                    @Override
+                    public void onClick(View v) {
+                        Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
+                        startActivity(showArticle);
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
 
-
+                });
 
                 Button heartButton = (Button) v.findViewById(R.id.heartButton);
                 heartButton.setTag(position);
                 heartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final int positionz=(Integer)v.getTag();
+                        final int positionz = (Integer) v.getTag();
                         final long key = Long.parseLong(articleKey);
-                        ref = database.getReference().child("Articles").child(String.valueOf(positionz+1));
+                        ref = database.getReference().child("Articles").child(String.valueOf(positionz + 1));
                         ref.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    String pos = String.valueOf(positionz+1);
+                                    String pos = String.valueOf(positionz + 1);
                                     id = snapshot.child("id").getValue(String.class);
                                     if (pos.equals(id)) {
                                         title = snapshot.child("Title").getValue(String.class);
@@ -197,8 +205,7 @@ public class MainInsights extends Fragment {
                         });
 
 
-
-                        articleData = new Articles(maxid+1, title, author, type, content, source);
+                        articleData = new Articles(maxid + 1, title, author, type, content, source);
                         savedRef.child(String.valueOf(maxid + 1)).setValue(articleData);
                     }
                 });

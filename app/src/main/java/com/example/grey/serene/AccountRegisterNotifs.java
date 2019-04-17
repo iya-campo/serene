@@ -47,8 +47,6 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_register_notifs);
 
-        getSupportActionBar().hide();
-
         timeButton = (Button) findViewById(R.id.timeButton);
         Button next2Button = (Button) findViewById(R.id.next2Button);
         final EditText alarmName = (EditText) findViewById(R.id.alarmTitleField);

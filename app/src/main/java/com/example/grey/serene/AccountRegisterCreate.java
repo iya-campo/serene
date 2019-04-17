@@ -31,8 +31,6 @@ public class AccountRegisterCreate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_register_create);
 
-        getSupportActionBar().hide();
-
         //auth = FirebaseAuth.getInstance();
 
         submitButton = (Button) findViewById(R.id.submitButton);

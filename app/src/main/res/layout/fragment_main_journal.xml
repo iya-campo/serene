@@ -61,7 +61,7 @@
                 android:id="@+id/activitiesDone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Journal\nAmount of Hours Slept\nFood Intake\nMedicine Intake"
+                android:text="JournalAmount of Hours SleptFood IntakeMedicine Intake"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF" />

@@ -42,8 +42,6 @@ public class JournalEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal_entry);
 
-        getSupportActionBar().hide();
-
         Intent intent = getIntent();
         if (intent.hasExtra("date")) {
             date = intent.getStringExtra("date");

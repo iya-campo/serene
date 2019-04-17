@@ -24,8 +24,6 @@ public class AccountRegisterInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_register_info);
 
-        getSupportActionBar().hide();
-
         Button next1Button = (Button) findViewById(R.id.next1Button);
 
         usernickname = (EditText) findViewById(R.id.answer1Field);

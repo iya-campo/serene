@@ -16,7 +16,6 @@ public class StartingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting_screen);
 
-        getSupportActionBar().hide();
 
         new Handler().postDelayed(new Runnable() {
 
