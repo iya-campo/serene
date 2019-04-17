@@ -77,10 +77,9 @@ public class MainJournal extends Fragment {
                     Journal journal = snapshot.getValue(Journal.class);
                     if (curDate.equals(journal.getDate())) {
                         Toast.makeText(getContext(), "" + journal.getDate(), Toast.LENGTH_SHORT).show();
-                        activities.setText("Journal Entry:  \n" +
-                                journal.getHours_slept() + " \n" +
-                                journal.getFood_intake() + " \n" +
-                                journal.getMedicinal_intake());
+                        activities.setText("Amount of Hours Slept: \n" + journal.getHours_slept() + " \n" +
+                                            "Food Intake: \n" + journal.getFood_intake() + " \n" +
+                                            "Medicine Intake: \n" + journal.getMedicinal_intake());
 
                     }
                 }
@@ -110,10 +109,9 @@ public class MainJournal extends Fragment {
                          Journal journal = snapshot.getValue(Journal.class);
                          if (curDate.equals(journal.getDate())) {
                               //TextView activitiesDone = (TextView) ViewG.findViewById(R.id.activitiesDone);
-                              activities.setText("Journal Entry:  \n" +
-                                                    journal.getHours_slept() + " \n" +
-                                                    journal.getFood_intake() + " \n" +
-                                                    journal.getMedicinal_intake());
+                              activities.setText("Amount of Hours Slept: \n" + journal.getHours_slept() + " \n" +
+                                                    "Food Intake: \n" + journal.getFood_intake() + " \n" +
+                                                    "Medicine Intake: \n" + journal.getMedicinal_intake());
                          }
 
                      }

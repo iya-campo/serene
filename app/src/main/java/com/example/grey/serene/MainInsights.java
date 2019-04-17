@@ -39,6 +39,9 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class MainInsights extends Fragment {
 
+    private static String itemName;
+    private boolean menuState; //false close, true open
+
     private ListView listViewArticles;
     private ExpandableListView menu;
     private ExpandableListAdapter listAdapter;
@@ -64,10 +67,47 @@ public class MainInsights extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
         userID = getArguments().getString("id");
 
+        itemName = "Menu";
+        Log.i("myTag", itemName);
+
         menu = (ExpandableListView) view.findViewById(R.id.insightsMenu);
         initData();
         listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listHash);
         menu.setAdapter(listAdapter);
+
+
+        menu.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
+                TextView listItem = (TextView) view.findViewById(R.id.listItem);
+                itemName = listItem.getText().toString();
+                if (itemName.equals("Serene Insights")) {
+                    Log.i("Adapter", itemName);
+                    adapter.startListening();
+                } else {
+                    adapter.stopListening();
+                }
+                return true;
+            }
+        });
+
+
+        menuState = false;
+        final LinearLayout spinnerContainer = (LinearLayout) view.findViewById(R.id.spinnerContainer);
+        menu.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (!menuState) {
+                    menuState = true;
+                    spinnerContainer.setBackgroundResource(R.drawable.bg_menu_container_open);
+                } else {
+                    menuState = false;
+                    spinnerContainer.setBackgroundResource(R.drawable.bg_menu_container);
+                }
+                return false;
+            }
+        });
 
         listViewArticles = (ListView) view.findViewById(R.id.articleListView);
 
@@ -185,25 +225,13 @@ public class MainInsights extends Fragment {
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
 
-        listDataHeader.add("Menu");
+        listDataHeader.add(itemName);
 
-        List<String> menu1 = new ArrayList<>();
-        menu1.add("Serene Insights");
-        menu1.add("Saved Insights");
+        List<String> menu = new ArrayList<>();
+        menu.add("Serene Insights");
+        menu.add("Saved Insights");
 
-        listHash.put(listDataHeader.get(0), menu1);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
+        listHash.put(listDataHeader.get(0), menu);
     }
 
 

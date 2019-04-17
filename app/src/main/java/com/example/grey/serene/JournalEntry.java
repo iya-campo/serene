@@ -123,7 +123,7 @@ public class JournalEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Breakfast input
-                food_intake += "breakfast";
+                food_intake += "breakfast ";
             }
 
         });
@@ -133,7 +133,7 @@ public class JournalEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Lunch input
-                food_intake += "lunch";
+                food_intake += "lunch ";
             }
 
         });
@@ -143,7 +143,7 @@ public class JournalEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Dinner input
-                food_intake += "dinner";
+                food_intake += "dinner ";
             }
 
         });

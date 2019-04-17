@@ -51,7 +51,7 @@
                 android:id="@+id/activitiesDoneText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DONE:"
+                android:text="Journal Entry"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
