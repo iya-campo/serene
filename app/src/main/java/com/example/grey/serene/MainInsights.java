@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -66,8 +67,8 @@ public class MainInsights extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        userID = getArguments().getString("id");
         View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
+        userID = getArguments().getString("id");
 
         itemName = "Menu";
 
@@ -85,9 +86,11 @@ public class MainInsights extends Fragment {
                 if (itemName.equals("Serene Insights")) {
                     listViewArticles.setAdapter(adapter);
                     adapter.startListening();
+//                    listViewArticles.setAdapter(adapterSaved);
+//                    adapterSaved.startListening();
                 } else {
                     listViewArticles.setAdapter(adapterSaved);
-                    adapterSaved.startListening();
+                    adapter.startListening();
                 }
                 return true;
             }
@@ -117,7 +120,7 @@ public class MainInsights extends Fragment {
                 .setQuery(query, Articles.class)
                 .build();
 
-        Query querySaved = FirebaseDatabase.getInstance().getReference().child("Saved Insights"); //Nag ccrash
+        Query querySaved = FirebaseDatabase.getInstance().getReference().child("Saved Insights");
         FirebaseListOptions<Articles> savedArticlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
                 .setLayout(R.layout.listview_layout)
                 .setQuery(querySaved, Articles.class)
@@ -145,21 +148,6 @@ public class MainInsights extends Fragment {
                     }
                 });
 
-                savedRef = database.getReference().child("Saved Insights").child(userID);
-                savedRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            maxid = (dataSnapshot.getChildrenCount());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
                 Button articleButton = (Button) v.findViewById(R.id.articleButton);
                 articleButton.setTag(position);
                 articleButton.setOnClickListener(new View.OnClickListener() {
@@ -173,15 +161,12 @@ public class MainInsights extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
-                                showArticle.putExtra("userID", userID);
-
                                 showArticle.putExtra("id", String.valueOf(position));
                                 showArticle.putExtra("title", dataSnapshot.child("Title").getValue(String.class));
                                 showArticle.putExtra("author", dataSnapshot.child("Author").getValue(String.class));
                                 showArticle.putExtra("type", dataSnapshot.child("Type").getValue(String.class));
                                 showArticle.putExtra("content", dataSnapshot.child("Content").getValue(String.class));
                                 showArticle.putExtra("source", dataSnapshot.child("Source").getValue(String.class));
-
                                 startActivity(showArticle);
                                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
@@ -226,6 +211,21 @@ public class MainInsights extends Fragment {
 
                             }
                         });
+
+                        savedRef = database.getReference().child("Saved Insights").child(userID);
+                        savedRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    maxid = (dataSnapshot.getChildrenCount());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 });
             }
@@ -234,6 +234,34 @@ public class MainInsights extends Fragment {
         adapterSaved = new FirebaseListAdapter(savedArticlesFirebaseListOptions) {
             @Override
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
+                final TextView articleTitle = v.findViewById(R.id.articleText);
+                final String articleKey = this.getRef(position).getKey();
+
+                FirebaseDatabase.getInstance().getReference().child("Saved Insights").child(userID).child(articleKey).child("title").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String title = dataSnapshot.getValue().toString();
+                        articleTitle.setText(title);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                Button articleButton = (Button) v.findViewById(R.id.articleButton);
+                articleButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
+                        startActivity(showArticle);
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+
+                });
             }
         };
 
