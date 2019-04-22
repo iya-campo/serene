@@ -47,148 +47,162 @@
 
     </FrameLayout>
 
-    <MultiAutoCompleteTextView
-        android:id="@+id/entryMACText"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@id/entryHeader"
-        android:background="#EFECEC"
-        android:dropDownHeight="100dp"
-        android:gravity="top|left"
-        android:padding="20dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et odio ac tellus sollicitudin dictum sed nec felis. Sed lobortis magna vitae mi mattis faucibus. Integer purus purus, tempus a interdum at, pellentesque a nunc. Nullam nec justo sit amet lacus bibendum tincidunt. Etiam est elit, maximus ultrices metus vel, finibus eleifend nisi. Donec id justo ac risus mattis bibendum sit amet eget magna.\n\nSed arcu metus, condimentum vel leo sit amet, hendrerit iaculis leo. Praesent semper lacus sit amet sapien congue posuere. Cras congue nec lacus vel varius. Aenean et quam fringilla, interdum turpis sit amet, porttitor quam. Nullam quis vulputate dui. Proin vitae convallis metus, et tristique nisl. Nam et sapien ut mi dictum elementum. Quisque ipsum magna, venenatis sed mi at, malesuada sollicitudin velit.\n\nEtiam ultrices tellus vitae varius fermentum. Ut euismod tempus vulputate. Aenean ligula lacus, egestas sed turpis nec, dignissim pharetra purus. Pellentesque ornare leo ligula, eget sollicitudin sapien viverra sed. Nullam velit augue, gravida et eleifend vitae, venenatis eget nunc. Etiam dignissim lorem sed erat ornare pretium. Nulla vulputate tortor nec lectus aliquet, eget faucibus nisi ornare. Maecenas metus metus, placerat et egestas sed, volutpat ac purus. Nullam eu arcu pretium, dapibus dolor sit amet, semper lacus."
-        android:textColor="#234A56"
-        android:textSize="14sp" />
-
-    <View
-        android:id="@+id/div"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@id/entryMACText"
-        android:background="#B9E2EF" />
-
-    <FrameLayout
-        android:id="@+id/sleep"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/div"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"
-        android:background="#EFECEC"
-        android:padding="15dp">
+        android:layout_below="@id/entryHeader">
 
-        <TextView
-            android:id="@+id/sleepText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:text="Amount of Hours Slept"
-            android:textAllCaps="true"
-            android:textColor="#234A56"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/sleepSpinner"
-            android:layout_width="90dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/bg_spinner"
-            android:gravity="center" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/eat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sleep"
-        android:layout_marginBottom="2dp"
-        android:background="#EFECEC"
-        android:padding="15dp">
-
-        <TextView
-            android:id="@+id/eatText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Have you eaten?"
-            android:textAllCaps="true"
-            android:textColor="#234A56"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/breakfastButton"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="start"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/journal_breakfast_button" />
+            <MultiAutoCompleteTextView
+                android:id="@+id/entryMACText"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:isScrollContainer="true"
+                android:layout_below="@id/entryHeader"
+                android:background="#EFECEC"
+                android:dropDownHeight="100dp"
+                android:gravity="top|left"
+                android:padding="20dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et odio ac tellus sollicitudin dictum sed nec felis. Sed lobortis magna vitae mi mattis faucibus. Integer purus purus, tempus a interdum at, pellentesque a nunc. Nullam nec justo sit amet lacus bibendum tincidunt. Etiam est elit, maximus ultrices metus vel, finibus eleifend nisi. Donec id justo ac risus mattis bibendum sit amet eget magna.\n\nSed arcu metus, condimentum vel leo sit amet, hendrerit iaculis leo. Praesent semper lacus sit amet sapien congue posuere. Cras congue nec lacus vel varius. Aenean et quam fringilla, interdum turpis sit amet, porttitor quam. Nullam quis vulputate dui. Proin vitae convallis metus, et tristique nisl. Nam et sapien ut mi dictum elementum. Quisque ipsum magna, venenatis sed mi at, malesuada sollicitudin velit.\n\nEtiam ultrices tellus vitae varius fermentum. Ut euismod tempus vulputate. Aenean ligula lacus, egestas sed turpis nec, dignissim pharetra purus. Pellentesque ornare leo ligula, eget sollicitudin sapien viverra sed. Nullam velit augue, gravida et eleifend vitae, venenatis eget nunc. Etiam dignissim lorem sed erat ornare pretium. Nulla vulputate tortor nec lectus aliquet, eget faucibus nisi ornare. Maecenas metus metus, placerat et egestas sed, volutpat ac purus. Nullam eu arcu pretium, dapibus dolor sit amet, semper lacus."
+                android:textColor="#234A56"
+                android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/lunchButton"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/journal_lunch_button" />
+            <View
+                android:id="@+id/div"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@id/entryMACText"
+                android:background="#B9E2EF" />
 
-        <Button
-            android:id="@+id/dinnerButton"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/journal_dinner_button" />
+            <FrameLayout
+                android:id="@+id/sleep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/div"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:background="#EFECEC"
+                android:padding="15dp">
 
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/sleepText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Amount of Hours Slept"
+                    android:textAllCaps="true"
+                    android:textColor="#234A56"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/medicine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/eat"
-        android:layout_marginBottom="2dp"
-        android:background="#EFECEC"
-        android:padding="15dp">
+                <Spinner
+                    android:id="@+id/sleepSpinner"
+                    android:layout_width="90dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center" />
 
-        <TextView
-            android:id="@+id/medicineText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:text="Medicine Intake"
-            android:textAllCaps="true"
-            android:textColor="#234A56"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            </FrameLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
+            <FrameLayout
+                android:id="@+id/eat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sleep"
+                android:layout_marginBottom="2dp"
+                android:background="#EFECEC"
+                android:padding="15dp">
 
-        <Button
-            android:id="@+id/yesButton"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center|end"
-            android:layout_marginRight="3dp"
-            android:background="@drawable/journal_yes_button" />
+                <TextView
+                    android:id="@+id/eatText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Have you eaten?"
+                    android:textAllCaps="true"
+                    android:textColor="#234A56"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/noButton"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center|end"
-            android:layout_marginLeft="3dp"
-            android:background="@drawable/journal_no_button" />
+                <Button
+                    android:id="@+id/breakfastButton"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/journal_breakfast_button" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/lunchButton"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/journal_lunch_button" />
 
+                <Button
+                    android:id="@+id/dinnerButton"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/journal_dinner_button" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/medicine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/eat"
+                android:layout_marginBottom="10dp"
+                android:background="#EFECEC"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/medicineText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Medicine Intake"
+                    android:textAllCaps="true"
+                    android:textColor="#234A56"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/yesButton"
+                    android:layout_width="55dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|end"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/journal_yes_button" />
+
+                <Button
+                    android:id="@+id/noButton"
+                    android:layout_width="55dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|end"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/journal_no_button" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

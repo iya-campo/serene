@@ -164,21 +164,4 @@
 
     </FrameLayout>
 
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btnTest1"
-        android:layout_centerHorizontal="true"
-        android:text="Journey" />
-
-    <Button
-        android:id="@+id/btnTest1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Journey Button" />
-
 </RelativeLayout>

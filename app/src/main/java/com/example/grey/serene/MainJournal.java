@@ -65,8 +65,6 @@ public class MainJournal extends Fragment {
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         String nameOfDay = getDayName(day);
 
-
-
         activityDate.setText(nameOfDay + curDate);
 
         refDate.addValueEventListener(new ValueEventListener() {
@@ -76,15 +74,15 @@ public class MainJournal extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Journal journal = snapshot.getValue(Journal.class);
                     if (curDate.equals(journal.getDate())) {
-                        Toast.makeText(getContext(), "" + journal.getDate(), Toast.LENGTH_SHORT).show();
                         activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                            "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                            "Medicine Intake:\n" + journal.getMedicinal_intake());
+                                "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                "Medicine Intake:\n" + journal.getMedicinal_intake());
 
                     }
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -99,32 +97,31 @@ public class MainJournal extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-             curDate = getMonthForInt(month) + " " + String.valueOf(dayOfMonth) + ", " + String.valueOf(year);
-             activityDate.setText(getDayName(dayOfMonth) + curDate);
-             refDate.addListenerForSingleValueEvent(new ValueEventListener() {
+                curDate = getMonthForInt(month) + " " + String.valueOf(dayOfMonth) + ", " + String.valueOf(year);
+                activityDate.setText(getDayName(dayOfMonth) + curDate);
+                refDate.addListenerForSingleValueEvent(new ValueEventListener() {
 
-             @Override
-                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                         Journal journal = snapshot.getValue(Journal.class);
-                         if (curDate.equals(journal.getDate())) {
-                              //TextView activitiesDone = (TextView) ViewG.findViewById(R.id.activitiesDone);
-                              activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                                    "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                                    "Medicine Intake:\n" + journal.getMedicinal_intake());
-                         }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Journal journal = snapshot.getValue(Journal.class);
+                            if (curDate.equals(journal.getDate())) {
+                                //TextView activitiesDone = (TextView) ViewG.findViewById(R.id.activitiesDone);
+                                activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
+                                        "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                        "Medicine Intake:\n" + journal.getMedicinal_intake());
+                            }
 
-                     }
-                  }
-             @Override
-                  public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    }
 
-                   }
-              });
-              }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
         });
-
-
 
 
         Button addEntryButton = (Button) view.findViewById(R.id.addEntryButton);
@@ -149,13 +146,13 @@ public class MainJournal extends Fragment {
         String month = "wrong";
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getMonths();
-        if (num >= 0 && num <= 11 ) {
+        if (num >= 0 && num <= 11) {
             month = months[num];
         }
         return month;
     }
 
-    String getDayName(int day){
+    String getDayName(int day) {
         String nameOfDay = "";
         switch (day) {
             case Calendar.SUNDAY:

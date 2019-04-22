@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,7 +36,9 @@ public class ProfileFriends extends Fragment {
 
             @Override
             public void onClick(View v) {
-                //Function to add friends
+                Intent showChat = new Intent(getActivity().getApplicationContext(), Chat.class);
+                startActivity(showChat);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
         });

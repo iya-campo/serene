@@ -22,17 +22,6 @@ public class ProfileJourney extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_journey, container, false);
 
-        //Button Test
-        btnTest1 = (Button) view.findViewById(R.id.btnTest1);
-        btnTest1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Testing Button Click 1", Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
         medicineButton = (Button) view.findViewById(R.id.medicineButton);
         sleepButton = (Button) view.findViewById(R.id.sleepButton);
 
