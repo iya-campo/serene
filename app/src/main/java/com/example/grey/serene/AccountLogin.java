@@ -62,6 +62,7 @@ public class AccountLogin extends AppCompatActivity {
                                     showMain.putExtra("userID", fbUserID);
                                     startActivity(showMain);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                    Toast.makeText(getApplicationContext(), fbUserID, Toast.LENGTH_SHORT).show();
                                     break;
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Incorrect username or password.", Toast.LENGTH_SHORT).show();

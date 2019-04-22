@@ -56,8 +56,9 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="@android:color/transparent"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:expandedTitleMarginStart="25dp"
                 app:statusBarScrim="?attr/colorPrimaryDark"
-                app:titleEnabled="false">
+                app:title="Serene Insights">
 
                 <ImageView
                     android:id="@+id/sereneInsightsBG"
@@ -74,30 +75,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
+                    app:expandedTitleMarginStart="25dp"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-                <TextView
-                    android:id="@+id/sereneInsightTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Serene Insights"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/articleTitleText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="?attr/colorPrimaryDark"
-                    android:padding="18dp"
-                    android:text="Article Name"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -107,17 +86,48 @@
             android:id="@+id/articleContentScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/articleContentText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="8sp"
-                android:padding="16dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et odio ac tellus sollicitudin dictum sed nec felis. Sed lobortis magna vitae mi mattis faucibus. Integer purus purus, tempus a interdum at, pellentesque a nunc. Nullam nec justo sit amet lacus bibendum tincidunt. Etiam est elit, maximus ultrices metus vel, finibus eleifend nisi. Donec id justo ac risus mattis bibendum sit amet eget magna.\n\nSed arcu metus, condimentum vel leo sit amet, hendrerit iaculis leo. Praesent semper lacus sit amet sapien congue posuere. Cras congue nec lacus vel varius. Aenean et quam fringilla, interdum turpis sit amet, porttitor quam. Nullam quis vulputate dui. Proin vitae convallis metus, et tristique nisl. Nam et sapien ut mi dictum elementum. Quisque ipsum magna, venenatis sed mi at, malesuada sollicitudin velit.\n\nEtiam ultrices tellus vitae varius fermentum. Ut euismod tempus vulputate. Aenean ligula lacus, egestas sed turpis nec, dignissim pharetra purus. Pellentesque ornare leo ligula, eget sollicitudin sapien viverra sed. Nullam velit augue, gravida et eleifend vitae, venenatis eget nunc. Etiam dignissim lorem sed erat ornare pretium. Nulla vulputate tortor nec lectus aliquet, eget faucibus nisi ornare. Maecenas metus metus, placerat et egestas sed, volutpat ac purus. Nullam eu arcu pretium, dapibus dolor sit amet, semper lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et odio ac tellus sollicitudin dictum sed nec felis. Sed lobortis magna vitae mi mattis faucibus."
-                android:textColor="#234A56"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/articleTitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="8sp"
+                    android:text="Title"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:textColor="#234A56"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/articleAuthorText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="8sp"
+                    android:text="Author"
+                    android:textColor="#234A56"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/articleContentText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="8sp"
+                    android:text="Content goes here."
+                    android:textColor="#234A56"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 

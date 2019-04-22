@@ -86,11 +86,11 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
-        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("notifications");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                notif = dataSnapshot.child("notifications").getValue().toString();
+                notif = (String) dataSnapshot.getValue();
                 Calendar calendar = Calendar.getInstance();
 
                 if (notif.equals("yes")) {
@@ -103,6 +103,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
             }
         });
+
     }
 
     @Override

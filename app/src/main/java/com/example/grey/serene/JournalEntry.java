@@ -1,10 +1,12 @@
 package com.example.grey.serene;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,10 +20,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Scanner;
 
 
 public class JournalEntry extends AppCompatActivity {
@@ -174,9 +191,9 @@ public class JournalEntry extends AppCompatActivity {
 
                 journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content);
                 ref.child(String.valueOf(maxid+1)).setValue(journal);
+                nltkFreq(String.valueOf(user_id));
 
-                Intent home = new Intent(getApplicationContext(), Main.class);
-                startActivity(home);
+                finish();
             }
         }));
 
@@ -186,6 +203,111 @@ public class JournalEntry extends AppCompatActivity {
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public void writeToFile(String data, Context context) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("freqJournal.py", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    public String readFromFile(Context context) {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = context.openFileInput("freqJournal.py");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
+    }
+
+    public void nltkFreq(String UserID){
+        String command = "";
+        String user = "UserID = " + UserID;
+        Log.i("hello", "gumagana to " + checkUserID());
+        try {
+            if(checkUserID()) {
+                //Path path = FileSystems.getDefault().getPath("logs", "access.log");
+                //BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+                BufferedReader reader = null;
+                command = "python src\\main\\python\\FreqJournalTemp.py";
+                String currentLine;
+
+                while((currentLine = reader.readLine()) != null) {
+                    // trim newline when comparing with lineToRemove
+                    String trimmedLine = currentLine.trim();
+                    if(trimmedLine.equals(user)) continue;
+                  //  writer.write(currentLine + System.getProperty("line.separator"));
+                }
+                //writer.close();
+                reader.close();
+
+                Process p = Runtime.getRuntime().exec(command);
+                BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String ret = in.readLine();
+                Toast.makeText(getApplicationContext(), "value is : " + ret, Toast.LENGTH_LONG).show();
+
+            } else {
+                Log.i("hello", user);
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src\\main\\python\\FreqJournal.py"));
+                bufferedWriter.write(user);
+                bufferedWriter.close();
+                command = "python src\\main\\python\\FreqJournal.py";
+
+                Process p = Runtime.getRuntime().exec(command);
+                BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String ret = in.readLine();
+                Toast.makeText(getApplicationContext(), "value is : " + ret, Toast.LENGTH_LONG).show();
+            }
+
+
+        } catch(Exception e) {
+            Log.i("error", "yawa");
+            Toast.makeText(getApplicationContext(),"No files", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public boolean checkUserID(){
+        Boolean bool = false;
+        Scanner reader;
+        File inputFile = new File("src\\main\\python\\FreqJournal.py");
+        try{
+            reader = new Scanner(inputFile);
+            while (reader.hasNextLine()){
+                if(reader.nextLine().contains("UserID = ")){
+                    bool = true;
+                    break;
+                }
+            }
+        }catch(Exception e){
+            Toast.makeText(getApplicationContext(), "No such files", Toast.LENGTH_LONG).show();
+        }
+        return bool;
     }
 }
 

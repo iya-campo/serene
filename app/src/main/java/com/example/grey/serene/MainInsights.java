@@ -31,6 +31,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -48,13 +49,14 @@ public class MainInsights extends Fragment {
     private ExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listHash;
-    FirebaseListAdapter adapter;
+    FirebaseListAdapter adapter, adapterSaved;
     public String userID;
     FirebaseDatabase database;
     DatabaseReference ref, savedRef;
     long maxid;
     Articles articleData;
-    String title, author, type, content, source, id;
+    String title, author, type, content, source;
+    Long id;
 
     public MainInsights() {
         // Required empty public constructor
@@ -69,13 +71,11 @@ public class MainInsights extends Fragment {
         userID = getArguments().getString("id");
 
         itemName = "Menu";
-        Log.i("myTag", itemName);
 
         menu = (ExpandableListView) view.findViewById(R.id.insightsMenu);
         initData();
         listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listHash);
         menu.setAdapter(listAdapter);
-
 
         menu.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
@@ -84,15 +84,17 @@ public class MainInsights extends Fragment {
                 TextView listItem = (TextView) view.findViewById(R.id.listItem);
                 itemName = listItem.getText().toString();
                 if (itemName.equals("Serene Insights")) {
-                    Log.i("Adapter", itemName);
+                    listViewArticles.setAdapter(adapter);
                     adapter.startListening();
+//                    listViewArticles.setAdapter(adapterSaved);
+//                    adapterSaved.startListening();
                 } else {
-                    //adapter.stopListening();
+                    listViewArticles.setAdapter(adapterSaved);
+                    adapter.startListening();
                 }
                 return true;
             }
         });
-
 
         menuState = false;
         final LinearLayout spinnerContainer = (LinearLayout) view.findViewById(R.id.spinnerContainer);
@@ -118,8 +120,13 @@ public class MainInsights extends Fragment {
                 .setQuery(query, Articles.class)
                 .build();
 
-        database = FirebaseDatabase.getInstance();
+        Query querySaved = FirebaseDatabase.getInstance().getReference().child("Saved Insights");
+        FirebaseListOptions<Articles> savedArticlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
+                .setLayout(R.layout.listview_layout)
+                .setQuery(querySaved, Articles.class)
+                .build();
 
+        database = FirebaseDatabase.getInstance();
 
         adapter = new FirebaseListAdapter(articlesFirebaseListOptions) {
             @Override
@@ -128,6 +135,109 @@ public class MainInsights extends Fragment {
                 final String articleKey = this.getRef(position).getKey();
 
                 FirebaseDatabase.getInstance().getReference().child("Articles").child(articleKey).child("Title").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String title = dataSnapshot.getValue().toString();
+                        articleTitle.setText(title);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                Button articleButton = (Button) v.findViewById(R.id.articleButton);
+                articleButton.setTag(position);
+                articleButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final int position = (Integer) v.getTag() + 1;
+
+                        ref = database.getReference().child("Articles");
+                        ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
+                                showArticle.putExtra("id", String.valueOf(position));
+                                showArticle.putExtra("title", dataSnapshot.child("Title").getValue(String.class));
+                                showArticle.putExtra("author", dataSnapshot.child("Author").getValue(String.class));
+                                showArticle.putExtra("type", dataSnapshot.child("Type").getValue(String.class));
+                                showArticle.putExtra("content", dataSnapshot.child("Content").getValue(String.class));
+                                showArticle.putExtra("source", dataSnapshot.child("Source").getValue(String.class));
+                                startActivity(showArticle);
+                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                    }
+                });
+
+                final Button heartButton = (Button) v.findViewById(R.id.heartButton);
+                heartButton.setTag(position);
+                heartButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final int position = (Integer) v.getTag() + 1;
+
+                        ref = database.getReference().child("Articles");
+                        ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                id = dataSnapshot.child("id").getValue(Long.class); //Doesn't work. Returns 1???
+                                title = dataSnapshot.child("Title").getValue(String.class);
+                                author = dataSnapshot.child("Author").getValue(String.class);
+                                type = dataSnapshot.child("Type").getValue(String.class);
+                                content = dataSnapshot.child("Content").getValue(String.class);
+                                source = dataSnapshot.child("Source").getValue(String.class);
+
+                                articleData = new Articles(position, title, author, type, content, source);
+                                savedRef.child(String.valueOf(maxid + 1)).setValue(articleData);
+
+                                Toast.makeText(getContext(), "Article " + String.valueOf(position) + " added to Saved Insights", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        savedRef = database.getReference().child("Saved Insights").child(userID);
+                        savedRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    maxid = (dataSnapshot.getChildrenCount());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                });
+            }
+        };
+
+        adapterSaved = new FirebaseListAdapter(savedArticlesFirebaseListOptions) {
+            @Override
+            protected void populateView(@NonNull View v, @NonNull Object model, int position) {
+                final TextView articleTitle = v.findViewById(R.id.articleText);
+                final String articleKey = this.getRef(position).getKey();
+
+                FirebaseDatabase.getInstance().getReference().child("Saved Insights").child(userID).child(articleKey).child("title").addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -152,93 +262,8 @@ public class MainInsights extends Fragment {
                     }
 
                 });
-
-                final Button heartButton = (Button) v.findViewById(R.id.heartButton);
-                heartButton.setTag(position);
-
-                heartButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final int positionz = (Integer)v.getTag();
-                        //Toast.makeText(getContext(), articleKey, Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getContext(), String.valueOf(heartButton.getTag()), Toast.LENGTH_SHORT).show();
-                        ref = database.getReference().child("Articles");
-                        ref.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                String id = ref.push().getKey();
-                                for (int i = 1; i <= dataSnapshot.getChildrenCount(); i++) {
-                                    if (articleKey.equals(String.valueOf(i))) {
-                                        //Toast.makeText(getContext(), "Boop" + dataSnapshot.getChildrenCount(), Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getContext(), articleKey, Toast.LENGTH_SHORT).show();
-                                        title = (String) dataSnapshot.child(articleKey).child("Title").getValue();
-                                        author = (String) dataSnapshot.child(articleKey).child("Author").getValue();
-                                        //title = snapshot.child("Title").getValue(String.class);
-                                    }
-                                }
-                                /*
-                                boolean yay = true;
-                                String pos = String.valueOf(positionz+1);
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    title = snapshot.child("1").child("Title").getValue(String.class);
-                                    Log.i("title", String.valueOf(title));
-                                    if (yay) {
-                                        //Log.i("tag", "true");
-                                        Toast.makeText(getContext(), pos, Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getContext(), pos + " " + id, Toast.LENGTH_SHORT).show();
-                                        //title = (String) dataSnapshot.child(String.valueOf(pos)).child("Title").getValue();
-                                        //author = snapshot.child(String.valueOf(pos)).child("Author").getValue(String.class);
-                                        //type = snapshot.child(String.valueOf(pos)).child("Type").getValue(String.class);
-                                        //content = snapshot.child(String.valueOf(pos)).child("Content").getValue(String.class);
-                                        //source = snapshot.child(String.valueOf(pos)).child("Source").getValue(String.class);
-                                    }
-                                }
-                                */
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-
-                        savedRef = database.getReference().child("Saved Insights").child(userID);
-                        savedRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    maxid = (dataSnapshot.getChildrenCount());
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-                        final long key = Long.parseLong(articleKey);
-                        articleData = new Articles(key, title, author, type, content, source);
-                        savedRef.child(String.valueOf(maxid + 1)).setValue(articleData);
-                    }
-                });
-
-
             }
         };
-        listViewArticles.setAdapter(adapter);
-
-        /*listViewArticles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                DatabaseReference itemRef = adapter.getRef(position);
-
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), itemRef.getKey(), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });*/
 
         return view;
     }
@@ -255,6 +280,4 @@ public class MainInsights extends Fragment {
 
         listHash.put(listDataHeader.get(0), menu);
     }
-
-
 }
