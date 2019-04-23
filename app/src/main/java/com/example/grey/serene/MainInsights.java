@@ -36,6 +36,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -53,10 +55,10 @@ public class MainInsights extends Fragment {
     public String userID;
     FirebaseDatabase database;
     DatabaseReference ref, savedRef;
-    long maxid;
     Articles articleData;
     String title, author, type, content, source;
-    Long id;
+    long id;
+    long refNumber;
 
     public MainInsights() {
         // Required empty public constructor
@@ -87,8 +89,6 @@ public class MainInsights extends Fragment {
                     listViewArticles.setAdapter(adapter);
                 } else {
                     listViewArticles.setAdapter(adapterSaved);
-                    adapterSaved.startListening();
-                    Toast.makeText(getContext(), "working", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
@@ -118,13 +118,15 @@ public class MainInsights extends Fragment {
                 .setQuery(query, Articles.class)
                 .build();
 
-        Query querySaved = FirebaseDatabase.getInstance().getReference().child("Saved Insights");
+        Query querySaved = FirebaseDatabase.getInstance().getReference().child("Saved Insights").child(userID);
         FirebaseListOptions<Articles> savedArticlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
                 .setLayout(R.layout.listview_layout)
                 .setQuery(querySaved, Articles.class)
                 .build();
 
         database = FirebaseDatabase.getInstance();
+        ref = database.getReference().child("Articles");
+        savedRef = database.getReference().child("Saved Insights").child(userID);
 
         adapter = new FirebaseListAdapter(articlesFirebaseListOptions) {
             @Override
@@ -146,21 +148,6 @@ public class MainInsights extends Fragment {
                     }
                 });
 
-                savedRef = database.getReference().child("Saved Insights").child(userID);
-                savedRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            maxid = (dataSnapshot.getChildrenCount());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
                 Button articleButton = (Button) v.findViewById(R.id.articleButton);
                 articleButton.setTag(position);
                 articleButton.setOnClickListener(new View.OnClickListener() {
@@ -169,14 +156,13 @@ public class MainInsights extends Fragment {
 
                         final int position = (Integer) v.getTag() + 1;
 
-                        ref = database.getReference().child("Articles");
                         ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
                                 showArticle.putExtra("userID", userID);
 
-                                showArticle.putExtra("id", String.valueOf(position));
+                                showArticle.putExtra("id", String.valueOf(dataSnapshot.child("id").getValue(Long.class)));
                                 showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
                                 showArticle.putExtra("author", dataSnapshot.child("author").getValue(String.class));
                                 showArticle.putExtra("type", dataSnapshot.child("type").getValue(String.class));
@@ -203,7 +189,6 @@ public class MainInsights extends Fragment {
 
                         final int position = (Integer) v.getTag() + 1;
 
-                        ref = database.getReference().child("Articles");
                         ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -214,12 +199,11 @@ public class MainInsights extends Fragment {
                                 content = dataSnapshot.child("content").getValue(String.class);
                                 source = dataSnapshot.child("source").getValue(String.class);
 
-                                articleData = new Articles(position, title, author, type, content, source);
-                                savedRef.child(String.valueOf(maxid + 1)).setValue(articleData);
+                                articleData = new Articles(id, title, author, type, content, source);
+                                savedRef.push().setValue(articleData);
 
-                                Toast.makeText(getContext(), "Article " + String.valueOf(position) + " added to Saved Insights", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Added to Saved Insights", Toast.LENGTH_SHORT).show();
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
@@ -235,7 +219,6 @@ public class MainInsights extends Fragment {
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
                 final TextView articleTitle = v.findViewById(R.id.articleText);
                 final String articleKey = this.getRef(position).getKey();
-                Toast.makeText(getContext(), articleKey, Toast.LENGTH_SHORT).show();
 
                 FirebaseDatabase.getInstance().getReference().child("Saved Insights").child(userID).child(articleKey).child("title").addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -253,13 +236,61 @@ public class MainInsights extends Fragment {
                 });
 
                 Button articleButton = (Button) v.findViewById(R.id.articleButton);
+                articleButton.setTag(position);
                 articleButton.setOnClickListener(new View.OnClickListener() {
-
                     @Override
                     public void onClick(View v) {
-                        Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
-                        startActivity(showArticle);
-                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                        final int position = (Integer) v.getTag();
+                        final String savedKey = adapterSaved.getRef(position).getKey();
+
+                        savedRef.child(savedKey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
+                                showArticle.putExtra("userID", userID);
+
+                                showArticle.putExtra("id", String.valueOf(dataSnapshot.child("id").getValue(Long.class)));
+                                showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
+                                showArticle.putExtra("author", dataSnapshot.child("author").getValue(String.class));
+                                showArticle.putExtra("type", dataSnapshot.child("type").getValue(String.class));
+                                showArticle.putExtra("content", dataSnapshot.child("content").getValue(String.class));
+                                showArticle.putExtra("source", dataSnapshot.child("source").getValue(String.class));
+
+                                startActivity(showArticle);
+                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                });
+
+                Button heartButton = (Button) v.findViewById(R.id.heartButton);
+                heartButton.setTag(position);
+                heartButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final int position = (Integer) v.getTag();
+                        final String savedKey = adapterSaved.getRef(position).getKey();
+
+                        savedRef.child(savedKey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                savedRef.child(savedKey).removeValue();
+
+                                Toast.makeText(getContext(), "Removed from Saved Insights", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
 
                 });
@@ -287,5 +318,14 @@ public class MainInsights extends Fragment {
     {
         super.onStart();
         adapter.startListening();
+        adapterSaved.startListening();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        adapter.stopListening();
+        adapterSaved.stopListening();
     }
 }
