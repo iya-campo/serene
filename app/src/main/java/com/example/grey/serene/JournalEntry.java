@@ -3,6 +3,7 @@ package com.example.grey.serene;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,8 @@ public class JournalEntry extends AppCompatActivity {
     int hours_slept, count;
     String date;
 
+    public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/python";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +75,7 @@ public class JournalEntry extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.entryMACText);
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
         ref = FirebaseDatabase.getInstance().getReference().child("Journal").child("" + user_id);
-        countRef = FirebaseDatabase.getInstance().getReference().child("Journal_Count");
+        countRef = FirebaseDatabase.getInstance().getReference().child("CurrentUserID");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -86,11 +89,6 @@ public class JournalEntry extends AppCompatActivity {
 
             }
         });
-        try {
-            countRef.setValue(count);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
@@ -188,6 +186,11 @@ public class JournalEntry extends AppCompatActivity {
 
                 journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content);
                 ref.child(String.valueOf(maxid+1)).setValue(journal);
+                try {
+                    countRef.setValue(user_id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 nltkFreq(String.valueOf(user_id));
 
                 finish();
@@ -201,109 +204,23 @@ public class JournalEntry extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void writeToFile(String data, Context context) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("freqJournal.py", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-    public String readFromFile(Context context) {
-
-        String ret = "";
-
-        try {
-            InputStream inputStream = context.openFileInput("freqJournal.py");
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
-    }
-
     public void nltkFreq(String UserID){
-        String command = "";
-        String user = "UserID = " + UserID;
-        Log.i("hello", "gumagana to " + checkUserID());
-        try {
-            if(checkUserID()) {
-                //Path path = FileSystems.getDefault().getPath("logs", "access.log");
-                //BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-                BufferedReader reader = null;
-                command = "python src\\main\\python\\FreqJournalTemp.py";
-                String currentLine;
-
-                while((currentLine = reader.readLine()) != null) {
-                    // trim newline when comparing with lineToRemove
-                    String trimmedLine = currentLine.trim();
-                    if(trimmedLine.equals(user)) continue;
-                  //  writer.write(currentLine + System.getProperty("line.separator"));
-                }
-                //writer.close();
-                reader.close();
-
-                Process p = Runtime.getRuntime().exec(command);
-                BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String ret = in.readLine();
-                Toast.makeText(getApplicationContext(), "value is : " + ret, Toast.LENGTH_LONG).show();
-
-            } else {
-                Log.i("hello", user);
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src\\main\\python\\FreqJournal.py"));
-                bufferedWriter.write(user);
-                bufferedWriter.close();
-                command = "python src\\main\\python\\FreqJournal.py";
-
-                Process p = Runtime.getRuntime().exec(command);
-                BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String ret = in.readLine();
-                Toast.makeText(getApplicationContext(), "value is : " + ret, Toast.LENGTH_LONG).show();
-            }
-
-
-        } catch(Exception e) {
-            Log.i("error", "yawa");
-            Toast.makeText(getApplicationContext(),"No files", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public boolean checkUserID(){
-        Boolean bool = false;
-        Scanner reader;
-        File inputFile = new File("src\\main\\python\\FreqJournal.py");
         try{
-            reader = new Scanner(inputFile);
-            while (reader.hasNextLine()){
-                if(reader.nextLine().contains("UserID = ")){
-                    bool = true;
-                    break;
-                }
-            }
-        }catch(Exception e){
-            Toast.makeText(getApplicationContext(), "No such files", Toast.LENGTH_LONG).show();
+            String user = "UserID = " + UserID;
+          //  InputStream iS = getApplicationContext().getAssets().open("/src/main/assets/freqJournal.py");
+           // BufferedReader reader = new BufferedReader(new InputStreamReader(iS));
+            String command = "python /src/main/assets/freqJournal.py";
+
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String ret = in.readLine();
+            Toast.makeText(getApplicationContext(), "value is : " + ret, Toast.LENGTH_LONG).show();
+
+        }catch (Exception e){
+            Log.i("file", "can't see it");
         }
-        return bool;
     }
+
+
 }
 
