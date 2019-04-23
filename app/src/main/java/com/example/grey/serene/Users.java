@@ -15,8 +15,8 @@ public class Users {
 
     }
 
-    public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm) {
-        this.userID = id;
+    public Users(long userID, String username, String password, String email, String nickname, int age, String notifications, String alarm) {
+        this.userID = userID;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -31,8 +31,8 @@ public class Users {
         return this.userID;
     }
 
-    public void setID(long id) {
-        this.userID = id;
+    public void setID(long userID) {
+        this.userID = userID;
     }
 
     public String getUsersname() {

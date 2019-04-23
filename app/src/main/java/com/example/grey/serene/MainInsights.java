@@ -210,11 +210,11 @@ public class MainInsights extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 id = dataSnapshot.child("id").getValue(Long.class); //Doesn't work. Returns 1???
-                                title = dataSnapshot.child("Title").getValue(String.class);
-                                author = dataSnapshot.child("Author").getValue(String.class);
-                                type = dataSnapshot.child("Type").getValue(String.class);
-                                content = dataSnapshot.child("Content").getValue(String.class);
-                                source = dataSnapshot.child("Source").getValue(String.class);
+                                title = dataSnapshot.child("title").getValue(String.class);
+                                author = dataSnapshot.child("author").getValue(String.class);
+                                type = dataSnapshot.child("type").getValue(String.class);
+                                content = dataSnapshot.child("content").getValue(String.class);
+                                source = dataSnapshot.child("source").getValue(String.class);
 
                                 articleData = new Articles(position, title, author, type, content, source);
                                 savedRef.child(String.valueOf(maxid + 1)).setValue(articleData);
