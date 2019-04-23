@@ -25,20 +25,13 @@ import java.util.Calendar;
 
 public class AccountRegisterNotifs extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
-    int hour, minute;
-
     Button timeButton;
     Button yes, no;
 
     Users user;
     long maxid;
-    String userName;
-    String userPassword;
-    String userEmail;
-    String userNickname;
-    int userAge;
-    String notif;
-    String alarmTitle;
+    String username, password, email, nickname, notif, alarm;
+    int age;
 
     DatabaseReference ref;
 
@@ -49,7 +42,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
         timeButton = (Button) findViewById(R.id.timeButton);
         Button next2Button = (Button) findViewById(R.id.next2Button);
-        final EditText alarmName = (EditText) findViewById(R.id.alarmTitleField);
+        final EditText alarmField = (EditText) findViewById(R.id.alarmTitleField);
 
         maxid = 0;
         ref = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -67,26 +60,34 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             }
         });
 
-        yes = (Button) findViewById(R.id.yes1Button);
-        no = (Button) findViewById(R.id.no1Button);
-
         Intent myIntent = getIntent();
 
         if (myIntent.hasExtra("username")) {
-            userName = myIntent.getStringExtra("username");
+            username = myIntent.getStringExtra("username");
         }
-        if (myIntent.hasExtra("useremail")) {
-            userEmail = myIntent.getStringExtra("useremail");
+        if (myIntent.hasExtra("email")) {
+            email = myIntent.getStringExtra("email");
         }
-        if (myIntent.hasExtra("userpassword")) {
-            userPassword = myIntent.getStringExtra("userpassword");
+        if (myIntent.hasExtra("password")) {
+            password = myIntent.getStringExtra("password");
         }
-        if (myIntent.hasExtra("usernickname")) {
-            userNickname = myIntent.getStringExtra("usernickname");
+        if (myIntent.hasExtra("nickname")) {
+            nickname = myIntent.getStringExtra("nickname");
         }
-        if (myIntent.hasExtra("userage")) {
-            userAge = myIntent.getIntExtra("userage", userAge);
+        if (myIntent.hasExtra("age")) {
+            age = myIntent.getIntExtra("age", age);
         }
+
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
+
+        yes = (Button) findViewById(R.id.yes1Button);
+        no = (Button) findViewById(R.id.no1Button);
 
         yes.setOnClickListener(new View.OnClickListener() {
 
@@ -95,7 +96,6 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
                 notif = "yes";
             }
         });
-
         no.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -104,31 +104,19 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             }
         });
 
-        timeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                hour = c.get(Calendar.HOUR);
-                minute = c.get(Calendar.MINUTE);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(AccountRegisterNotifs.this,
-                        (TimePickerDialog.OnTimeSetListener) AccountRegisterNotifs.this, hour, minute, false);
-                timePickerDialog.show();
-                TimePickerFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-            }
-        });
+
         next2Button.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
 
-                //alarm = time.getSelectedItem().toString() + " " + day.getSelectedItem().toString();
-                alarmTitle = alarmName.getText().toString();
+                alarm = alarmField.getText().toString();
 
-                user = new Users(maxid + 1, userName, userPassword, userEmail, userNickname, userAge, notif, alarmTitle);
+                user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm);
 
                 ref.child(String.valueOf(maxid + 1)).setValue(user);
-                Toast.makeText(AccountRegisterNotifs.this, "Congratulations! You have signed up.", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(AccountRegisterNotifs.this, "Registration successful!", Toast.LENGTH_LONG).show();
 
                 startActivity(showLogin);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

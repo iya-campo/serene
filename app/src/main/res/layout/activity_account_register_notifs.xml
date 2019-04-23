@@ -41,7 +41,9 @@
         android:paddingTop="2dp"
         android:paddingRight="5dp"
         android:paddingBottom="2dp"
-        android:text="ALARM TITLE"
+        android:textAllCaps="true"
+        android:textColorHint="#FFFFFF"
+        android:hint="Alarm Title"
         android:textColor="#FFF" />
 
     <LinearLayout
@@ -96,58 +98,6 @@
 
         <Button
             android:id="@+id/no1Button"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:layout_marginHorizontal="5dp"
-            android:background="@drawable/bg_button2"
-            android:text="No"
-            android:textColor="#FFFFFF" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/cameraText"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/notifsText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="10dp"
-        android:text="Do you allow Serene to access your camera?"
-        android:textColor="#234A56"
-        android:textSize="23sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/cameraSubtext"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cameraText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="This helps us to monitor your journey."
-        android:textColor="#FFF"
-        android:textSize="15sp" />
-
-    <LinearLayout
-        android:id="@+id/linear2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cameraSubtext"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/yes2Button"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:layout_marginHorizontal="5dp"
-            android:background="@drawable/bg_button2"
-            android:text="Yes"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/no2Button"
             android:layout_width="45dp"
             android:layout_height="25dp"
             android:layout_marginHorizontal="5dp"
