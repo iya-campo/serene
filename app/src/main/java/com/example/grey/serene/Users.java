@@ -2,7 +2,7 @@ package com.example.grey.serene;
 
 public class Users {
 
-    private long userID;
+    private long id;
     private String username;
     private String password;
     private String email;
@@ -15,8 +15,8 @@ public class Users {
 
     }
 
-    public Users(long userID, String username, String password, String email, String nickname, int age, String notifications, String alarm) {
-        this.userID = userID;
+    public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -28,11 +28,11 @@ public class Users {
     }
 
     public long getID() {
-        return this.userID;
+        return this.id;
     }
 
-    public void setID(long userID) {
-        this.userID = userID;
+    public void setID(long id) {
+        this.id = id;
     }
 
     public String getUsersname() {

@@ -54,7 +54,7 @@ public class AccountLogin extends AppCompatActivity {
                             for (int i = 1; i <= refCount; i++) {
                                 fbUsername = (String) dataSnapshot.child(String.valueOf(i)).child("username").getValue();
                                 fbPassword = (String) dataSnapshot.child(String.valueOf(i)).child("password").getValue();
-                                Long userID = (Long) dataSnapshot.child(String.valueOf(i)).child("userID").getValue();
+                                Long userID = (Long) dataSnapshot.child(String.valueOf(i)).child("id").getValue();
                                 fbUserID = String.valueOf(userID);
 
                                 if ((username.equals(fbUsername)) && (password.equals(fbPassword))) {

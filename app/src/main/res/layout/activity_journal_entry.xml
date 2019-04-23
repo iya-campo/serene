@@ -61,11 +61,11 @@
                 android:id="@+id/entryMACText"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:isScrollContainer="true"
                 android:layout_below="@id/entryHeader"
                 android:background="#EFECEC"
                 android:dropDownHeight="100dp"
                 android:gravity="top|left"
+                android:isScrollContainer="true"
                 android:padding="20dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et odio ac tellus sollicitudin dictum sed nec felis. Sed lobortis magna vitae mi mattis faucibus. Integer purus purus, tempus a interdum at, pellentesque a nunc. Nullam nec justo sit amet lacus bibendum tincidunt. Etiam est elit, maximus ultrices metus vel, finibus eleifend nisi. Donec id justo ac risus mattis bibendum sit amet eget magna.\n\nSed arcu metus, condimentum vel leo sit amet, hendrerit iaculis leo. Praesent semper lacus sit amet sapien congue posuere. Cras congue nec lacus vel varius. Aenean et quam fringilla, interdum turpis sit amet, porttitor quam. Nullam quis vulputate dui. Proin vitae convallis metus, et tristique nisl. Nam et sapien ut mi dictum elementum. Quisque ipsum magna, venenatis sed mi at, malesuada sollicitudin velit.\n\nEtiam ultrices tellus vitae varius fermentum. Ut euismod tempus vulputate. Aenean ligula lacus, egestas sed turpis nec, dignissim pharetra purus. Pellentesque ornare leo ligula, eget sollicitudin sapien viverra sed. Nullam velit augue, gravida et eleifend vitae, venenatis eget nunc. Etiam dignissim lorem sed erat ornare pretium. Nulla vulputate tortor nec lectus aliquet, eget faucibus nisi ornare. Maecenas metus metus, placerat et egestas sed, volutpat ac purus. Nullam eu arcu pretium, dapibus dolor sit amet, semper lacus."
                 android:textColor="#234A56"
@@ -183,21 +183,27 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/yesButton"
-                    android:layout_width="55dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center|end"
-                    android:layout_marginRight="3dp"
-                    android:background="@drawable/journal_yes_button" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/noButton"
-                    android:layout_width="55dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center|end"
-                    android:layout_marginLeft="3dp"
-                    android:background="@drawable/journal_no_button" />
+                    <Button
+                        android:id="@+id/yesButton"
+                        android:layout_width="55dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="3dp"
+                        android:background="@drawable/journal_yes_button" />
+
+                    <Button
+                        android:id="@+id/noButton"
+                        android:layout_width="55dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="3dp"
+                        android:background="@drawable/journal_no_button" />
+
+                </LinearLayout>
 
             </FrameLayout>
 

@@ -85,8 +85,6 @@ public class MainInsights extends Fragment {
                 itemName = listItem.getText().toString();
                 if (itemName.equals("Serene Insights")) {
                     listViewArticles.setAdapter(adapter);
-//                    listViewArticles.setAdapter(adapterSaved);
-//                    adapterSaved.startListening();
                 } else {
                     listViewArticles.setAdapter(adapterSaved);
                     adapterSaved.startListening();
@@ -134,7 +132,7 @@ public class MainInsights extends Fragment {
                 final TextView articleTitle = v.findViewById(R.id.articleText);
                 final String articleKey = this.getRef(position).getKey();
 
-                FirebaseDatabase.getInstance().getReference().child("Articles").child(articleKey).child("Title").addListenerForSingleValueEvent(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("Articles").child(articleKey).child("title").addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -179,11 +177,11 @@ public class MainInsights extends Fragment {
                                 showArticle.putExtra("userID", userID);
 
                                 showArticle.putExtra("id", String.valueOf(position));
-                                showArticle.putExtra("title", dataSnapshot.child("Title").getValue(String.class));
-                                showArticle.putExtra("author", dataSnapshot.child("Author").getValue(String.class));
-                                showArticle.putExtra("type", dataSnapshot.child("Type").getValue(String.class));
-                                showArticle.putExtra("content", dataSnapshot.child("Content").getValue(String.class));
-                                showArticle.putExtra("source", dataSnapshot.child("Source").getValue(String.class));
+                                showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
+                                showArticle.putExtra("author", dataSnapshot.child("author").getValue(String.class));
+                                showArticle.putExtra("type", dataSnapshot.child("type").getValue(String.class));
+                                showArticle.putExtra("content", dataSnapshot.child("content").getValue(String.class));
+                                showArticle.putExtra("source", dataSnapshot.child("source").getValue(String.class));
 
                                 startActivity(showArticle);
                                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
