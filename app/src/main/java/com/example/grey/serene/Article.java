@@ -5,12 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Article extends AppCompatActivity {
 
     String id, title, author, type, content, source;
+    public String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,8 @@ public class Article extends AppCompatActivity {
         Intent myIntent = getIntent();
 
         if (myIntent.hasExtra("id")) {
+            userID = myIntent.getStringExtra("userID");
+
             id = myIntent.getStringExtra("id");
             title = myIntent.getStringExtra("title");
             author = myIntent.getStringExtra("author");
@@ -27,6 +32,21 @@ public class Article extends AppCompatActivity {
             content = myIntent.getStringExtra("content");
             source = myIntent.getStringExtra("source");
         }
+
+        //Header Buttons
+        Button profileButton = (Button) findViewById(R.id.profileButton);
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent showProfile = new Intent(getApplicationContext(), Profile.class);
+                showProfile.putExtra("userID", userID);
+                startActivity(showProfile);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+
+        });
 
         TextView articleTitleText = (TextView) findViewById(R.id.articleTitleText);
         TextView articleAuthorText = (TextView) findViewById(R.id.articleAuthorText);

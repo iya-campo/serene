@@ -67,8 +67,8 @@ public class MainInsights extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
         userID = getArguments().getString("id");
+        View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
 
         itemName = "Menu";
 
@@ -148,6 +148,21 @@ public class MainInsights extends Fragment {
                     }
                 });
 
+                savedRef = database.getReference().child("Saved Insights").child(userID);
+                savedRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            maxid = (dataSnapshot.getChildrenCount());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
                 Button articleButton = (Button) v.findViewById(R.id.articleButton);
                 articleButton.setTag(position);
                 articleButton.setOnClickListener(new View.OnClickListener() {
@@ -161,12 +176,15 @@ public class MainInsights extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
+                                showArticle.putExtra("userID", userID);
+
                                 showArticle.putExtra("id", String.valueOf(position));
                                 showArticle.putExtra("title", dataSnapshot.child("Title").getValue(String.class));
                                 showArticle.putExtra("author", dataSnapshot.child("Author").getValue(String.class));
                                 showArticle.putExtra("type", dataSnapshot.child("Type").getValue(String.class));
                                 showArticle.putExtra("content", dataSnapshot.child("Content").getValue(String.class));
                                 showArticle.putExtra("source", dataSnapshot.child("Source").getValue(String.class));
+
                                 startActivity(showArticle);
                                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
@@ -176,12 +194,10 @@ public class MainInsights extends Fragment {
 
                             }
                         });
-
-
                     }
                 });
 
-                final Button heartButton = (Button) v.findViewById(R.id.heartButton);
+                Button heartButton = (Button) v.findViewById(R.id.heartButton);
                 heartButton.setTag(position);
                 heartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -208,21 +224,6 @@ public class MainInsights extends Fragment {
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-                        savedRef = database.getReference().child("Saved Insights").child(userID);
-                        savedRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    maxid = (dataSnapshot.getChildrenCount());
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
                             }
                         });

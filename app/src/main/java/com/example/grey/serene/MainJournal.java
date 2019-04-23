@@ -52,9 +52,9 @@ public class MainJournal extends Fragment {
         // Inflate the layout for this fragment
         userID = getArguments().getString("id");
         View view = inflater.inflate(R.layout.fragment_main_journal, container, false);
+
         final TextView activities = (TextView) view.findViewById(R.id.activitiesDone);
         activityDate = (TextView) view.findViewById(R.id.journalDateText);
-
 
         database = FirebaseDatabase.getInstance();
         refDate = database.getReference().child("Journal").child("" + userID);

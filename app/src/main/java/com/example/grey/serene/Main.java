@@ -45,7 +45,9 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     private NotificationManagerCompat notificationManager;
     DatabaseReference ref;
-    String notif, userId;
+    String notif;
+
+    public String userID;
 
     Boolean menuState;
 
@@ -57,7 +59,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         Intent myIntent = getIntent();
 
         if (myIntent.hasExtra("userID")) {
-            userId = myIntent.getStringExtra("userID");
+            userID = myIntent.getStringExtra("userID");
         }
 
         //Header Buttons
@@ -68,7 +70,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
             @Override
             public void onClick(View v) {
                 Intent showProfile = new Intent(getApplicationContext(), Profile.class);
-                showProfile.putExtra("userID", userId);
+                showProfile.putExtra("userID", userID);
                 startActivity(showProfile);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -86,7 +88,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
-        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("notifications");
+        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userID).child("notifications");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -125,7 +127,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     private void setFragment(Fragment fragment) {
         Bundle bundle = new Bundle();
-        bundle.putString("id", userId);
+        bundle.putString("id", userID);
 
         fragment.setArguments(bundle);
 
