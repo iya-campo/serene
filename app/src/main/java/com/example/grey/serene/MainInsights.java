@@ -85,12 +85,12 @@ public class MainInsights extends Fragment {
                 itemName = listItem.getText().toString();
                 if (itemName.equals("Serene Insights")) {
                     listViewArticles.setAdapter(adapter);
-                    adapter.startListening();
 //                    listViewArticles.setAdapter(adapterSaved);
 //                    adapterSaved.startListening();
                 } else {
                     listViewArticles.setAdapter(adapterSaved);
-                    adapter.startListening();
+                    adapterSaved.startListening();
+                    Toast.makeText(getContext(), "working", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
@@ -236,6 +236,7 @@ public class MainInsights extends Fragment {
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
                 final TextView articleTitle = v.findViewById(R.id.articleText);
                 final String articleKey = this.getRef(position).getKey();
+                Toast.makeText(getContext(), articleKey, Toast.LENGTH_SHORT).show();
 
                 FirebaseDatabase.getInstance().getReference().child("Saved Insights").child(userID).child(articleKey).child("title").addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -243,6 +244,7 @@ public class MainInsights extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String title = dataSnapshot.getValue().toString();
                         articleTitle.setText(title);
+
                     }
 
                     @Override
@@ -279,5 +281,12 @@ public class MainInsights extends Fragment {
         menu.add("Saved Insights");
 
         listHash.put(listDataHeader.get(0), menu);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        adapter.startListening();
     }
 }
