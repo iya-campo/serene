@@ -49,8 +49,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     public String userID;
 
-    Boolean menuState;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

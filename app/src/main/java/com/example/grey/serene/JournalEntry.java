@@ -25,6 +25,8 @@ import com.google.firebase.firestore.auth.User;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -42,17 +44,19 @@ import java.util.List;
 import java.util.Scanner;
 
 
+
+
 public class JournalEntry extends AppCompatActivity {
 
     String content;
     String food_intake = "";
     String medicinal_intake;
-    DatabaseReference ref, countRef;
+    DatabaseReference ref, countRef, userIDRef;
     TextView textView;
     Journal journal;
     Spinner hoursSlept;
     long maxid, user_id;
-    int hours_slept, count;
+    int hours_slept, count = 0;
     String date;
 
     public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/python";
@@ -75,7 +79,8 @@ public class JournalEntry extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.entryMACText);
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
         ref = FirebaseDatabase.getInstance().getReference().child("Journal").child("" + user_id);
-        countRef = FirebaseDatabase.getInstance().getReference().child("CurrentUserID");
+        userIDRef = FirebaseDatabase.getInstance().getReference().child("CurrentUserID");
+        countRef = FirebaseDatabase.getInstance().getReference().child("JournalCounter").child("" + user_id);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -187,7 +192,8 @@ public class JournalEntry extends AppCompatActivity {
                 journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content);
                 ref.child(String.valueOf(maxid+1)).setValue(journal);
                 try {
-                    countRef.setValue(user_id);
+                    userIDRef.setValue(user_id);
+                    countRef.setValue(count++);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -206,15 +212,11 @@ public class JournalEntry extends AppCompatActivity {
 
     public void nltkFreq(String UserID){
         try{
-            String user = "UserID = " + UserID;
-          //  InputStream iS = getApplicationContext().getAssets().open("/src/main/assets/freqJournal.py");
-           // BufferedReader reader = new BufferedReader(new InputStreamReader(iS));
-            String command = "python /src/main/assets/freqJournal.py";
+            /*String myExec = "/data/data/serene/freqJournal.exe";
+            Process process = Runtime.getRuntime().exec(myExec);
+            DataOutputStream os = new DataOutputStream(process.getOutputStream());
+            DataInputStream osRes = new DataInputStream(process.getInputStream());*/
 
-            Process p = Runtime.getRuntime().exec(command);
-            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String ret = in.readLine();
-            Toast.makeText(getApplicationContext(), "value is : " + ret, Toast.LENGTH_LONG).show();
 
         }catch (Exception e){
             Log.i("file", "can't see it");

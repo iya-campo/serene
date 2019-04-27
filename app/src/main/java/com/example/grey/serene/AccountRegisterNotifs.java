@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +31,9 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
     Users user;
     long maxid;
-    String username, password, email, nickname, notif, alarm;
+    String username, password, email, nickname;
+    String notif = "no";
+    String alarm;
     int age;
 
     DatabaseReference ref;
@@ -110,7 +113,11 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             public void onClick(View v) {
                 Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
 
-                alarm = alarmField.getText().toString();
+                if(TextUtils.isEmpty(alarm)) {
+                    alarm = "Untitled Alarm";
+                } else {
+                    alarm = alarmField.getText().toString();
+                }
 
                 user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm);
 
