@@ -20,6 +20,7 @@ y = int(1)
 wordsForAWeek = ''
 Week = int(1)
 boolSendEmail = 'no'
+UserID = firebase.get("CurrentUserID", None)
 
 for i in range(0, 8):
     if(i == 8):

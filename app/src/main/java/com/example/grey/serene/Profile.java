@@ -55,6 +55,7 @@ public class Profile extends AppCompatActivity {
                 Intent showSettings = new Intent(getApplicationContext(), Settings.class);
                 startActivity(showSettings);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                showSettings.putExtra("userID", userId);
             }
 
         });

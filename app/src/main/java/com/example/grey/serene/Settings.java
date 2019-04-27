@@ -1,12 +1,26 @@
 package com.example.grey.serene;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Settings extends AppCompatActivity {
+
+    String userID;
+    DatabaseReference databaseReference;
+    String fbNickname;
+    TextView name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +36,27 @@ public class Settings extends AppCompatActivity {
         Button tcButton = (Button) findViewById(R.id.tcButton);
         Button ppButton = (Button) findViewById(R.id.ppButton);
         Button dataButton = (Button) findViewById(R.id.dataButton);
+
+        name = (TextView) findViewById(R.id.userText);
+
+        Intent myIntent = getIntent();
+        if (myIntent.hasExtra("userID")) {
+            userID = myIntent.getStringExtra("userID");
+        }
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
+                name.setText(fbNickname);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //Logout Button
         Button logoutButton = (Button) findViewById(R.id.logoutButton);

@@ -57,7 +57,7 @@ public class AccountLogin extends AppCompatActivity {
                                 Long userID = (Long) dataSnapshot.child(String.valueOf(i)).child("id").getValue();
                                 fbUserID = String.valueOf(userID);
 
-                                if ((username.toLowerCase().equals(fbUsername)) && (password.equals(fbPassword))) {
+                                if ((username.equals(fbUsername)) && (password.equals(fbPassword))) {
                                     Intent showMain = new Intent(getApplicationContext(), Main.class);
                                     showMain.putExtra("userID", fbUserID);
                                     startActivity(showMain);
