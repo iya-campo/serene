@@ -27,6 +27,12 @@ public class Users {
 
     }
 
+    public Users(String nickname, String email, String password){
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+    }
+
     public long getID() {
         return this.id;
     }

@@ -76,6 +76,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 Intent showSettingsNotifs = new Intent(getApplicationContext(), SettingsNotifs.class);
                 startActivity(showSettingsNotifs);
+                showSettingsNotifs.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
@@ -87,6 +88,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 Intent showSettingsTC = new Intent(getApplicationContext(), SettingsTC.class);
                 startActivity(showSettingsTC);
+                showSettingsTC.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
@@ -98,6 +100,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 Intent showSettingsPP = new Intent(getApplicationContext(), SettingsPP.class);
                 startActivity(showSettingsPP);
+                showSettingsPP.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
@@ -109,6 +112,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 Intent showSettingsData = new Intent(getApplicationContext(), SettingsData.class);
                 startActivity(showSettingsData);
+                showSettingsData.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
@@ -118,7 +122,9 @@ public class Settings extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Function to logout account
+                Intent logout = new Intent(getApplicationContext(), AccountLogin.class);
+                startActivity(logout);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
         });
