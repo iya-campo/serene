@@ -101,7 +101,8 @@ public class SettingsNotifs extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Function to turn notifications ON
+                String changeNotifications = "yes";
+                databaseReference.child(userID).child("notifications").setValue(changeNotifications);
             }
 
         });
@@ -110,7 +111,9 @@ public class SettingsNotifs extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Function to turn notifications OFF
+                String changeNotifications = "no";
+                databaseReference.child(userID).child("notifications").setValue(changeNotifications);
+
             }
 
         });

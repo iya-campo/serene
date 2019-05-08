@@ -64,9 +64,6 @@ public class MainJournal extends Fragment {
         curDate = mdformat.format(calendar.getTime());
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         String nameOfDay = getDayName(day);
-        Toast.makeText(getContext(), userID, Toast.LENGTH_LONG).show();
-
-
 
         activityDate.setText(nameOfDay + curDate);
 
@@ -77,10 +74,13 @@ public class MainJournal extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Journal journal = snapshot.getValue(Journal.class);
                     if (curDate.equals(journal.getDate())) {
-                       activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                            "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                            "Medicine Intake:\n" + journal.getMedicinal_intake());
-
+                        if (journal.getContent() == null){
+                            activities.setText("");
+                        }else {
+                            activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
+                                    "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                    "Medicine Intake:\n" + journal.getMedicinal_intake());
+                        }
                     }
                 }
 
@@ -90,7 +90,6 @@ public class MainJournal extends Fragment {
 
             }
         });
-
 
         calendarView = (CalendarView) view.findViewById(R.id.calendar);
 
@@ -108,10 +107,13 @@ public class MainJournal extends Fragment {
                      for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                          Journal journal = snapshot.getValue(Journal.class);
                          if (curDate.equals(journal.getDate())) {
-                              //TextView activitiesDone = (TextView) ViewG.findViewById(R.id.activitiesDone);
-                              activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                                    "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                                    "Medicine Intake:\n" + journal.getMedicinal_intake());
+                             if (journal.getContent() == null){
+                                 activities.setText("");
+                             }else {
+                                 activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
+                                         "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                         "Medicine Intake:\n" + journal.getMedicinal_intake());
+                             }
                          }
 
                      }

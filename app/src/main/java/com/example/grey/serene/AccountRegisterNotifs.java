@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -36,7 +38,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
     String alarm;
     int age;
 
-    DatabaseReference ref;
+    DatabaseReference ref, userNumberRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         timeButton = (Button) findViewById(R.id.timeButton);
         Button next2Button = (Button) findViewById(R.id.next2Button);
         final EditText alarmField = (EditText) findViewById(R.id.alarmTitleField);
+
 
         maxid = 0;
         ref = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -62,6 +65,8 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
             }
         });
+
+        userNumberRef = FirebaseDatabase.getInstance().getReference().child("totalNumberOfusers");
 
         Intent myIntent = getIntent();
 
@@ -113,15 +118,12 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             public void onClick(View v) {
                 Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
 
-                if(TextUtils.isEmpty(alarm)) {
-                    alarm = "Untitled Alarm";
-                } else {
-                    alarm = alarmField.getText().toString();
-                }
 
                 user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm);
 
                 ref.child(String.valueOf(maxid + 1)).setValue(user);
+
+                userNumberRef.setValue(String.valueOf(maxid + 1));
 
                 Toast.makeText(AccountRegisterNotifs.this, "Registration successful!", Toast.LENGTH_LONG).show();
 

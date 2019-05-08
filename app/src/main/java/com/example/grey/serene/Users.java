@@ -24,7 +24,6 @@ public class Users {
         this.age = age;
         this.notifications = notifications;
         this.alarm = alarm;
-
     }
 
     public Users(String nickname, String email, String password){
@@ -96,6 +95,8 @@ public class Users {
     public void setAlarm(String alarm) {
         this.alarm = alarm;
     }
+
+
 
 }
 

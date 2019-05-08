@@ -142,11 +142,17 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         Intent intent = new Intent(this, NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
+
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        alarmManager.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
     }
 
     public void finish() {
