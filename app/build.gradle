@@ -46,8 +46,8 @@ android {
     // implementation group: 'com.google.cloud', name: 'google-cloud-translate', version: '1.14.0'
 
     //ChatApp Library
-    implementation 'com.firebaseui:firebase-ui:0.6.2'
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    //implementation 'com.firebaseui:firebase-ui:0.6.2'
+    //implementation 'com.google.android.gms:play-services-auth:16.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

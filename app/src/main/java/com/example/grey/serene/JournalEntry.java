@@ -62,7 +62,8 @@ public class JournalEntry extends AppCompatActivity {
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
         ref = FirebaseDatabase.getInstance().getReference().child("Journal").child("" + user_id);
         userIDRef = FirebaseDatabase.getInstance().getReference().child("CurrentUserID");
-        countRef = FirebaseDatabase.getInstance().getReference().child("JournalCounter").child("" + user_id);
+        countRef = FirebaseDatabase.getInstance().getReference().child("JournalCounter").child("" +
+                "" + user_id);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -175,11 +176,10 @@ public class JournalEntry extends AppCompatActivity {
                 ref.child(String.valueOf(maxid+1)).setValue(journal);
                 try {
                     userIDRef.setValue(user_id);
-                    countRef.setValue(count++);
+                    countRef.setValue(maxid+1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                nltkFreq(String.valueOf(user_id));
 
                 finish();
             }
@@ -192,18 +192,7 @@ public class JournalEntry extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void nltkFreq(String UserID){
-        try{
-            /*String myExec = "/data/data/serene/freqJournal.exe";
-            Process process = Runtime.getRuntime().exec(myExec);
-            DataOutputStream os = new DataOutputStream(process.getOutputStream());
-            DataInputStream osRes = new DataInputStream(process.getInputStream());*/
 
-
-        }catch (Exception e){
-            Log.i("file", "can't see it");
-        }
-    }
 
 
 }
