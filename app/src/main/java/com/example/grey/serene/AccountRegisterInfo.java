@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 public class AccountRegisterInfo extends AppCompatActivity {
 
+    public static Activity info;
+
     EditText nicknameField, ageField;
     String nickname, username, email, password;
     int age;
@@ -23,6 +26,8 @@ public class AccountRegisterInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_register_info);
+
+        info = this;
 
         Button next1Button = (Button) findViewById(R.id.next1Button);
 

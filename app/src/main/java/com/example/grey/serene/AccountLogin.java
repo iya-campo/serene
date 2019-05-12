@@ -23,8 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 public class AccountLogin extends AppCompatActivity {
 
     EditText pass, user;
-    String fbUsername, fbPassword, fbUserID;
     String userKey;
+    String fbUsername, fbPassword;
+    boolean loggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class AccountLogin extends AppCompatActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference().child("Users");
+
+        loggedIn = false;
 
         loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -59,17 +62,15 @@ public class AccountLogin extends AppCompatActivity {
                                 userKey = userSnapshot.getKey();
                                 fbUsername = (String) dataSnapshot.child(userKey).child("username").getValue();
                                 fbPassword = (String) dataSnapshot.child(userKey).child("password").getValue();
-                                Long userID = (Long) dataSnapshot.child(userKey).child("id").getValue();
-                                fbUserID = String.valueOf(userID);
 
                                 if ((username.toLowerCase().equals(fbUsername)) && (password.equals(fbPassword))) {
+                                    loggedIn = true;
                                     Intent showMain = new Intent(getApplicationContext(), Main.class);
-                                    showMain.putExtra("userID", fbUserID);
+                                    showMain.putExtra("userID", userKey);
                                     startActivity(showMain);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                    Toast.makeText(getApplicationContext(), fbUserID, Toast.LENGTH_SHORT).show();
-                                    break;
-                                } else {
+                                    finish();
+                                } else if (!(username.toLowerCase().equals(fbUsername)) && !(password.equals(fbPassword)) && !loggedIn) {
                                     Toast.makeText(getApplicationContext(), "Incorrect username or password.", Toast.LENGTH_SHORT).show();
                                 }
                             }

@@ -72,6 +72,11 @@ public class MainInsights extends Fragment {
         userID = getArguments().getString("id");
         View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
 
+        getActivity().runOnUiThread(new Runnable(){
+            public void run() {
+            }
+        });
+
         itemName = "Menu";
 
         menu = (ExpandableListView) view.findViewById(R.id.insightsMenu);

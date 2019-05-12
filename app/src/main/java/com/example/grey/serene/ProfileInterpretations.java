@@ -21,7 +21,7 @@ public class ProfileInterpretations extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile_interpretations, container, false);
 
         TextView interp = (TextView) view.findViewById(R.id.interpText);
-        interp.setText("This is your interpretation for the week.");
+        interp.setText("Your progress is yet to be interpreted. :(");
 
         return view;
     }

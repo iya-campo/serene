@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,8 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AccountRegisterCreate extends AppCompatActivity {
 
-    Button submitButton;
+    public static Activity create;
 
+    Button submitButton;
     EditText usernameField, emailField, passwordField;
     String username, email, password;
     Users user;
@@ -30,6 +32,8 @@ public class AccountRegisterCreate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_register_create);
+
+        create = this;
 
         submitButton = (Button) findViewById(R.id.submitButton);
 

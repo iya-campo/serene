@@ -73,7 +73,7 @@ public class SettingsPP extends AppCompatActivity {
 
         });
 
-        String pp = "<i>Effective as of April 22, 2019.</i>" +
+        String pp = "<i>Effective as of May 08, 2019.</i>" +
                 "<br>" +
                 "<br>Serene is committed in respecting your privacy and data, and this explains how we (the researchers) collect, store, use, and analyze all data provided by our users." +
                 "<br>" +
@@ -88,6 +88,7 @@ public class SettingsPP extends AppCompatActivity {
                 "<br><b>C.</b> Email Address" +
                 "<br><b>D.</b> Password" +
                 "<br><b>E.</b> Age" +
+                "<br><b>F.</b> Contact's Email Address" +
                 "<br>" +
                 "<br>When you use the tools provided by Serene, we collect:" +
                 "<br>" +
@@ -114,9 +115,18 @@ public class SettingsPP extends AppCompatActivity {
                 "<br>" +
                 "<br>We will <b>NOT</b> use the personal data and information gathered from you for advertisement, exploitation, or any other purpose that is not disclosed in this section. We will NOT process the personal data and information you have given in a way that is not suited with the purposes for which it has been collected – for any new purpose, Serene will explicitly ask for your consent." +
                 "<br>" +
+                "<br>The only people who will know your identity are the following, as they are the developers of the application, and you have initially agreed in their presence to be the research’s respondent:" +
+                "<br>" +
+                "<br>1. Ilyanna Frances V. Campo" +
+                "<br>2. Elizabeth Anne L. Cipriano" +
+                "<br>3. Jiona M. Lagmay" +
+                "<br>" +
                 "<br><b>3. Personal Data and Information Rights and Security</b>" +
                 "<br>" +
-                "<br>You reserve the right to have your personal data and information modified and deleted through the Account Settings page or by contacting us at: jmlagmay@donbosco.edu.ph." +
+                "<br>You reserve the right to have your personal data and information modified and deleted through the Account Settings page or by contacting us at: " +
+                "<br>ifvcampo@donbosco.edu.ph, " +
+                "<br>ealcipriano@donbosco.edu.ph, " +
+                "<br>or jmlagmay@donbosco.edu.ph." +
                 "<br>" +
                 "<br>We take all reasonable measures to protect all collected Personal Data from loss, theft, misuse, unauthorized access, alteration, destruction, and disclosure." +
                 "<br>" +

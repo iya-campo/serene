@@ -33,9 +33,23 @@ public class Article extends AppCompatActivity {
             source = myIntent.getStringExtra("source");
         }
 
-        //Header Buttons
-        Button profileButton = (Button) findViewById(R.id.profileButton);
+        runOnUiThread(new Runnable(){
+            public void run() {
+                TextView articleTitleText = (TextView) findViewById(R.id.articleTitleText);
+                TextView articleAuthorText = (TextView) findViewById(R.id.articleAuthorText);
+                TextView articleContentText = (TextView) findViewById(R.id.articleContentText);
 
+                String setTitle = title;
+                String setAuthor = "<u>By " + author + "</u>";
+                String setContent = content;
+
+                articleTitleText.setText(setTitle);
+                articleAuthorText.setText(Html.fromHtml(setAuthor));
+                articleContentText.setText(setContent);
+            }
+        });
+
+        Button profileButton = (Button) findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -47,18 +61,6 @@ public class Article extends AppCompatActivity {
             }
 
         });
-
-        TextView articleTitleText = (TextView) findViewById(R.id.articleTitleText);
-        TextView articleAuthorText = (TextView) findViewById(R.id.articleAuthorText);
-        TextView articleContentText = (TextView) findViewById(R.id.articleContentText);
-
-        String setTitle = title;
-        String setAuthor = "<u>By " + author + "</u>";
-        String setContent = content;
-
-        articleTitleText.setText(setTitle);
-        articleAuthorText.setText(Html.fromHtml(setAuthor));
-        articleContentText.setText(setContent);
 
     }
 

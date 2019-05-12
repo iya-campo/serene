@@ -55,14 +55,16 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         setContentView(R.layout.activity_main);
 
         Intent myIntent = getIntent();
-
         if (myIntent.hasExtra("userID")) {
             userID = myIntent.getStringExtra("userID");
         }
 
-        //Header Buttons
-        Button profileButton = (Button) findViewById(R.id.profileButton);
+        runOnUiThread(new Runnable(){
+            public void run() {
+            }
+        });
 
+        Button profileButton = (Button) findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -129,12 +131,10 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         fragment.setArguments(bundle);
 
-
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
-
     }
 
     private void startAlarm(Calendar c) {

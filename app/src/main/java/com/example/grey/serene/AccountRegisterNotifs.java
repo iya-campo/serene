@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
@@ -50,7 +51,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         Button next2Button = (Button) findViewById(R.id.next2Button);
 
         final EditText alarmField = (EditText) findViewById(R.id.alarmTitleField);
-        final EditText pyschField = (EditText) findViewById(R.id.psychField);
+        final EditText psychField = (EditText) findViewById(R.id.psychField);
 
         maxid = 0;
         ref = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -67,8 +68,6 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
             }
         });
-
-        userNumberRef = FirebaseDatabase.getInstance().getReference().child("totalNumberOfusers");
 
         Intent myIntent = getIntent();
 
@@ -114,23 +113,25 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             }
         });
 
-
         next2Button.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
 
+                alarm = alarmField.getText().toString();
+                if (alarm.equals("")) {
+                    alarm = "Untitled Alarm";
+                }
+                interpreter = psychField.getText().toString();
 
                 user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm, interpreter);
-
                 ref.push().setValue(user);
-
-                userNumberRef.setValue(String.valueOf(maxid + 1));
 
                 Toast.makeText(AccountRegisterNotifs.this, "Registration successful!", Toast.LENGTH_LONG).show();
 
-                startActivity(showLogin);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                AccountRegisterCreate.create.finish();
+                AccountRegisterInfo.info.finish();
+                finish();
             }
         }));
     }
