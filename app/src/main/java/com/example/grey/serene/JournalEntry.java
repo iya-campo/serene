@@ -38,9 +38,9 @@ public class JournalEntry extends AppCompatActivity {
     TextView textView;
     Journal journal;
     Spinner hoursSlept;
-    long maxid, user_id;
+    long maxid;
     int hours_slept, count = 0;
-    String date;
+    String date, user_id;
 
 
     @Override
@@ -55,7 +55,7 @@ public class JournalEntry extends AppCompatActivity {
             text.setText(date);
         }
         if(intent.hasExtra("userid")){
-            user_id = Integer.parseInt(intent.getStringExtra("userid"));
+            user_id = intent.getStringExtra("userid");
         }
 
         textView = (TextView) findViewById(R.id.entryMACText);
@@ -171,8 +171,9 @@ public class JournalEntry extends AppCompatActivity {
             public void onClick(View v) {
                 hours_slept = Integer.parseInt(hoursSlept.getSelectedItem().toString());
                 content = textView.getText().toString();
+                String recorded = "no";
 
-                journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content);
+                journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content, recorded);
                 ref.child(String.valueOf(maxid+1)).setValue(journal);
                 try {
                     userIDRef.setValue(user_id);

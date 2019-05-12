@@ -96,6 +96,8 @@ public class SettingsData extends AppCompatActivity {
                 databaseReference.child(userID).child("email").setValue(changeEmail);
                 databaseReference.child(userID).child("password").setValue(changePassword);
 
+                finish();
+
             }
 
         });

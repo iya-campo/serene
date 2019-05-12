@@ -84,6 +84,8 @@ public class Profile extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", userId);
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileJourney(), "Journey");
         adapter.addFragment(new ProfileInterpretations(), "Interpretations");
