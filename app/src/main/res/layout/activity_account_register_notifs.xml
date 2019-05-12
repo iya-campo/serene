@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/serenelogocreate"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         android:text="Do you want to set an alarm?"
         android:textColor="#234A56"
         android:textSize="23sp"
@@ -51,6 +51,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/alarmTitleField"
+        android:layout_marginBottom="25dp"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
@@ -70,10 +71,9 @@
         android:id="@+id/notifsText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/alarmText"
+        android:layout_below="@id/linear0"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         android:text="Do you allow notifications from Serene?"
         android:textColor="#234A56"
         android:textSize="23sp"
@@ -84,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/notifsText"
+        android:layout_marginBottom="25dp"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
@@ -106,6 +107,31 @@
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/psychText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="Enter your interpreter's email."
+        android:textColor="#234A56"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/psychField"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/psychText"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:background="#FFF"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
 
     <Button
         android:id="@+id/next2Button"

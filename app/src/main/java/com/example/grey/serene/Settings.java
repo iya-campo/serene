@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,15 +19,13 @@ public class Settings extends AppCompatActivity {
 
     String userID;
     DatabaseReference databaseReference;
-    String fbNickname;
-    TextView name;
+    TextView name, email;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
 
         //Header Buttons
         Button profileButton = (Button) findViewById(R.id.profileButton);
@@ -38,6 +37,7 @@ public class Settings extends AppCompatActivity {
         Button dataButton = (Button) findViewById(R.id.dataButton);
 
         name = (TextView) findViewById(R.id.userText);
+        email = (TextView) findViewById(R.id.myEmailText);
 
         Intent myIntent = getIntent();
         if (myIntent.hasExtra("userID")) {
@@ -48,8 +48,10 @@ public class Settings extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
+                String fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
+                String fbEmail = dataSnapshot.child(userID).child("email").getValue().toString();
                 name.setText(fbNickname);
+                email.setText(fbEmail);
             }
 
             @Override
@@ -75,8 +77,8 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent showSettingsNotifs = new Intent(getApplicationContext(), SettingsNotifs.class);
+                showSettingsNotifs.putExtra("userID", userID);
                 startActivity(showSettingsNotifs);
-                showSettingsNotifs.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
@@ -87,8 +89,8 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent showSettingsTC = new Intent(getApplicationContext(), SettingsTC.class);
+                showSettingsTC.putExtra("userID", userID);
                 startActivity(showSettingsTC);
-                showSettingsTC.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
@@ -99,8 +101,8 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent showSettingsPP = new Intent(getApplicationContext(), SettingsPP.class);
+                showSettingsPP.putExtra("userID", userID);
                 startActivity(showSettingsPP);
-                showSettingsPP.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
@@ -111,8 +113,8 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent showSettingsData = new Intent(getApplicationContext(), SettingsData.class);
+                showSettingsData.putExtra("userID", userID);
                 startActivity(showSettingsData);
-                showSettingsData.putExtra("UserID", userID);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 

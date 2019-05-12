@@ -17,8 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Calendar;
-
 public class Profile extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
@@ -88,7 +86,7 @@ public class Profile extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileJourney(), "Journey");
-        adapter.addFragment(new ProfileFriends(), "Friends");
+        adapter.addFragment(new ProfileInterpretations(), "Interpretations");
         viewPager.setAdapter(adapter);
     }
 

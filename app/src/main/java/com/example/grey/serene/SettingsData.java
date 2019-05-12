@@ -39,13 +39,13 @@ public class SettingsData extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               String fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
-               String fbEmail = dataSnapshot.child(userID).child("email").getValue().toString();
-               String fbPassword = dataSnapshot.child(userID).child("password").getValue().toString();
-               userText.setText(fbNickname);
-               userName.setText(fbNickname);
-               userEmail.setText(fbEmail);
-               userPassword.setText(fbPassword);
+                String fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
+                String fbEmail = dataSnapshot.child(userID).child("email").getValue().toString();
+                String fbPassword = dataSnapshot.child(userID).child("password").getValue().toString();
+                userText.setText(fbNickname);
+                userName.setText(fbNickname);
+                userEmail.setText(fbEmail);
+                userPassword.setText(fbPassword);
             }
 
             @Override

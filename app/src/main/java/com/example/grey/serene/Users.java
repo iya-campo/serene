@@ -10,12 +10,13 @@ public class Users {
     private int age;
     private String notifications;
     private String alarm;
+    private String interpreter;
 
     public Users() {
 
     }
 
-    public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm) {
+    public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm, String interpreter) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -24,6 +25,7 @@ public class Users {
         this.age = age;
         this.notifications = notifications;
         this.alarm = alarm;
+        this.interpreter = interpreter;
     }
 
     public Users(String nickname, String email, String password){
@@ -96,7 +98,13 @@ public class Users {
         this.alarm = alarm;
     }
 
+    public String getInterpreter() {
+        return interpreter;
+    }
 
+    public void setInterpreter(String interpreter) {
+        this.interpreter = interpreter;
+    }
 
 }
 

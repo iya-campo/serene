@@ -34,8 +34,9 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
     Users user;
     long maxid;
     String username, password, email, nickname;
-    String notif = "no";
     String alarm;
+    String notif = "no";
+    String interpreter;
     int age;
 
     DatabaseReference ref, userNumberRef;
@@ -47,8 +48,9 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
         timeButton = (Button) findViewById(R.id.timeButton);
         Button next2Button = (Button) findViewById(R.id.next2Button);
-        final EditText alarmField = (EditText) findViewById(R.id.alarmTitleField);
 
+        final EditText alarmField = (EditText) findViewById(R.id.alarmTitleField);
+        final EditText pyschField = (EditText) findViewById(R.id.psychField);
 
         maxid = 0;
         ref = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -56,7 +58,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    maxid = (dataSnapshot.getChildrenCount());
+                    maxid = dataSnapshot.getChildrenCount();
                 }
             }
 
@@ -119,9 +121,9 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
                 Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
 
 
-                user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm);
+                user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm, interpreter);
 
-                ref.child(String.valueOf(maxid + 1)).setValue(user);
+                ref.push().setValue(user);
 
                 userNumberRef.setValue(String.valueOf(maxid + 1));
 

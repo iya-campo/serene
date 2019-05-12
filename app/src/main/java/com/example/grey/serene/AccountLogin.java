@@ -1,7 +1,10 @@
 package com.example.grey.serene;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +24,7 @@ public class AccountLogin extends AppCompatActivity {
 
     EditText pass, user;
     String fbUsername, fbPassword, fbUserID;
+    String userKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,7 @@ public class AccountLogin extends AppCompatActivity {
 
         user = (EditText) findViewById(R.id.unField);
         pass = (EditText) findViewById(R.id.pwField);
-        Button loginButton = (Button) findViewById(R.id.loginButton);
+        final Button loginButton = (Button) findViewById(R.id.loginButton);
         Button registerButton = (Button) findViewById(R.id.registerButton);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -51,10 +55,11 @@ public class AccountLogin extends AppCompatActivity {
                         if (TextUtils.isEmpty(username) && TextUtils.isEmpty(password)) {
                             Toast.makeText(getApplicationContext(), "Please enter your username and password.", Toast.LENGTH_SHORT).show();
                         } else {
-                            for (int i = 1; i <= refCount; i++) {
-                                fbUsername = (String) dataSnapshot.child(String.valueOf(i)).child("username").getValue();
-                                fbPassword = (String) dataSnapshot.child(String.valueOf(i)).child("password").getValue();
-                                Long userID = (Long) dataSnapshot.child(String.valueOf(i)).child("id").getValue();
+                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                userKey = userSnapshot.getKey();
+                                fbUsername = (String) dataSnapshot.child(userKey).child("username").getValue();
+                                fbPassword = (String) dataSnapshot.child(userKey).child("password").getValue();
+                                Long userID = (Long) dataSnapshot.child(userKey).child("id").getValue();
                                 fbUserID = String.valueOf(userID);
 
                                 if ((username.toLowerCase().equals(fbUsername)) && (password.equals(fbPassword))) {
