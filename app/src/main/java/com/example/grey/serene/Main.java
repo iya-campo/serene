@@ -48,7 +48,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     DatabaseReference ref;
     String notif;
 
-    public String userID;
+    public static String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

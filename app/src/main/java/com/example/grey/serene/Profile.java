@@ -26,7 +26,7 @@ public class Profile extends AppCompatActivity {
 
     DatabaseReference ref;
 
-    private String userID;
+    public static String userID;
     String fbNickname;
 
     @Override

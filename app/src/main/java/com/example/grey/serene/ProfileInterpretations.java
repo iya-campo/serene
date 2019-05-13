@@ -32,25 +32,26 @@ public class ProfileInterpretations extends Fragment {
 
         final TextView interp = (TextView) view.findViewById(R.id.interpText);
 
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference().child("Journal").child("" + userID);
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String interpretation = snapshot.getValue(String.class);
-                        interp.setText(interpretation);
-                    }
-                } else {
-                    interp.setText("No interpretations are presented as of the moment.");
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        userID = Profile.userID;
+//        database = FirebaseDatabase.getInstance();
+//        ref = database.getReference().child("Journal").child(userID);
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()) {
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                        String interpretation = snapshot.getValue(String.class);
+//                        interp.setText(interpretation);
+//                    }
+//                } else {
+//                    interp.setText("No interpretations are presented as of the moment.");
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         return view;
     }

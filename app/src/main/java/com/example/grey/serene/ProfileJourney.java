@@ -22,7 +22,7 @@ public class ProfileJourney extends Fragment {
 
     private static final String TAG = "ProfileJourney";
 
-    private TextView startDateText;
+    private TextView startDateDetails;
     private Button medicineButton;
     private Button sleepButton;
     public String userID;
@@ -33,24 +33,25 @@ public class ProfileJourney extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile_journey, container, false);
 
-        startDateText = (TextView) view.findViewById(R.id.startDateText);
+        userID = Profile.userID;
+        startDateDetails = (TextView) view.findViewById(R.id.startDateDetails);
         medicineButton = (Button) view.findViewById(R.id.medicineButton);
         sleepButton = (Button) view.findViewById(R.id.sleepButton);
 
 
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String startDate = dataSnapshot.child("startDate").getValue().toString();
-//                startDateText.setText(startDate);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String startDate = dataSnapshot.child("startDate").getValue().toString();
+                startDateDetails.setText(startDate);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         medicineButton.setOnClickListener(new View.OnClickListener() {
 
