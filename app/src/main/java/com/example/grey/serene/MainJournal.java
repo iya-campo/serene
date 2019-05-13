@@ -39,7 +39,7 @@ public class MainJournal extends Fragment {
     private String curDate, userID;
     private DatabaseReference refDate;
     private FirebaseDatabase database;
-    private TextView activityDate;
+    //private TextView activityDate;
 
     public MainJournal() {
         // Required empty public constructor
@@ -54,7 +54,7 @@ public class MainJournal extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_journal, container, false);
 
         final TextView activities = (TextView) view.findViewById(R.id.activitiesDone);
-        activityDate = (TextView) view.findViewById(R.id.journalDateText);
+        final TextView activityDate = (TextView) view.findViewById(R.id.journalDateText);
 
         database = FirebaseDatabase.getInstance();
         refDate = database.getReference().child("Journal").child(userID);
@@ -68,14 +68,13 @@ public class MainJournal extends Fragment {
         activityDate.setText(nameOfDay + curDate);
 
         refDate.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Journal journal = snapshot.getValue(Journal.class);
                     if (curDate.equals(journal.getDate())) {
                         if (journal.getContent() == null){
-                            activities.setText("");
+                            activities.setText("This day's journal entry is empty.");
                         }else {
                             activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
                                     "Food Intake:\n" + journal.getFood_intake() + "\n" +
@@ -100,20 +99,18 @@ public class MainJournal extends Fragment {
                                             int dayOfMonth) {
              curDate = getMonthForInt(month) + " " + String.valueOf(dayOfMonth) + ", " + String.valueOf(year);
              activityDate.setText(getDayName(dayOfMonth) + curDate);
-             refDate.addListenerForSingleValueEvent(new ValueEventListener() {
-
+             refDate.addValueEventListener(new ValueEventListener() {
              @Override
                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                      for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                          Journal journal = snapshot.getValue(Journal.class);
                          if (curDate.equals(journal.getDate())) {
-                             if (journal.getContent() == null){
-                                 activities.setText("");
-                             }else {
                                  activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
                                          "Food Intake:\n" + journal.getFood_intake() + "\n" +
                                          "Medicine Intake:\n" + journal.getMedicinal_intake());
-                             }
+                                 break;
+                         } else {
+                             activities.setText("This day's journal entry is empty.");
                          }
 
                      }

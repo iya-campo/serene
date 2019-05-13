@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -105,6 +106,8 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
             }
         });
+
+        Log.i("INFO", userID);
 
     }
 

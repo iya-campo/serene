@@ -24,22 +24,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
 public class JournalEntry extends AppCompatActivity {
 
     String content;
     String food_intake = "";
-    String medicinal_intake;
+    String medicinal_intake = "";
+    String recorded;
     DatabaseReference ref, countRef, userIDRef;
     TextView textView;
     Journal journal;
     Spinner hoursSlept;
     long maxid;
-    int hours_slept, count = 0;
+    int hours_slept;
     String date;
 
     public String userID;
@@ -172,8 +168,16 @@ public class JournalEntry extends AppCompatActivity {
             public void onClick(View v) {
                 hours_slept = Integer.parseInt(hoursSlept.getSelectedItem().toString());
                 content = textView.getText().toString();
+                recorded = "no";
 
-                journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content);
+                if (food_intake.equals("")) {
+                    food_intake = "-";
+                }
+                if (medicinal_intake.equals("")) {
+                    medicinal_intake = "-";
+                }
+
+                journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content, recorded);
                 ref.push().setValue(journal);
                 try {
                     userIDRef.setValue(userID);

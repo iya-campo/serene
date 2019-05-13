@@ -61,7 +61,7 @@
                 android:id="@+id/activitiesDone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="JournalAmount of Hours SleptFood IntakeMedicine Intake"
+                android:text="This day's journal entry is empty."
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF" />
