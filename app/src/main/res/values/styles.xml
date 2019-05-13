@@ -8,6 +8,11 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="AppTheme.CustomTheme">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowCloseOnTouchOutside">true</item>
+  </style>
+
   <style name="checkBoxStyle" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
     <item name="colorAccent">#FFF</item>
     <item name="android:textColorSecondary">#FFF</item>

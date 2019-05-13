@@ -37,6 +37,7 @@
         <activity android:name=".SettingsData" />
         <activity android:name=".Main" />
         <activity android:name=".Settings" />
+        <activity android:name=".TCPop" android:theme="@style/AppTheme.CustomTheme"></activity>
 
         <receiver android:name=".NotificationReceiver" />
     </application>

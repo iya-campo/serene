@@ -100,25 +100,37 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp" />
 
-        <CheckBox
-            android:id="@+id/tcCheckbox"
-            android:layout_width="185dp"
+        <LinearLayout
+            android:id="@+id/tcLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/newPwField"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:buttonTint="#FFF"
-            android:padding="0dp"
-            android:text="I accept the terms and conditions."
-            android:textColor="#418094"
-            android:textSize="10sp"
-            android:theme="@style/checkBoxStyle" />
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/tcCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#FFF"
+                android:theme="@style/checkBoxStyle" />
+
+            <TextView
+                android:id="@+id/tcText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#418094"
+                android:textSize="10dp"
+                android:text="I accept the terms and conditions." />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/submitButton"
             android:layout_width="70dp"
             android:layout_height="28dp"
-            android:layout_below="@id/tcCheckbox"
+            android:layout_below="@id/tcLayout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:background="@drawable/submit_button" />

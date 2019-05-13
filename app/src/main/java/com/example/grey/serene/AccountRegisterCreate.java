@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +36,7 @@ public class AccountRegisterCreate extends AppCompatActivity {
 
         create = this;
 
+        TextView tcText = (TextView) findViewById(R.id.tcText);
         submitButton = (Button) findViewById(R.id.submitButton);
 
         usernameField = (EditText) findViewById(R.id.newUnField);
@@ -44,6 +46,13 @@ public class AccountRegisterCreate extends AppCompatActivity {
         user.setID(0);
         maxid = user.getID();
 
+        tcText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AccountRegisterCreate.this, TCPop.class));
+            }
+        });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
 
