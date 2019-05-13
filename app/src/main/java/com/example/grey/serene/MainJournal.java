@@ -97,8 +97,12 @@ public class MainJournal extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, dayOfMonth);
+                int day = calendar.get(Calendar.DAY_OF_WEEK);
              curDate = getMonthForInt(month) + " " + String.valueOf(dayOfMonth) + ", " + String.valueOf(year);
              activityDate.setText(getDayName(dayOfMonth) + curDate);
+             
              refDate.addValueEventListener(new ValueEventListener() {
              @Override
                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -13,7 +13,7 @@ public class Journal {
 
     }
 
-    Journal(long id, int hours_slept, String food_intake, String medicinal_intake, String date, String content, String recorded) {
+    Journal(long id, int hours_slept, String food_intake, String medicinal_intake, String date, String content) {
         this.id = id;
         this.hours_slept = hours_slept;
         this.food_intake = food_intake;
