@@ -127,9 +127,6 @@ public class MainJournal extends Fragment {
               }
         });
 
-
-
-
         Button addEntryButton = (Button) view.findViewById(R.id.addEntryButton);
 
         addEntryButton.setOnClickListener(new View.OnClickListener() {
