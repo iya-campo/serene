@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:textAllCaps="true"
             android:textColor="#234A56"
-            android:textSize="14sp"
+            android:textSize="12dp"
+            android:text="TEST THIS TEXT"
             android:textStyle="bold" />
 
         <Button

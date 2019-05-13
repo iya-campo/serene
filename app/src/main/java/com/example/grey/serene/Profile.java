@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +26,7 @@ public class Profile extends AppCompatActivity {
 
     DatabaseReference ref;
 
-    private String userId;
+    private String userID;
     String fbNickname;
 
     @Override
@@ -38,7 +37,7 @@ public class Profile extends AppCompatActivity {
         Intent myIntent = getIntent();
 
         if (myIntent.hasExtra("userID")) {
-            userId = myIntent.getStringExtra("userID");
+            userID = myIntent.getStringExtra("userID");
         }
 
         final TextView userText = (TextView) findViewById(R.id.userText);
@@ -51,14 +50,12 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent showSettings = new Intent(getApplicationContext(), Settings.class);
-                showSettings.putExtra("userID", userId);
+                showSettings.putExtra("userID", userID);
                 startActivity(showSettings);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
         });
-
-        Log.d(TAG, "onCreate: Starting.");
 
         mSectionPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
@@ -72,7 +69,7 @@ public class Profile extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                fbNickname = dataSnapshot.child(userId).child("nickname").getValue().toString();
+                fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
                 userText.setText(fbNickname);
             }
 

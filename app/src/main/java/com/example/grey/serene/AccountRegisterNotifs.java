@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AccountRegisterNotifs extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -35,9 +37,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
     Users user;
     long maxid;
     String username, password, email, nickname;
-    String alarm;
-    String notif = "no";
-    String interpreter;
+    String alarm, notif, interpreter, startDate;
     int age;
 
     DatabaseReference ref, userNumberRef;
@@ -95,6 +95,8 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             }
         });
 
+        notif = "no";
+
         yes = (Button) findViewById(R.id.yes1Button);
         no = (Button) findViewById(R.id.no1Button);
 
@@ -124,7 +126,11 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
                 }
                 interpreter = psychField.getText().toString();
 
-                user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm, interpreter);
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat mdformat = new SimpleDateFormat("dd MMMM, yyyy");
+                startDate = mdformat.format(calendar.getTime());
+
+                user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm, interpreter, startDate);
                 ref.push().setValue(user);
 
                 Toast.makeText(AccountRegisterNotifs.this, "Registration successful!", Toast.LENGTH_LONG).show();

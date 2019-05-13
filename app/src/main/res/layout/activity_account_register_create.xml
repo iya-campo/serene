@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,118 +6,123 @@
     android:background="@drawable/serenebg"
     tools:context=".AccountLogin">
 
-    <ImageView
-        android:id="@+id/serenelogocreate"
-        android:layout_width="127dp"
-        android:layout_height="75dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
-        app:srcCompat="@drawable/selogo_lotus_white" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/createAccountText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/serenelogocreate"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:text="Create your account"
-        android:textColor="#234A56"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/serenelogocreate"
+            android:layout_width="127dp"
+            android:layout_height="75dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            app:srcCompat="@drawable/selogo_lotus_white" />
 
-    <TextView
-        android:id="@+id/newUnText"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/createAccountText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:text="Username"
-        android:textColor="#234A56"
-        android:textSize="17sp" />
+        <TextView
+            android:id="@+id/createAccountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/serenelogocreate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
+            android:text="Create your account"
+            android:textColor="#234A56"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/newUnField"
-        android:layout_width="170dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/newUnText"
-        android:layout_centerHorizontal="true"
-        android:background="#FFF"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
+        <TextView
+            android:id="@+id/newUnText"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/createAccountText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:text="Username"
+            android:textColor="#234A56"
+            android:textSize="17sp" />
 
-    <TextView
-        android:id="@+id/newEmailText"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/newUnField"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Email Address"
-        android:textColor="#234A56"
-        android:textSize="17sp" />
+        <EditText
+            android:id="@+id/newUnField"
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/newUnText"
+            android:layout_centerHorizontal="true"
+            android:background="#FFF"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
-    <EditText
-        android:id="@+id/newEmailField"
-        android:layout_width="170dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/newEmailText"
-        android:layout_centerHorizontal="true"
-        android:background="#FFF"
-        android:ems="10"
-        android:inputType="textWebEmailAddress"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
+        <TextView
+            android:id="@+id/newEmailText"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/newUnField"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Email Address"
+            android:textColor="#234A56"
+            android:textSize="17sp" />
 
-    <TextView
-        android:id="@+id/newPwText"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/newEmailField"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Password"
-        android:textColor="#234A56"
-        android:textSize="17sp" />
+        <EditText
+            android:id="@+id/newEmailField"
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/newEmailText"
+            android:layout_centerHorizontal="true"
+            android:background="#FFF"
+            android:ems="10"
+            android:inputType="textWebEmailAddress"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
-    <EditText
-        android:id="@+id/newPwField"
-        android:layout_width="170dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/newPwText"
-        android:layout_centerHorizontal="true"
-        android:background="#FFF"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
+        <TextView
+            android:id="@+id/newPwText"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/newEmailField"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Password"
+            android:textColor="#234A56"
+            android:textSize="17sp" />
 
-    <CheckBox
-        android:id="@+id/tcCheckbox"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/newPwField"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:buttonTint="#FFF"
-        android:padding="0dp"
-        android:text="I accept the terms and conditions."
-        android:textColor="#418094"
-        android:textSize="10sp"
-        android:theme="@style/checkBoxStyle" />
+        <EditText
+            android:id="@+id/newPwField"
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/newPwText"
+            android:layout_centerHorizontal="true"
+            android:background="#FFF"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="70dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/tcCheckbox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/submit_button" />
+        <CheckBox
+            android:id="@+id/tcCheckbox"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/newPwField"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:buttonTint="#FFF"
+            android:padding="0dp"
+            android:text="I accept the terms and conditions."
+            android:textColor="#418094"
+            android:textSize="10sp"
+            android:theme="@style/checkBoxStyle" />
 
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="70dp"
+            android:layout_height="28dp"
+            android:layout_below="@id/tcCheckbox"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/submit_button" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

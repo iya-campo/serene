@@ -38,10 +38,11 @@ public class JournalEntry extends AppCompatActivity {
     TextView textView;
     Journal journal;
     Spinner hoursSlept;
-    long maxid, user_id;
+    long maxid;
     int hours_slept, count = 0;
     String date;
 
+    public String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +55,16 @@ public class JournalEntry extends AppCompatActivity {
             TextView text = (TextView) findViewById(R.id.entryDateText);
             text.setText(date);
         }
-        if(intent.hasExtra("userid")){
-            user_id = Integer.parseInt(intent.getStringExtra("userid"));
+        if (intent.hasExtra("userID")) {
+            userID = intent.getStringExtra("userID");
         }
 
         textView = (TextView) findViewById(R.id.entryMACText);
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
-        ref = FirebaseDatabase.getInstance().getReference().child("Journal").child("" + user_id);
+        ref = FirebaseDatabase.getInstance().getReference().child("Journal").child(userID);
         userIDRef = FirebaseDatabase.getInstance().getReference().child("CurrentUserID");
         countRef = FirebaseDatabase.getInstance().getReference().child("JournalCounter").child("" +
-                "" + user_id);
+                "" + userID);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -173,9 +174,9 @@ public class JournalEntry extends AppCompatActivity {
                 content = textView.getText().toString();
 
                 journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content);
-                ref.child(String.valueOf(maxid+1)).setValue(journal);
+                ref.push().setValue(journal);
                 try {
-                    userIDRef.setValue(user_id);
+                    userIDRef.setValue(userID);
                     countRef.setValue(maxid+1);
                 } catch (Exception e) {
                     e.printStackTrace();

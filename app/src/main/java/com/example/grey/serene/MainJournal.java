@@ -57,7 +57,7 @@ public class MainJournal extends Fragment {
         activityDate = (TextView) view.findViewById(R.id.journalDateText);
 
         database = FirebaseDatabase.getInstance();
-        refDate = database.getReference().child("Journal").child("" + userID);
+        refDate = database.getReference().child("Journal").child(userID);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("MMMM dd, yyyy");
@@ -137,7 +137,7 @@ public class MainJournal extends Fragment {
             public void onClick(View v) {
                 Intent showJournalEntry = new Intent(getActivity().getApplicationContext(), JournalEntry.class);
                 showJournalEntry.putExtra("date", curDate);
-                showJournalEntry.putExtra("userid", userID);
+                showJournalEntry.putExtra("userID", userID);
                 startActivity(showJournalEntry);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

@@ -16,10 +16,41 @@
         app:srcCompat="@drawable/selogo_lotus_white" />
 
     <TextView
-        android:id="@+id/alarmText"
+        android:id="@+id/psychText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/serenelogocreate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="What's your contact's email?"
+        android:textColor="#234A56"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/psychField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/psychText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/bg_alarm_title"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="2dp"
+        android:textAllCaps="true"
+        android:textColorHint="#FFFFFF"
+        android:hint="mycontact@gmail.com"
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/alarmText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/psychField"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:text="Do you want to set an alarm?"
@@ -43,7 +74,7 @@
         android:paddingBottom="2dp"
         android:textAllCaps="true"
         android:textColorHint="#FFFFFF"
-        android:hint="Alarm Title"
+        android:hint="my alarm"
         android:textColor="#FFF" />
 
     <LinearLayout
@@ -107,31 +138,6 @@
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/psychText"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:text="Enter your interpreter's email."
-        android:textColor="#234A56"
-        android:textSize="23sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/psychField"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/psychText"
-        android:layout_centerHorizontal="true"
-        android:layout_weight="1"
-        android:background="#FFF"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
 
     <Button
         android:id="@+id/next2Button"

@@ -11,12 +11,13 @@ public class Users {
     private String notifications;
     private String alarm;
     private String interpreter;
+    private String startDate;
 
     public Users() {
 
     }
 
-    public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm, String interpreter) {
+    public Users(long id, String username, String password, String email, String nickname, int age, String notifications, String alarm, String interpreter, String startDate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -26,6 +27,7 @@ public class Users {
         this.notifications = notifications;
         this.alarm = alarm;
         this.interpreter = interpreter;
+        this.startDate = startDate;
     }
 
     public Users(String nickname, String email, String password){
@@ -104,6 +106,14 @@ public class Users {
 
     public void setInterpreter(String interpreter) {
         this.interpreter = interpreter;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
 }
