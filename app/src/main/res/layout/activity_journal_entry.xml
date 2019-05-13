@@ -97,7 +97,7 @@
                     android:text="Amount of Hours Slept"
                     android:textAllCaps="true"
                     android:textColor="#234A56"
-                    android:textSize="16sp"
+                    android:textSize="13dp"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -128,7 +128,7 @@
                     android:text="Have you eaten?"
                     android:textAllCaps="true"
                     android:textColor="#234A56"
-                    android:textSize="16sp"
+                    android:textSize="13dp"
                     android:textStyle="bold" />
 
                 <Button
@@ -175,7 +175,7 @@
                     android:text="Medicine Intake"
                     android:textAllCaps="true"
                     android:textColor="#234A56"
-                    android:textSize="16sp"
+                    android:textSize="13dp"
                     android:textStyle="bold" />
 
                 <View

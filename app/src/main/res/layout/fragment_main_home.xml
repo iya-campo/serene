@@ -43,7 +43,7 @@
             android:background="@drawable/home_go_to_journal_button" />
 
         <TextView
-            android:id="@+id/recentlyReadText"
+            android:id="@+id/suggestedRead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/homeJournalButton"
@@ -53,7 +53,7 @@
             android:paddingTop="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
-            android:text="Recently Read"
+            android:text="Suggested Read"
             android:textAllCaps="true"
             android:textColor="#234A56"
             android:textSize="15sp"
@@ -63,7 +63,7 @@
             android:id="@+id/recentArticleListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recentlyReadText"></ListView>
+            android:layout_below="@id/suggestedRead"></ListView>
 
     </RelativeLayout>
 

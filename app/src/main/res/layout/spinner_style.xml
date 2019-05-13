@@ -5,5 +5,5 @@
     android:paddingVertical="3dp"
     android:textAlignment="center"
     android:textColor="#234A56"
-    android:textSize="18sp"
+    android:textSize="14dp"
     android:textStyle="bold" />
