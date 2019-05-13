@@ -21,8 +21,6 @@ public class Profile extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
 
-    private SectionsPageAdapter mSectionPageAdapter;
-
     private ViewPager mViewPager;
 
     DatabaseReference ref;
@@ -58,9 +56,12 @@ public class Profile extends AppCompatActivity {
 
         });
 
-        Log.d(TAG, "onCreate: Starting.");
 
-        mSectionPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        Bundle bundle = new Bundle();
+        bundle.putString("id", userId);
+
+        ProfileInterpretations interpretations = new ProfileInterpretations();
+        interpretations.setArguments(bundle);
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
@@ -84,14 +85,20 @@ public class Profile extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        Bundle bundle = new Bundle();
-        bundle.putString("id", userId);
+
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileJourney(), "Journey");
         adapter.addFragment(new ProfileInterpretations(), "Interpretations");
+
         viewPager.setAdapter(adapter);
     }
 
+    public void start() {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", userId);
+        ProfileInterpretations interpretations = new ProfileInterpretations();
+        interpretations.setArguments(bundle);
+    }
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

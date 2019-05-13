@@ -23,11 +23,14 @@ public class ProfileInterpretations extends Fragment {
     DatabaseReference ref;
     String userID;
 
+    public ProfileInterpretations() {
+        // Required empty public constructor
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        userID = getArguments().getString("id");
+        //userID = getArguments().getString("id", "None");
         View view = inflater.inflate(R.layout.fragment_profile_interpretations, container, false);
 
         final TextView interp = (TextView) view.findViewById(R.id.interpText);
