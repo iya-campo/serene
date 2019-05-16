@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,23 +18,23 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SettingsPP extends AppCompatActivity {
 
-    String userID;
-    DatabaseReference databaseReference;
+    public static Activity settingsPP;
+
+    DatabaseReference ref;
+
+    String userID = Main.userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_pp);
 
+        settingsPP = this;
+
         final TextView userText = (TextView) findViewById(R.id.userText);
 
-        Intent myIntent = getIntent();
-        if (myIntent.hasExtra("userID")) {
-            userID = myIntent.getStringExtra("userID");
-        }
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();

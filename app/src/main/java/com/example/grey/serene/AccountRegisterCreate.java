@@ -59,7 +59,7 @@ public class AccountRegisterCreate extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                username = usernameField.getText().toString().toLowerCase();
+                username = usernameField.getText().toString().trim().toLowerCase();
                 email = emailField.getText().toString().trim();
                 password = passwordField.getText().toString().trim();
 

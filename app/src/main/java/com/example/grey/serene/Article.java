@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,19 +13,22 @@ import android.widget.Toast;
 
 public class Article extends AppCompatActivity {
 
+    public static Activity article;
+
     String id, title, author, type, content, source;
-    public String userID;
+
+    public String userID = Main.userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
 
+        article = this;
+
         Intent myIntent = getIntent();
 
         if (myIntent.hasExtra("id")) {
-            userID = myIntent.getStringExtra("userID");
-
             id = myIntent.getStringExtra("id");
             title = myIntent.getStringExtra("title");
             author = myIntent.getStringExtra("author");

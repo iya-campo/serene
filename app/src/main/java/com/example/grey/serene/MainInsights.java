@@ -51,14 +51,14 @@ public class MainInsights extends Fragment {
     private ExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listHash;
-    FirebaseListAdapter adapter, adapterSaved;
-    public String userID;
     FirebaseDatabase database;
+    FirebaseListAdapter adapter, adapterSaved;
     DatabaseReference ref, savedRef;
     Articles articleData;
     String title, author, type, content, source;
     long id;
-    long refNumber;
+
+    String userID = Main.userID;
 
     public MainInsights() {
         // Required empty public constructor
@@ -69,13 +69,7 @@ public class MainInsights extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        userID = getArguments().getString("id");
         View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
-
-        getActivity().runOnUiThread(new Runnable(){
-            public void run() {
-            }
-        });
 
         itemName = "Menu";
 
@@ -95,7 +89,8 @@ public class MainInsights extends Fragment {
                 } else {
                     listViewArticles.setAdapter(adapterSaved);
                 }
-                return true;
+                parent.collapseGroup(groupPosition);
+                return false;
             }
         });
 
@@ -165,7 +160,6 @@ public class MainInsights extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
-                                showArticle.putExtra("userID", userID);
 
                                 showArticle.putExtra("id", String.valueOf(dataSnapshot.child("id").getValue(Long.class)));
                                 showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
@@ -209,6 +203,7 @@ public class MainInsights extends Fragment {
 
                                 Toast.makeText(getContext(), "Added to Saved Insights", Toast.LENGTH_SHORT).show();
                             }
+
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
@@ -253,7 +248,6 @@ public class MainInsights extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
-                                showArticle.putExtra("userID", userID);
 
                                 showArticle.putExtra("id", String.valueOf(dataSnapshot.child("id").getValue(Long.class)));
                                 showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
@@ -319,16 +313,14 @@ public class MainInsights extends Fragment {
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         adapter.startListening();
         adapterSaved.startListening();
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
         adapter.stopListening();
         adapterSaved.stopListening();

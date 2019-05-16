@@ -40,8 +40,6 @@ public class AccountLogin extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference().child("Users");
 
-        loggedIn = false;
-
         loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -53,7 +51,6 @@ public class AccountLogin extends AppCompatActivity {
                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
-                        long refCount = dataSnapshot.getChildrenCount();
 
                         if (TextUtils.isEmpty(username) && TextUtils.isEmpty(password)) {
                             Toast.makeText(getApplicationContext(), "Please enter your username and password.", Toast.LENGTH_SHORT).show();
@@ -63,6 +60,8 @@ public class AccountLogin extends AppCompatActivity {
                                 fbUsername = (String) dataSnapshot.child(userKey).child("username").getValue();
                                 fbPassword = (String) dataSnapshot.child(userKey).child("password").getValue();
 
+                                loggedIn = false;
+
                                 if ((username.toLowerCase().equals(fbUsername)) && (password.equals(fbPassword))) {
                                     loggedIn = true;
                                     Intent showMain = new Intent(getApplicationContext(), Main.class);
@@ -70,9 +69,11 @@ public class AccountLogin extends AppCompatActivity {
                                     startActivity(showMain);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
-                                } else if (!(username.toLowerCase().equals(fbUsername)) && !(password.equals(fbPassword)) && !loggedIn) {
-                                    Toast.makeText(getApplicationContext(), "Incorrect username or password.", Toast.LENGTH_SHORT).show();
+                                    break;
                                 }
+                            }
+                            if (!loggedIn) {
+                                Toast.makeText(getApplicationContext(), "Incorrect username or password.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

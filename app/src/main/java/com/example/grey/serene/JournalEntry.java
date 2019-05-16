@@ -1,11 +1,9 @@
 package com.example.grey.serene;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +24,10 @@ import java.util.List;
 
 public class JournalEntry extends AppCompatActivity {
 
+    public static Activity journalEntry;
+
     String content;
+    boolean breakfast, lunch, dinner = false;
     String food_intake = "";
     String medicinal_intake = "";
     String recorded;
@@ -36,31 +37,30 @@ public class JournalEntry extends AppCompatActivity {
     Spinner hoursSlept;
     long maxid;
     int hours_slept;
-    String date;
 
-    public String userID;
+    public String userID = Main.userID;
+    public String journalDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal_entry);
 
-        Intent intent = getIntent();
-        if (intent.hasExtra("date")) {
-            date = intent.getStringExtra("date");
-            TextView text = (TextView) findViewById(R.id.entryDateText);
-            text.setText(date);
-        }
-        if (intent.hasExtra("userID")) {
-            userID = intent.getStringExtra("userID");
+        journalEntry = this;
+
+        Intent myIntent = getIntent();
+        if (myIntent.hasExtra("journalDate")) {
+            journalDate = myIntent.getStringExtra("journalDate");
+            TextView dateText = (TextView) findViewById(R.id.entryDateText);
+            dateText.setText(journalDate);
         }
 
         textView = (TextView) findViewById(R.id.entryMACText);
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
         ref = FirebaseDatabase.getInstance().getReference().child("Journal").child(userID);
         userIDRef = FirebaseDatabase.getInstance().getReference().child("CurrentUserID");
-        countRef = FirebaseDatabase.getInstance().getReference().child("JournalCounter").child("" +
-                "" + userID);
+        countRef = FirebaseDatabase.getInstance().getReference().child("JournalCounter").child("" + "" + userID);
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -74,7 +74,6 @@ public class JournalEntry extends AppCompatActivity {
 
             }
         });
-
 
         hoursSlept = (Spinner) findViewById(R.id.sleepSpinner);
         List<String> list = new ArrayList<String>();
@@ -98,11 +97,11 @@ public class JournalEntry extends AppCompatActivity {
         Button saveEntryButton = (Button) findViewById(R.id.saveEntryButton);
 
         //Journal Buttons
-        Button breakfastButton = (Button) findViewById(R.id.breakfastButton);
-        Button lunchButton = (Button) findViewById(R.id.lunchButton);
-        Button dinnerButton = (Button) findViewById(R.id.dinnerButton);
-        Button yesButton = (Button) findViewById(R.id.yesButton);
-        Button noButton = (Button) findViewById(R.id.noButton);
+        final Button breakfastButton = (Button) findViewById(R.id.breakfastButton);
+        final Button lunchButton = (Button) findViewById(R.id.lunchButton);
+        final Button dinnerButton = (Button) findViewById(R.id.dinnerButton);
+        final Button yesButton = (Button) findViewById(R.id.yesButton);
+        final Button noButton = (Button) findViewById(R.id.noButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
 
@@ -117,8 +116,13 @@ public class JournalEntry extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Breakfast input
-                food_intake += "breakfast ";
+                if (breakfast == false) {
+                    breakfast = true;
+                    breakfastButton.setBackgroundColor(0xFFFFFFFF);
+                } else {
+                    breakfast = false;
+                    breakfastButton.setBackgroundResource(R.drawable.journal_breakfast_button);
+                }
             }
 
         });
@@ -127,8 +131,13 @@ public class JournalEntry extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Lunch input
-                food_intake += "lunch ";
+                if (lunch == false) {
+                    lunch = true;
+                    lunchButton.setBackgroundColor(0xFFFFFFFF);
+                } else {
+                    lunch = false;
+                    lunchButton.setBackgroundResource(R.drawable.journal_lunch_button);
+                }
             }
 
         });
@@ -137,8 +146,13 @@ public class JournalEntry extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Dinner input
-                food_intake += "dinner ";
+                if (dinner == false) {
+                    dinner = true;
+                    dinnerButton.setBackgroundColor(0xFFFFFFFF);
+                } else {
+                    dinner = false;
+                    dinnerButton.setBackgroundResource(R.drawable.journal_dinner_button);
+                }
             }
 
         });
@@ -147,18 +161,24 @@ public class JournalEntry extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Yes input
-                medicinal_intake = "yes";
+                if (medicinal_intake.equals("") || medicinal_intake.equals("no")) {
+                    Log.d("medicine", String.valueOf(medicinal_intake));
+                    medicinal_intake = "yes";
+                    yesButton.setBackgroundColor(0xFFFFFFFF);
+                    noButton.setBackgroundResource(R.drawable.journal_no_button);
+                }
             }
-
         });
 
         noButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //No input
-                medicinal_intake = "no";
+                if (medicinal_intake.equals("") || medicinal_intake.equals("yes")) {
+                    medicinal_intake = "no";
+                    noButton.setBackgroundColor(0xFFFFFFFF);
+                    yesButton.setBackgroundResource(R.drawable.journal_yes_button);
+                }
             }
 
         });
@@ -170,6 +190,15 @@ public class JournalEntry extends AppCompatActivity {
                 content = textView.getText().toString();
                 recorded = "no";
 
+                if (breakfast == true) {
+                    food_intake += " breakfast ";
+                }
+                if (lunch == true) {
+                    food_intake += " lunch ";
+                }
+                if (dinner == true) {
+                    food_intake += " dinner ";
+                }
                 if (food_intake.equals("")) {
                     food_intake = "-";
                 }
@@ -177,11 +206,12 @@ public class JournalEntry extends AppCompatActivity {
                     medicinal_intake = "-";
                 }
 
-                journal = new Journal(maxid+1, hours_slept, food_intake, medicinal_intake, date, content, recorded);
-                ref.push().setValue(journal);
+                journal = new Journal(maxid + 1, hours_slept, food_intake, medicinal_intake, journalDate, content, recorded);
+                ref.child(journalDate).setValue(journal);
+
                 try {
                     userIDRef.setValue(userID);
-                    countRef.setValue(maxid+1);
+                    countRef.setValue(maxid + 1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -190,14 +220,51 @@ public class JournalEntry extends AppCompatActivity {
             }
         }));
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    hoursSlept.setSelection(Integer.parseInt(dataSnapshot.child(journalDate).child("hours_slept").getValue().toString()) - 1);
+
+                    if (dataSnapshot.child(journalDate).child("content").getValue() != null) {
+                        textView.setText(String.valueOf(dataSnapshot.child(journalDate).child("content").getValue()));
+                    }
+                    if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("breakfast")) {
+                        breakfast = true;
+                        breakfastButton.setBackgroundColor(0xFFFFFFFF);
+                    }
+                    if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("lunch")) {
+                        lunch = true;
+                        lunchButton.setBackgroundColor(0xFFFFFFFF);
+                    }
+                    if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("dinner")) {
+                        dinner = true;
+                        dinnerButton.setBackgroundColor(0xFFFFFFFF);
+                    }
+                    if (dataSnapshot.child(journalDate).child("medicinal_intake").getValue().toString().equals("yes")) {
+                        medicinal_intake = "yes";
+                        yesButton.setBackgroundColor(0xFFFFFFFF);
+                    }
+                    if (dataSnapshot.child(journalDate).child("medicinal_intake").getValue().toString().equals("no")) {
+                        medicinal_intake = "no";
+                        noButton.setBackgroundColor(0xFFFFFFFF);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-
-
 
 
 }

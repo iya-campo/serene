@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -18,31 +19,27 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
 
+    public static Activity profile;
+
     private static final String TAG = "ProfileActivity";
 
-    private SectionsPageAdapter mSectionPageAdapter;
-
-    private ViewPager mViewPager;
-
+    FirebaseDatabase database;
     DatabaseReference ref;
 
-    public static String userID;
-    String fbNickname;
+    private SectionsPageAdapter mSectionPageAdapter;
+    private ViewPager mViewPager;
+
+    String userID = Main.userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Intent myIntent = getIntent();
-
-        if (myIntent.hasExtra("userID")) {
-            userID = myIntent.getStringExtra("userID");
-        }
+        profile = this;
 
         final TextView userText = (TextView) findViewById(R.id.userText);
 
-        //Header Buttons
         Button settingsButton = (Button) findViewById(R.id.settingsButton);
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +66,7 @@ public class Profile extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
+                String fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
                 userText.setText(fbNickname);
             }
 

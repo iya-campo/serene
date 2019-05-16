@@ -2,6 +2,7 @@ package com.example.grey.serene;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,10 +37,12 @@ import java.util.GregorianCalendar;
 public class MainJournal extends Fragment {
 
     private CalendarView calendarView;
-    private String curDate, userID;
     private DatabaseReference refDate;
     private FirebaseDatabase database;
-    //private TextView activityDate;
+
+    String userID = Main.userID;
+
+    String journalDate;
 
     public MainJournal() {
         // Required empty public constructor
@@ -50,40 +53,42 @@ public class MainJournal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        userID = getArguments().getString("id");
         View view = inflater.inflate(R.layout.fragment_main_journal, container, false);
 
         final TextView activities = (TextView) view.findViewById(R.id.activitiesDone);
         final TextView activityDate = (TextView) view.findViewById(R.id.journalDateText);
+        final Button addEntry = (Button) view.findViewById(R.id.addEntryButton);
 
         database = FirebaseDatabase.getInstance();
         refDate = database.getReference().child("Journal").child(userID);
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("MMMM dd, yyyy");
-        curDate = mdformat.format(calendar.getTime());
+        SimpleDateFormat mdformat = new SimpleDateFormat("MMM dd, yyyy");
+        journalDate = mdformat.format(calendar.getTime());
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-        String nameOfDay = getDayName(day);
+        activityDate.setText(getDayName(day) + journalDate);
 
-        activityDate.setText(nameOfDay + curDate);
-
+        //Reads from DB as soon as activity runs.
         refDate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Journal journal = snapshot.getValue(Journal.class);
-                    if (curDate.equals(journal.getDate())) {
-                        if (journal.getContent() == null){
-                            activities.setText("This day's journal entry is empty.");
-                        }else {
-                            activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
+                    if (journalDate.equals(journal.getDate())) {
+                        if (journal.getContent() != null) {
+                            activities.setText(
+                                    "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
                                     "Food Intake:\n" + journal.getFood_intake() + "\n" +
                                     "Medicine Intake:\n" + journal.getMedicinal_intake());
+                            addEntry.setBackgroundColor(0xFFFFFFFF);
+                        } else {
+                            activities.setText("This day's journal entry is empty.");
+                            addEntry.setBackgroundResource(R.drawable.seui_add_button);
                         }
                     }
                 }
-
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -91,40 +96,42 @@ public class MainJournal extends Fragment {
         });
 
         calendarView = (CalendarView) view.findViewById(R.id.calendar);
-
-
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
+                journalDate = getMonthForInt(month) + " " + String.valueOf(dayOfMonth) + ", " + String.valueOf(year);
                 int day = calendar.get(Calendar.DAY_OF_WEEK);
-             curDate = getMonthForInt(month) + " " + String.valueOf(dayOfMonth) + ", " + String.valueOf(year);
-             activityDate.setText(getDayName(dayOfMonth) + curDate);
-             
-             refDate.addValueEventListener(new ValueEventListener() {
-             @Override
-                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                         Journal journal = snapshot.getValue(Journal.class);
-                         if (curDate.equals(journal.getDate())) {
-                                 activities.setText("Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                         "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                         "Medicine Intake:\n" + journal.getMedicinal_intake());
-                                 break;
-                         } else {
-                             activities.setText("This day's journal entry is empty.");
-                         }
+                activityDate.setText(getDayName(day) + journalDate);
 
-                     }
-                  }
-             @Override
-                  public void onCancelled(@NonNull DatabaseError databaseError) {
+                //Reads from DB only after event has occurred.
+                refDate.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Journal journal = snapshot.getValue(Journal.class);
+                            if (journalDate.equals(journal.getDate())) {
+                                activities.setText(
+                                        "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
+                                        "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                        "Medicine Intake:\n" + journal.getMedicinal_intake());
+                                addEntry.setBackgroundColor(0xFFFFFFFF);
+                                break;
+                            } else {
+                                activities.setText("This day's journal entry is empty.");
+                                addEntry.setBackgroundResource(R.drawable.seui_add_button);
+                            }
 
-                   }
-              });
-              }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
         });
 
         Button addEntryButton = (Button) view.findViewById(R.id.addEntryButton);
@@ -134,8 +141,7 @@ public class MainJournal extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent showJournalEntry = new Intent(getActivity().getApplicationContext(), JournalEntry.class);
-                showJournalEntry.putExtra("date", curDate);
-                showJournalEntry.putExtra("userID", userID);
+                showJournalEntry.putExtra("journalDate", journalDate);
                 startActivity(showJournalEntry);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -149,13 +155,13 @@ public class MainJournal extends Fragment {
         String month = "wrong";
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getMonths();
-        if (num >= 0 && num <= 11 ) {
+        if (num >= 0 && num <= 11) {
             month = months[num];
         }
         return month;
     }
 
-    String getDayName(int day){
+    String getDayName(int day) {
         String nameOfDay = "";
         switch (day) {
             case Calendar.SUNDAY:

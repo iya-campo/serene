@@ -135,9 +135,10 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
                 Toast.makeText(AccountRegisterNotifs.this, "Registration successful!", Toast.LENGTH_LONG).show();
 
-                AccountRegisterCreate.create.finish();
-                AccountRegisterInfo.info.finish();
-                finish();
+                Intent login = new Intent(getApplicationContext(), AccountLogin.class);
+                startActivity(login);
+                finishAffinity();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }));
     }

@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,26 +19,26 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SettingsData extends AppCompatActivity {
 
-    String userID;
-    DatabaseReference databaseReference;
+    public static Activity settingsData;
+
+    DatabaseReference ref;
+
+    String userID = Main.userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_data);
 
+        settingsData = this;
+
         final TextView userText = (TextView) findViewById(R.id.userText);
         final EditText userName = (EditText) findViewById(R.id.nameEditText);
         final EditText userEmail = (EditText) findViewById(R.id.emailEditText);
         final EditText userPassword = (EditText) findViewById(R.id.passwordEditText);
 
-        Intent myIntent = getIntent();
-        if (myIntent.hasExtra("userID")) {
-            userID = myIntent.getStringExtra("userID");
-        }
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
@@ -92,9 +94,9 @@ public class SettingsData extends AppCompatActivity {
                 String changeEmail = userEmail.getText().toString();
                 String changePassword = userPassword.getText().toString();
 
-                databaseReference.child(userID).child("nickname").setValue(changeName);
-                databaseReference.child(userID).child("email").setValue(changeEmail);
-                databaseReference.child(userID).child("password").setValue(changePassword);
+                ref.child(userID).child("nickname").setValue(changeName);
+                ref.child(userID).child("email").setValue(changeEmail);
+                ref.child(userID).child("password").setValue(changePassword);
 
                 finish();
 
@@ -102,11 +104,21 @@ public class SettingsData extends AppCompatActivity {
 
         });
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference userRef = database.getReference().child("Users");
+
         deactivateButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //Function to deactivate account
+
+                Intent login = new Intent(getApplicationContext(), AccountLogin.class);
+                startActivity(login);
+                finishAffinity();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                userRef.child(userID).removeValue();
+
+                Toast.makeText(getApplicationContext(), "Your account has been deactivated.", Toast.LENGTH_SHORT).show();
             }
 
         });

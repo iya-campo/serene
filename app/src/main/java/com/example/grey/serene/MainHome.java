@@ -12,9 +12,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
@@ -26,25 +23,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainHome extends Fragment {
 
-    //Recent Article ListView
     ListView recentArticleList;
-    String[] recentArticleName = {"good posture may ease symptoms of depression", "good morning, heartache", "meet the real narcissists (they're not what you think)"};
-    String curDate, userID;
     FirebaseListAdapter adapterRecent;
     FirebaseDatabase database;
     DatabaseReference ref, savedRef;
     Articles articleData;
     String title, author, type, content, source;
+
+    String userID = Main.userID;
+    String date = Main.date;
+
     long id;
 
     public MainHome() {
@@ -56,21 +50,15 @@ public class MainHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        userID = getArguments().getString("id");
         View view = inflater.inflate(R.layout.fragment_main_home, container, false);
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("dd MMMM, yyyy");
-        curDate = mdformat.format(calendar.getTime());
-
-        TextView dateToday = view.findViewById(R.id.dateTodayText);
-        dateToday.setText(curDate);
+        TextView dateToday = (TextView) view.findViewById(R.id.dateTodayText);
+        dateToday.setText(date);
 
         recentArticleList = (ListView) view.findViewById(R.id.recentArticleListView);
-        final ListViewAdapter listViewAdapter = new ListViewAdapter(this.getActivity(), recentArticleName);
 
         dateToday = (TextView) view.findViewById(R.id.dateTodayText);
-        dateToday.setText(curDate);
+        dateToday.setText(date);
 
         Query query = FirebaseDatabase.getInstance().getReference().child("suggestedArticles").child(userID);
         FirebaseListOptions<Articles> articlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
@@ -114,7 +102,6 @@ public class MainHome extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
-                                showArticle.putExtra("userID", userID);
 
                                 showArticle.putExtra("id", String.valueOf(dataSnapshot.child("id").getValue(Long.class)));
                                 showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
@@ -173,7 +160,7 @@ public class MainHome extends Fragment {
                 if(dataSnapshot.exists()){
                     recentArticleList.setAdapter(adapterRecent);
                 } else {
-                    //recentArticleList.setAdapter(listViewAdapter);
+                    ///
                 }
             }
 
@@ -191,8 +178,7 @@ public class MainHome extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent showJournalEntry = new Intent(getActivity().getApplicationContext(), JournalEntry.class);
-                showJournalEntry.putExtra("date", curDate);
-                showJournalEntry.putExtra("userID", userID);
+                showJournalEntry.putExtra("journalDate", date);
                 startActivity(showJournalEntry);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

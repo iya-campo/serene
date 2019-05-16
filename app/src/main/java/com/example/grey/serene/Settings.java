@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,15 +18,19 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Settings extends AppCompatActivity {
 
-    String userID;
+    public static Activity settings;
+
     DatabaseReference databaseReference;
     TextView name, email;
 
+    String userID = Main.userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        settings = this;
 
         //Header Buttons
         Button profileButton = (Button) findViewById(R.id.profileButton);
@@ -38,11 +43,6 @@ public class Settings extends AppCompatActivity {
 
         name = (TextView) findViewById(R.id.userText);
         email = (TextView) findViewById(R.id.myEmailText);
-
-        Intent myIntent = getIntent();
-        if (myIntent.hasExtra("userID")) {
-            userID = myIntent.getStringExtra("userID");
-        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -126,6 +126,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 Intent logout = new Intent(getApplicationContext(), AccountLogin.class);
                 startActivity(logout);
+                finishAffinity();
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 

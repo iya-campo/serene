@@ -1,5 +1,6 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -28,12 +29,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Console;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 public class Main extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    public static Activity main;
 
     private static final String TAG = "MainActivity";
 
@@ -49,21 +53,23 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     String notif;
 
     public static String userID;
+    public static String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        main = this;
+
         Intent myIntent = getIntent();
         if (myIntent.hasExtra("userID")) {
             userID = myIntent.getStringExtra("userID");
         }
 
-        runOnUiThread(new Runnable(){
-            public void run() {
-            }
-        });
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("MMMM dd, yyyy");
+        date = mdformat.format(calendar.getTime());
 
         Button profileButton = (Button) findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +77,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
             @Override
             public void onClick(View v) {
                 Intent showProfile = new Intent(getApplicationContext(), Profile.class);
-                showProfile.putExtra("userID", userID);
                 startActivity(showProfile);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -106,9 +111,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
             }
         });
-
-        Log.i("INFO", userID);
-
     }
 
     @Override
@@ -129,11 +131,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     }
 
     private void setFragment(Fragment fragment) {
-        Bundle bundle = new Bundle();
-        bundle.putString("id", userID);
-
-        fragment.setArguments(bundle);
-
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.container, fragment);

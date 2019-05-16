@@ -1,12 +1,12 @@
 package com.example.grey.serene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,23 +17,23 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SettingsNotifs extends AppCompatActivity {
 
-    String userID;
-    DatabaseReference databaseReference;
+    public static Activity settingsNotifs;
+
+    DatabaseReference ref;
+
+    String userID = Main.userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_notifs);
 
+        settingsNotifs = this;
+
         final TextView userText = (TextView) findViewById(R.id.userText);
 
-        Intent myIntent = getIntent();
-        if (myIntent.hasExtra("userID")) {
-            userID = myIntent.getStringExtra("userID");
-        }
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String fbNickname = dataSnapshot.child(userID).child("nickname").getValue().toString();
@@ -102,7 +102,7 @@ public class SettingsNotifs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String changeNotifications = "yes";
-                databaseReference.child(userID).child("notifications").setValue(changeNotifications);
+                ref.child(userID).child("notifications").setValue(changeNotifications);
             }
 
         });
@@ -112,7 +112,7 @@ public class SettingsNotifs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String changeNotifications = "no";
-                databaseReference.child(userID).child("notifications").setValue(changeNotifications);
+                ref.child(userID).child("notifications").setValue(changeNotifications);
 
             }
 

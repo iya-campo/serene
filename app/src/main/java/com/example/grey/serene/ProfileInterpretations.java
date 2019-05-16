@@ -19,9 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileInterpretations extends Fragment {
 
     private static final String TAG = "ProfileInterpretations";
+
     FirebaseDatabase database;
     DatabaseReference ref;
-    String userID;
+
+    String userID = Main.userID;
 
 
     @Nullable
