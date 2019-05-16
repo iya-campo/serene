@@ -186,7 +186,12 @@
         android:layout_above="@id/deactivateButton"
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
-        android:background="@drawable/save_button" />
+        android:text="Save"
+        android:textAllCaps="true"
+        android:textSize="14dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_selector3"
+        style="?android:attr/borderlessButtonStyle" />
 
     <Button
         android:id="@+id/deactivateButton"

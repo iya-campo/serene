@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     android:paddingVertical="3dp"
     android:textAlignment="center"
-    android:textColor="#234A56"
+    android:textColor="#4f6e78"
     android:textSize="14dp"
     android:textStyle="bold" />

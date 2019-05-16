@@ -51,14 +51,13 @@ public class ProfileJourney extends Fragment {
                 String startDate = dataSnapshot.child("startDate").getValue().toString();
                 startDateDetails.setText(startDate);
                 try {
-                    SimpleDateFormat myFormat = new SimpleDateFormat("dd MMM, yyyy");
+                    SimpleDateFormat myFormat = new SimpleDateFormat("MMM dd, yyyy");
                     Date date1 = myFormat.parse(startDate);
                     Date date2 = myFormat.parse(date);
                     long diff = date2.getTime() - date1.getTime();
                     duration = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                     durationDetails.setText(duration + " Day/s");
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     //  Block of code to handle errors
                 }
             }

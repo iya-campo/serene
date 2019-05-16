@@ -79,7 +79,12 @@
         android:layout_below="@id/forgotPWText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="@drawable/login_button" />
+        android:text="Log in"
+        android:textSize="14dp"
+        android:textColor="#418499"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_selector1"
+        style="?android:attr/borderlessButtonStyle" />
 
     <Button
         android:id="@+id/registerButton"
@@ -88,7 +93,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/register_button" />
+        android:text="Register"
+        android:textSize="14dp"
+        android:textColor="#418499"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_selector1"
+        style="?android:attr/borderlessButtonStyle" />
 
     <ProgressBar
         android:id="@+id/progressBar"

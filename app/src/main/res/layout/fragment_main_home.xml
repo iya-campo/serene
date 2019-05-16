@@ -40,7 +40,12 @@
             android:layout_below="@id/homeText"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/home_go_to_journal_button" />
+            android:text="go to journal"
+            android:textAllCaps="true"
+            android:textSize="15dp"
+            android:textColor="#4f6e78"
+            android:background="@drawable/btn_selector2"
+            style="?android:attr/borderlessButtonStyle" />
 
         <TextView
             android:id="@+id/suggestedRead"

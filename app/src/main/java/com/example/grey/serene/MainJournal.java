@@ -83,7 +83,7 @@ public class MainJournal extends Fragment {
                             addEntry.setBackgroundColor(0xFFFFFFFF);
                         } else {
                             activities.setText("This day's journal entry is empty.");
-                            addEntry.setBackgroundResource(R.drawable.seui_add_button);
+                            addEntry.setBackgroundResource(R.drawable.btn_selector4);
                         }
                     }
                 }
@@ -120,7 +120,7 @@ public class MainJournal extends Fragment {
                                 break;
                             } else {
                                 activities.setText("This day's journal entry is empty.");
-                                addEntry.setBackgroundResource(R.drawable.seui_add_button);
+                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
                             }
 
                         }

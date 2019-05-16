@@ -133,7 +133,12 @@
             android:layout_below="@id/tcLayout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:background="@drawable/submit_button" />
+            android:text="Submit"
+            android:textSize="14dp"
+            android:textColor="#418499"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_selector1"
+            style="?android:attr/borderlessButtonStyle" />
 
     </RelativeLayout>
 

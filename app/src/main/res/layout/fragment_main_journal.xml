@@ -75,7 +75,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="30dp"
-            android:background="@drawable/seui_add_button" />
+            android:text="+"
+            android:textSize="30dp"
+            android:textColor="#f5feff"
+            android:background="@drawable/btn_selector4"
+            style="?android:attr/borderlessButtonStyle" />
 
     </RelativeLayout>
 

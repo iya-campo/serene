@@ -41,9 +41,12 @@
             android:layout_height="30dp"
             android:layout_gravity="end|center_vertical"
             android:layout_marginRight="20dp"
-            android:background="@drawable/save_button"
-            android:textColor="#FFF"
-            android:textSize="25sp" />
+            android:text="Save"
+            android:textAllCaps="true"
+            android:textSize="14dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_selector3"
+            style="?android:attr/borderlessButtonStyle" />
 
     </FrameLayout>
 
@@ -137,7 +140,12 @@
                     android:layout_height="30dp"
                     android:layout_gravity="start"
                     android:layout_marginTop="35dp"
-                    android:background="@drawable/journal_breakfast_button" />
+                    android:text="Breakfast"
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textColor="#4f6e78"
+                    android:background="@drawable/btn_selector2"
+                    style="?android:attr/borderlessButtonStyle" />
 
                 <Button
                     android:id="@+id/lunchButton"
@@ -145,7 +153,12 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="35dp"
-                    android:background="@drawable/journal_lunch_button" />
+                    android:text="Lunch"
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textColor="#4f6e78"
+                    android:background="@drawable/btn_selector2"
+                    style="?android:attr/borderlessButtonStyle" />
 
                 <Button
                     android:id="@+id/dinnerButton"
@@ -153,7 +166,12 @@
                     android:layout_height="30dp"
                     android:layout_gravity="end"
                     android:layout_marginTop="35dp"
-                    android:background="@drawable/journal_dinner_button" />
+                    android:text="Dinner"
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textColor="#4f6e78"
+                    android:background="@drawable/btn_selector2"
+                    style="?android:attr/borderlessButtonStyle" />
 
             </FrameLayout>
 
@@ -194,14 +212,24 @@
                         android:layout_width="55dp"
                         android:layout_height="30dp"
                         android:layout_marginRight="3dp"
-                        android:background="@drawable/journal_yes_button" />
+                        android:text="Yes"
+                        android:textAllCaps="false"
+                        android:textSize="15dp"
+                        android:textColor="#4f6e78"
+                        android:background="@drawable/btn_selector2"
+                        style="?android:attr/borderlessButtonStyle" />
 
                     <Button
                         android:id="@+id/noButton"
                         android:layout_width="55dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="3dp"
-                        android:background="@drawable/journal_no_button" />
+                        android:text="No"
+                        android:textAllCaps="false"
+                        android:textSize="15dp"
+                        android:textColor="#4f6e78"
+                        android:background="@drawable/btn_selector2"
+                        style="?android:attr/borderlessButtonStyle" />
 
                 </LinearLayout>
 

@@ -124,14 +124,24 @@
             android:layout_width="115dp"
             android:layout_height="match_parent"
             android:layout_marginRight="3dp"
-            android:background="@drawable/create_button" />
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textSize="15dp"
+            android:textColor="#4f6e78"
+            android:background="@drawable/btn_selector2"
+            style="?android:attr/borderlessButtonStyle" />
 
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="115dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
-            android:background="@drawable/delete_button" />
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textSize="15dp"
+            android:textColor="#4f6e78"
+            android:background="@drawable/btn_selector2"
+            style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>
 
@@ -164,14 +174,24 @@
             android:layout_width="115dp"
             android:layout_height="match_parent"
             android:layout_marginRight="3dp"
-            android:background="@drawable/on_button" />
+            android:text="On"
+            android:textAllCaps="false"
+            android:textSize="15dp"
+            android:textColor="#4f6e78"
+            android:background="@drawable/btn_selector2"
+            style="?android:attr/borderlessButtonStyle" />
 
         <Button
             android:id="@+id/offButton"
             android:layout_width="115dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
-            android:background="@drawable/off_button" />
+            android:text="Off"
+            android:textAllCaps="false"
+            android:textSize="15dp"
+            android:textColor="#4f6e78"
+            android:background="@drawable/btn_selector2"
+            style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>
 

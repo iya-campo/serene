@@ -118,10 +118,10 @@ public class JournalEntry extends AppCompatActivity {
             public void onClick(View v) {
                 if (breakfast == false) {
                     breakfast = true;
-                    breakfastButton.setBackgroundColor(0xFFFFFFFF);
+                    breakfastButton.setBackgroundResource(R.drawable.btn2_selected2);
                 } else {
                     breakfast = false;
-                    breakfastButton.setBackgroundResource(R.drawable.journal_breakfast_button);
+                    breakfastButton.setBackgroundResource(R.drawable.btn_selector2);
                 }
             }
 
@@ -133,10 +133,10 @@ public class JournalEntry extends AppCompatActivity {
             public void onClick(View v) {
                 if (lunch == false) {
                     lunch = true;
-                    lunchButton.setBackgroundColor(0xFFFFFFFF);
+                    lunchButton.setBackgroundResource(R.drawable.btn2_selected2);
                 } else {
                     lunch = false;
-                    lunchButton.setBackgroundResource(R.drawable.journal_lunch_button);
+                    lunchButton.setBackgroundResource(R.drawable.btn_selector2);
                 }
             }
 
@@ -148,10 +148,10 @@ public class JournalEntry extends AppCompatActivity {
             public void onClick(View v) {
                 if (dinner == false) {
                     dinner = true;
-                    dinnerButton.setBackgroundColor(0xFFFFFFFF);
+                    dinnerButton.setBackgroundResource(R.drawable.btn2_selected2);
                 } else {
                     dinner = false;
-                    dinnerButton.setBackgroundResource(R.drawable.journal_dinner_button);
+                    dinnerButton.setBackgroundResource(R.drawable.btn_selector2);
                 }
             }
 
@@ -162,10 +162,9 @@ public class JournalEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (medicinal_intake.equals("") || medicinal_intake.equals("no")) {
-                    Log.d("medicine", String.valueOf(medicinal_intake));
                     medicinal_intake = "yes";
-                    yesButton.setBackgroundColor(0xFFFFFFFF);
-                    noButton.setBackgroundResource(R.drawable.journal_no_button);
+                    yesButton.setBackgroundResource(R.drawable.btn2_selected2);
+                    noButton.setBackgroundResource(R.drawable.btn_selector2);
                 }
             }
         });
@@ -176,8 +175,8 @@ public class JournalEntry extends AppCompatActivity {
             public void onClick(View v) {
                 if (medicinal_intake.equals("") || medicinal_intake.equals("yes")) {
                     medicinal_intake = "no";
-                    noButton.setBackgroundColor(0xFFFFFFFF);
-                    yesButton.setBackgroundResource(R.drawable.journal_yes_button);
+                    noButton.setBackgroundResource(R.drawable.btn2_selected2);
+                    yesButton.setBackgroundResource(R.drawable.btn_selector2);
                 }
             }
 
@@ -225,30 +224,35 @@ public class JournalEntry extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
 
-                    hoursSlept.setSelection(Integer.parseInt(dataSnapshot.child(journalDate).child("hours_slept").getValue().toString()) - 1);
-
+                    if(dataSnapshot.child(journalDate).child("hours_slept").getValue() != null){
+                        hoursSlept.setSelection(Integer.parseInt(dataSnapshot.child(journalDate).child("hours_slept").getValue().toString()) - 1);
+                    }
                     if (dataSnapshot.child(journalDate).child("content").getValue() != null) {
                         textView.setText(String.valueOf(dataSnapshot.child(journalDate).child("content").getValue()));
                     }
-                    if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("breakfast")) {
-                        breakfast = true;
-                        breakfastButton.setBackgroundColor(0xFFFFFFFF);
+                    if (dataSnapshot.child(journalDate).child("food_intake").getValue() != null) {
+                        if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("breakfast")) {
+                            breakfast = true;
+                            breakfastButton.setBackgroundResource(R.drawable.btn2_selected2);
+                        }
+                        if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("lunch")) {
+                            lunch = true;
+                            lunchButton.setBackgroundResource(R.drawable.btn2_selected2);
+                        }
+                        if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("dinner")) {
+                            dinner = true;
+                            dinnerButton.setBackgroundResource(R.drawable.btn2_selected2);
+                        }
                     }
-                    if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("lunch")) {
-                        lunch = true;
-                        lunchButton.setBackgroundColor(0xFFFFFFFF);
-                    }
-                    if (dataSnapshot.child(journalDate).child("food_intake").getValue().toString().contains("dinner")) {
-                        dinner = true;
-                        dinnerButton.setBackgroundColor(0xFFFFFFFF);
-                    }
-                    if (dataSnapshot.child(journalDate).child("medicinal_intake").getValue().toString().equals("yes")) {
-                        medicinal_intake = "yes";
-                        yesButton.setBackgroundColor(0xFFFFFFFF);
-                    }
-                    if (dataSnapshot.child(journalDate).child("medicinal_intake").getValue().toString().equals("no")) {
-                        medicinal_intake = "no";
-                        noButton.setBackgroundColor(0xFFFFFFFF);
+                    if (dataSnapshot.child(journalDate).child("medicinal_intake").getValue() != null) {
+                        if (dataSnapshot.child(journalDate).child("medicinal_intake").getValue().toString().equals("yes")) {
+                            medicinal_intake = "yes";
+                            yesButton.setBackgroundResource(R.drawable.btn2_selected2);
+                        }
+                        if (dataSnapshot.child(journalDate).child("medicinal_intake").getValue().toString().equals("no")) {
+                            medicinal_intake = "no";
+                            noButton.setBackgroundResource(R.drawable.btn2_selected2);
+                        }
                     }
                 }
             }

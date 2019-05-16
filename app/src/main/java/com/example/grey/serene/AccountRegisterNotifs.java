@@ -6,11 +6,13 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -100,19 +102,35 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         yes = (Button) findViewById(R.id.yes1Button);
         no = (Button) findViewById(R.id.no1Button);
 
+
         yes.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                notif = "yes";
+                if (notif.equals("no")) {
+                    notif = "yes";
+                    yes.setBackgroundColor(0xFFFFFFFF);
+                    yes.setBackgroundResource(R.drawable.bg_button2_selected);
+                    yes.setTextColor(Color.parseColor("#b9e2ef"));
+                    no.setBackgroundResource(R.drawable.bg_button2);
+                    no.setTextColor(Color.parseColor("#FFFFFF"));
+                }
             }
         });
+
         no.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                notif = "no";
+                if (notif.equals("yes")) {
+                    notif = "no";
+                    no.setBackgroundResource(R.drawable.bg_button2_selected);
+                    no.setTextColor(Color.parseColor("#b9e2ef"));
+                    yes.setBackgroundResource(R.drawable.bg_button2);
+                    yes.setTextColor(Color.parseColor("#FFFFFF"));
+                }
             }
+
         });
 
         next2Button.setOnClickListener((new View.OnClickListener() {
@@ -127,7 +145,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
                 interpreter = psychField.getText().toString();
 
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat mdformat = new SimpleDateFormat("dd MMMM, yyyy");
+                SimpleDateFormat mdformat = new SimpleDateFormat("MMMM dd, yyyy");
                 startDate = mdformat.format(calendar.getTime());
 
                 user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm, interpreter, startDate);
