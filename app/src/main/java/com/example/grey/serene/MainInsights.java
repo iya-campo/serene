@@ -248,17 +248,19 @@ public class MainInsights extends Fragment {
                         savedRef.child(savedKey).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
+                                if (dataSnapshot.exists()) {
+                                    Intent showArticle = new Intent(getActivity().getApplicationContext(), Article.class);
 
-                                showArticle.putExtra("id", String.valueOf(dataSnapshot.child("id").getValue(Long.class)));
-                                showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
-                                showArticle.putExtra("author", dataSnapshot.child("author").getValue(String.class));
-                                showArticle.putExtra("type", dataSnapshot.child("type").getValue(String.class));
-                                showArticle.putExtra("content", dataSnapshot.child("content").getValue(String.class));
-                                showArticle.putExtra("source", dataSnapshot.child("source").getValue(String.class));
+                                    showArticle.putExtra("id", String.valueOf(dataSnapshot.child("id").getValue(Long.class)));
+                                    showArticle.putExtra("title", dataSnapshot.child("title").getValue(String.class));
+                                    showArticle.putExtra("author", dataSnapshot.child("author").getValue(String.class));
+                                    showArticle.putExtra("type", dataSnapshot.child("type").getValue(String.class));
+                                    showArticle.putExtra("content", dataSnapshot.child("content").getValue(String.class));
+                                    showArticle.putExtra("source", dataSnapshot.child("source").getValue(String.class));
 
-                                startActivity(showArticle);
-                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                    startActivity(showArticle);
+                                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                }
                             }
 
                             @Override
