@@ -37,7 +37,9 @@
         <activity android:name=".SettingsData" />
         <activity android:name=".Main" />
         <activity android:name=".Settings" />
-        <activity android:name=".TCPop" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".PopTC" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".PopMeds" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".PopSleep" android:theme="@style/AppTheme.CustomTheme"></activity>
 
         <receiver android:name=".NotificationReceiver" />
     </application>

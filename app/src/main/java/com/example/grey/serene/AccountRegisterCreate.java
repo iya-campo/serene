@@ -3,7 +3,6 @@ package com.example.grey.serene;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
@@ -13,11 +12,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class AccountRegisterCreate extends AppCompatActivity {
@@ -54,7 +48,7 @@ public class AccountRegisterCreate extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AccountRegisterCreate.this, TCPop.class));
+                startActivity(new Intent(AccountRegisterCreate.this, PopTC.class));
             }
         });
 

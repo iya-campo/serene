@@ -1,9 +1,11 @@
 package com.example.grey.serene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ public class ProfileJourney extends Fragment {
     private Button medicineButton;
     private Button sleepButton;
     long duration;
+    int medStats, sleepStats;
 
     String userID = Main.userID;
     String date = Main.date;
@@ -44,8 +47,13 @@ public class ProfileJourney extends Fragment {
         medicineButton = (Button) view.findViewById(R.id.medicineButton);
         sleepButton = (Button) view.findViewById(R.id.sleepButton);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-        ref.addValueEventListener(new ValueEventListener() {
+        medStats = 0;
+        sleepStats = 0;
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+        DatabaseReference journalRef = FirebaseDatabase.getInstance().getReference().child("Journal").child(userID);
+
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String startDate = dataSnapshot.child("startDate").getValue().toString();
@@ -68,11 +76,33 @@ public class ProfileJourney extends Fragment {
             }
         });
 
+        journalRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String meds = snapshot.child("medicinal_intake").getValue().toString();
+                    if (meds.equals("yes")) {
+                        medStats += 1;
+                    }
+                    String sleep = snapshot.child("hours_slept").getValue().toString();
+                    sleepStats += Integer.parseInt(sleep);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         medicineButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //Function to view stats on medicine
+                Intent showMedsPop = new Intent(getActivity().getApplicationContext(), PopMeds.class);
+                String medString = String.valueOf(medStats);
+                showMedsPop.putExtra("MedStats", medString);
+                startActivity(showMedsPop);
             }
 
         });
@@ -81,7 +111,10 @@ public class ProfileJourney extends Fragment {
 
             @Override
             public void onClick(View v) {
-                //Function to view stats on sleep
+                Intent showSleepPop = new Intent(getActivity().getApplicationContext(), PopSleep.class);
+                String sleepString = String.valueOf(sleepStats);
+                showSleepPop.putExtra("SleepStats", sleepString);
+                startActivity(showSleepPop);
             }
 
         });
