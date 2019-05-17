@@ -92,7 +92,11 @@
             android:layout_width="25dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/seui_back_button" />
+            android:textSize="15dp"
+            android:textColor="#89b9c5"
+            android:text="&#9668;"
+            android:background="@drawable/btn_selector5"
+            style="?android:attr/borderlessButtonStyle" />
 
     </FrameLayout>
 

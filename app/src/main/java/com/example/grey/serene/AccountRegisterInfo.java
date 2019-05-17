@@ -59,19 +59,24 @@ public class AccountRegisterInfo extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please enter your name and age.", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    nickname = nicknameField.getText().toString();
-                    age = Integer.parseInt(ageField.getText().toString());
+                    if (!TextUtils.isDigitsOnly(ageField.getText().toString().trim())) {
+                        Toast.makeText(getApplicationContext(), "Please enter a valid age.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        nickname = nicknameField.getText().toString();
+                        age = Integer.parseInt(ageField.getText().toString());
 
-                    Intent showNotifs = new Intent(AccountRegisterInfo.this, AccountRegisterNotifs.class);
+                        Intent showNotifs = new Intent(AccountRegisterInfo.this, AccountRegisterNotifs.class);
 
-                    showNotifs.putExtra("username", username);
-                    showNotifs.putExtra("email", email);
-                    showNotifs.putExtra("password", password);
-                    showNotifs.putExtra("nickname", nickname);
-                    showNotifs.putExtra("age", age);
+                        showNotifs.putExtra("username", username);
+                        showNotifs.putExtra("email", email);
+                        showNotifs.putExtra("password", password);
+                        showNotifs.putExtra("nickname", nickname);
+                        showNotifs.putExtra("age", age);
 
-                    startActivity(showNotifs);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        startActivity(showNotifs);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
                 }
             }
         });

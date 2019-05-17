@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,9 @@ public class AccountRegisterCreate extends AppCompatActivity {
         user = new Users();
         user.setID(0);
         maxid = user.getID();
+
+        String tcPop = "<u>I accept the terms and conditions.</u>";
+        tcText.setText(Html.fromHtml(tcPop));
 
         tcText.setOnClickListener(new View.OnClickListener() {
 

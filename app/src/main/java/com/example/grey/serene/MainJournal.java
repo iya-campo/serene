@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class MainJournal extends Fragment {
     private FirebaseDatabase database;
 
     String userID = Main.userID;
+    String date = Main.date;
 
     String journalDate;
 
@@ -72,18 +74,27 @@ public class MainJournal extends Fragment {
         refDate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                addEntry.setVisibility(View.GONE);
+                if (journalDate.equals(date)) {
+                    addEntry.setVisibility(View.VISIBLE);
+                }
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Journal journal = snapshot.getValue(Journal.class);
                     if (journalDate.equals(journal.getDate())) {
                         if (journal.getContent() != null) {
-                            activities.setText(
-                                    "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                    "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                    "Medicine Intake:\n" + journal.getMedicinal_intake());
-                            addEntry.setBackgroundColor(0xFFFFFFFF);
-                        } else {
-                            activities.setText("This day's journal entry is empty.");
-                            addEntry.setBackgroundResource(R.drawable.btn_selector4);
+                            if (journalDate.equals(date)) {
+                                activities.setText(
+                                        "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
+                                                "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                                "Medicine Intake:\n" + journal.getMedicinal_intake());
+                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
+                                addEntry.setText("✎");
+                                break;
+                            } else {
+                                activities.setText("This day's journal entry is empty.");
+                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
+                                addEntry.setText("+");
+                            }
                         }
                     }
                 }
@@ -105,24 +116,29 @@ public class MainJournal extends Fragment {
                 int day = calendar.get(Calendar.DAY_OF_WEEK);
                 activityDate.setText(getDayName(day) + journalDate);
 
-                //Reads from DB only after event has occurred.
+                //Reads from DB only after an event has occurred.
                 refDate.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        addEntry.setVisibility(View.GONE);
+                        if (journalDate.equals(date)) {
+                            addEntry.setVisibility(View.VISIBLE);
+                        }
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Journal journal = snapshot.getValue(Journal.class);
                             if (journalDate.equals(journal.getDate())) {
                                 activities.setText(
                                         "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                        "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                        "Medicine Intake:\n" + journal.getMedicinal_intake());
-                                addEntry.setBackgroundColor(0xFFFFFFFF);
+                                                "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                                "Medicine Intake:\n" + journal.getMedicinal_intake());
+                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
+                                addEntry.setText("✎");
                                 break;
                             } else {
                                 activities.setText("This day's journal entry is empty.");
                                 addEntry.setBackgroundResource(R.drawable.btn_selector4);
+                                addEntry.setText("+");
                             }
-
                         }
                     }
 

@@ -37,21 +37,19 @@ public class Article extends AppCompatActivity {
             source = myIntent.getStringExtra("source");
         }
 
-        runOnUiThread(new Runnable(){
-            public void run() {
-                TextView articleTitleText = (TextView) findViewById(R.id.articleTitleText);
-                TextView articleAuthorText = (TextView) findViewById(R.id.articleAuthorText);
-                TextView articleContentText = (TextView) findViewById(R.id.articleContentText);
+        TextView articleTitleText = (TextView) findViewById(R.id.articleTitleText);
+        TextView articleAuthorText = (TextView) findViewById(R.id.articleAuthorText);
+        TextView articleContentText = (TextView) findViewById(R.id.articleContentText);
 
-                String setTitle = title;
-                String setAuthor = "<u>By " + author + "</u>";
-                String setContent = content;
+        if (title != null || author != null || content != null) {
+            String setTitle = title;
+            String setAuthor = "<u>By " + author + "</u>";
+            String setContent = content.replace("_b", "\n");
 
-                articleTitleText.setText(setTitle);
-                articleAuthorText.setText(Html.fromHtml(setAuthor));
-                articleContentText.setText(setContent);
-            }
-        });
+            articleTitleText.setText(setTitle);
+            articleAuthorText.setText(Html.fromHtml(setAuthor));
+            articleContentText.setText(setContent);
+        }
 
         Button profileButton = (Button) findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {

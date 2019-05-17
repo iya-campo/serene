@@ -126,7 +126,8 @@
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_button2"
             android:text="Yes"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            style="?android:attr/borderlessButtonStyle" />
 
         <Button
             android:id="@+id/no1Button"
@@ -135,7 +136,8 @@
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_button2"
             android:text="No"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>
 
@@ -147,6 +149,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/seui_next_button" />
+        android:textColor="#89b9c5"
+        android:textSize="25dp"
+        android:text=">"
+        android:background="@drawable/btn_selector5"
+        style="?android:attr/borderlessButtonStyle" />
 
 </RelativeLayout>

@@ -133,6 +133,8 @@ public class MainInsights extends Fragment {
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
                 final TextView articleTitle = v.findViewById(R.id.articleText);
                 final String articleKey = this.getRef(position).getKey();
+                final Button articleButton = (Button) v.findViewById(R.id.articleButton);
+                final Button heartButton = (Button) v.findViewById(R.id.heartButton);
 
                 FirebaseDatabase.getInstance().getReference().child("Articles").child(articleKey).child("title").addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -148,7 +150,6 @@ public class MainInsights extends Fragment {
                     }
                 });
 
-                Button articleButton = (Button) v.findViewById(R.id.articleButton);
                 articleButton.setTag(position);
                 articleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -180,7 +181,6 @@ public class MainInsights extends Fragment {
                     }
                 });
 
-                Button heartButton = (Button) v.findViewById(R.id.heartButton);
                 heartButton.setTag(position);
                 heartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -219,6 +219,8 @@ public class MainInsights extends Fragment {
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
                 final TextView articleTitle = v.findViewById(R.id.articleText);
                 final String articleKey = this.getRef(position).getKey();
+                final Button articleButton = (Button) v.findViewById(R.id.articleButton);
+                final Button heartButton = (Button) v.findViewById(R.id.heartButton);
 
                 FirebaseDatabase.getInstance().getReference().child("Saved Insights").child(userID).child(articleKey).child("title").addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -235,7 +237,6 @@ public class MainInsights extends Fragment {
                     }
                 });
 
-                Button articleButton = (Button) v.findViewById(R.id.articleButton);
                 articleButton.setTag(position);
                 articleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -268,7 +269,6 @@ public class MainInsights extends Fragment {
                     }
                 });
 
-                Button heartButton = (Button) v.findViewById(R.id.heartButton);
                 heartButton.setTag(position);
                 heartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -281,7 +281,6 @@ public class MainInsights extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 savedRef.child(savedKey).removeValue();
-
                                 Toast.makeText(getContext(), "Removed from Saved Insights", Toast.LENGTH_SHORT).show();
                             }
 

@@ -29,8 +29,12 @@
             android:layout_height="30dp"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@id/articleButton"
-            android:background="@drawable/seui_save_article_button"
-            />
+            android:textColor="#89b9c5"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="♡"
+            android:background="@drawable/btn_selector5"
+            style="?android:attr/borderlessButtonStyle" />
 
         <Button
             android:id="@+id/articleButton"
@@ -38,7 +42,12 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/seui_next_button" />
+            android:textColor="#89b9c5"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text=">"
+            android:background="@drawable/btn_selector5"
+            style="?android:attr/borderlessButtonStyle" />
 
     </RelativeLayout>
 
