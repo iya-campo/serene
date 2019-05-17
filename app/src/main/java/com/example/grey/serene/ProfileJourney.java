@@ -31,7 +31,7 @@ public class ProfileJourney extends Fragment {
     private Button medicineButton;
     private Button sleepButton;
     long duration;
-    int medStats, sleepStats;
+    int medStats, sleepStats, entryCount;
 
     String userID = Main.userID;
     String date = Main.date;
@@ -51,7 +51,7 @@ public class ProfileJourney extends Fragment {
         sleepStats = 0;
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-        DatabaseReference journalRef = FirebaseDatabase.getInstance().getReference().child("Journal").child(userID);
+        final DatabaseReference journalRef = FirebaseDatabase.getInstance().getReference().child("Journal").child(userID);
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -79,6 +79,7 @@ public class ProfileJourney extends Fragment {
         journalRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                entryCount = Integer.parseInt(String.valueOf(dataSnapshot.getChildrenCount()));
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String meds = snapshot.child("medicinal_intake").getValue().toString();
                     if (meds.equals("yes")) {
@@ -113,7 +114,9 @@ public class ProfileJourney extends Fragment {
             public void onClick(View v) {
                 Intent showSleepPop = new Intent(getActivity().getApplicationContext(), PopSleep.class);
                 String sleepString = String.valueOf(sleepStats);
+                String entryString = String.valueOf(entryCount);
                 showSleepPop.putExtra("SleepStats", sleepString);
+                showSleepPop.putExtra("EntryCount", entryString);
                 startActivity(showSleepPop);
             }
 

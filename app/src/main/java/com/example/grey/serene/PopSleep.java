@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class PopSleep extends Activity {
 
-    String sleep;
+    String sleep, entry;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -18,8 +18,9 @@ public class PopSleep extends Activity {
         setContentView(R.layout.pop_sleep);
 
         Intent myIntent = getIntent();
-        if (myIntent.hasExtra("SleepStats")) {
+        if (myIntent.hasExtra("SleepStats") && myIntent.hasExtra("EntryCount")) {
             sleep = myIntent.getStringExtra("SleepStats");
+            entry = myIntent.getStringExtra("EntryCount");
         }
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -30,7 +31,10 @@ public class PopSleep extends Activity {
 
         getWindow().setLayout((int)(width * 0.6), (int)(height * 0.2));
 
+        int avgSleep = Integer.parseInt(sleep)/Integer.parseInt(entry);
+
         TextView sleepContentText = (TextView) findViewById(R.id.sleepContent);
-        sleepContentText.setText(Html.fromHtml("Total Number of Hours Slept: " + sleep));
+        sleepContentText.setText(Html.fromHtml("Total No. of Hours Slept: " + sleep + "\n" +
+                "Average Sleep Hours: " + avgSleep));
     }
 }

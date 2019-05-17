@@ -31,6 +31,6 @@ public class PopMeds extends Activity {
         getWindow().setLayout((int)(width * 0.6), (int)(height * 0.2));
 
         TextView medsContentText = (TextView) findViewById(R.id.medsContent);
-        medsContentText.setText(Html.fromHtml("Number of Medications Taken: " + meds));
+        medsContentText.setText(Html.fromHtml("No. of Medications Taken: " + meds));
     }
 }
