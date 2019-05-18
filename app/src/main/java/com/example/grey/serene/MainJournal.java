@@ -76,10 +76,6 @@ public class MainJournal extends Fragment {
         refDate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                addEntry.setVisibility(View.GONE);
-                if (journalDate.equals(date)) {
-                    addEntry.setVisibility(View.VISIBLE);
-                }
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Journal journal = snapshot.getValue(Journal.class);
                     editable = true;
