@@ -41,6 +41,8 @@ public class MainJournal extends Fragment {
     private DatabaseReference refDate;
     private FirebaseDatabase database;
 
+    boolean editable;
+
     String userID = Main.userID;
     String date = Main.date;
 
@@ -80,22 +82,19 @@ public class MainJournal extends Fragment {
                 }
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Journal journal = snapshot.getValue(Journal.class);
+                    editable = true;
                     if (journalDate.equals(journal.getDate())) {
-                        if (journal.getContent() != null) {
-                            if (journalDate.equals(date)) {
-                                activities.setText(
-                                        "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
-                                                "Food Intake:\n" + journal.getFood_intake() + "\n" +
-                                                "Medicine Intake:\n" + journal.getMedicinal_intake());
-                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
-                                addEntry.setText("✎");
-                                break;
-                            } else {
-                                activities.setText("This day's journal entry is empty.");
-                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
-                                addEntry.setText("+");
-                            }
+                        if (journalDate.equals(date)) {
+                            activities.setText(
+                                    "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
+                                            "Food Intake:\n" + journal.getFood_intake() + "\n" +
+                                            "Medicine Intake:\n" + journal.getMedicinal_intake());
+                            addEntry.setText("✎");
+                            break;
                         }
+                    } else {
+                        activities.setText("This day's journal entry is empty.");
+                        addEntry.setText("+");
                     }
                 }
             }
@@ -121,9 +120,6 @@ public class MainJournal extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         addEntry.setVisibility(View.GONE);
-                        if (journalDate.equals(date)) {
-                            addEntry.setVisibility(View.VISIBLE);
-                        }
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Journal journal = snapshot.getValue(Journal.class);
                             if (journalDate.equals(journal.getDate())) {
@@ -131,12 +127,21 @@ public class MainJournal extends Fragment {
                                         "Amount of Hours Slept:\n" + journal.getHours_slept() + "\n" +
                                                 "Food Intake:\n" + journal.getFood_intake() + "\n" +
                                                 "Medicine Intake:\n" + journal.getMedicinal_intake());
-                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
-                                addEntry.setText("✎");
+                                addEntry.setVisibility(View.VISIBLE);
+                                if (journalDate.equals(date)) {
+                                    addEntry.setText("✎");
+                                    editable = true;
+                                } else {
+                                    addEntry.setText("➥");
+                                    editable = false;
+                                }
                                 break;
                             } else {
+                                if (journalDate.equals(date)) {
+                                    addEntry.setVisibility(View.VISIBLE);
+                                    editable = true;
+                                }
                                 activities.setText("This day's journal entry is empty.");
-                                addEntry.setBackgroundResource(R.drawable.btn_selector4);
                                 addEntry.setText("+");
                             }
                         }
@@ -156,8 +161,10 @@ public class MainJournal extends Fragment {
 
             @Override
             public void onClick(View v) {
+                String stringEditable = String.valueOf(editable);
                 Intent showJournalEntry = new Intent(getActivity().getApplicationContext(), JournalEntry.class);
                 showJournalEntry.putExtra("journalDate", journalDate);
+                showJournalEntry.putExtra("editable", stringEditable);
                 startActivity(showJournalEntry);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

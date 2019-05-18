@@ -39,6 +39,7 @@ public class JournalEntry extends AppCompatActivity {
 
     public String userID = Main.userID;
     public String journalDate;
+    String editable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,9 @@ public class JournalEntry extends AppCompatActivity {
         journalEntry = this;
 
         Intent myIntent = getIntent();
-        if (myIntent.hasExtra("journalDate")) {
+        if (myIntent.hasExtra("journalDate") && myIntent.hasExtra("editable")) {
             journalDate = myIntent.getStringExtra("journalDate");
+            editable = myIntent.getStringExtra("editable");
             TextView dateText = (TextView) findViewById(R.id.entryDateText);
             dateText.setText(journalDate);
         }
@@ -180,6 +182,10 @@ public class JournalEntry extends AppCompatActivity {
             }
 
         });
+
+        if (editable.equals("false")) {
+            saveEntryButton.setVisibility(View.GONE);
+        }
 
         saveEntryButton.setOnClickListener((new View.OnClickListener() {
             @Override
