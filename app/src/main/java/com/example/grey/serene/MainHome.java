@@ -36,6 +36,8 @@ public class MainHome extends Fragment {
     Articles articleData;
     String title, author, type, content, source;
 
+    boolean editable = true;
+
     String userID = Main.userID;
     String date = Main.date;
 
@@ -177,8 +179,10 @@ public class MainHome extends Fragment {
 
             @Override
             public void onClick(View v) {
+                String stringEditable = String.valueOf(editable);
                 Intent showJournalEntry = new Intent(getActivity().getApplicationContext(), JournalEntry.class);
                 showJournalEntry.putExtra("journalDate", date);
+                showJournalEntry.putExtra("editable", stringEditable);
                 startActivity(showJournalEntry);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
