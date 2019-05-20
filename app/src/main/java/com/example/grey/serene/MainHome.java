@@ -57,8 +57,7 @@ public class MainHome extends Fragment {
 
         recentArticleList = (ListView) view.findViewById(R.id.recentArticleListView);
 
-        dateToday = (TextView) view.findViewById(R.id.dateTodayText);
-        dateToday.setText(date);
+
 
         Query query = FirebaseDatabase.getInstance().getReference().child("suggestedArticles").child(userID);
         FirebaseListOptions<Articles> articlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
@@ -179,6 +178,8 @@ public class MainHome extends Fragment {
             public void onClick(View v) {
                 Intent showJournalEntry = new Intent(getActivity().getApplicationContext(), JournalEntry.class);
                 showJournalEntry.putExtra("journalDate", date);
+                showJournalEntry.putExtra("editable", "true");
+                Toast.makeText(getContext(), date, Toast.LENGTH_SHORT).show();
                 startActivity(showJournalEntry);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

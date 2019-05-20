@@ -43,7 +43,9 @@
         <activity android:name=".ForgotPassword" />
         <activity android:name=".ChangePassword" />
 
-        <receiver android:name=".NotificationReceiver" />
+        <receiver android:name=".NotificationReceiver"
+                  android:enabled="true"
+                  android:exported="true"/>
     </application>
 
 
