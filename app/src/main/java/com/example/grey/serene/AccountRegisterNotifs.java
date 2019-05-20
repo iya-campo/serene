@@ -38,11 +38,11 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
     Users user;
     long maxid;
-    String username, password, email, nickname;
+    String username, password, email, nickname, alarmTime;
     String alarm, notif, interpreter, startDate;
     int age;
 
-    DatabaseReference ref, userNumberRef;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +136,6 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         next2Button.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
 
                 alarm = alarmField.getText().toString();
                 if (alarm.equals("")) {
@@ -148,7 +147,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
                 SimpleDateFormat mdformat = new SimpleDateFormat("MMMM dd, yyyy");
                 startDate = mdformat.format(calendar.getTime());
 
-                user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm, interpreter, startDate);
+                user = new Users(maxid + 1, username, password, email, nickname, age, notif, alarm, alarmTime, interpreter, startDate);
                 ref.push().setValue(user);
 
                 Toast.makeText(AccountRegisterNotifs.this, "Registration successful!", Toast.LENGTH_LONG).show();
@@ -167,6 +166,7 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
         if (hour == 0)
             hour = 12;
         timeButton.setText(String.format("%02d:%02d %s", hour, minute, hourOfDay < 12 ? "am" : "pm"));
+        alarmTime = timeButton.getText().toString();
     }
 
     public void finish() {

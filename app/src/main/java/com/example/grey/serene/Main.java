@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,9 +30,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Console;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,6 +58,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     public static String userID;
     public static String date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,8 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         });
 
+
+
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         frameLayout = findViewById(R.id.container);
 
@@ -94,16 +101,38 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
-        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userID).child("notifications");
+        ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                notif = (String) dataSnapshot.getValue();
-                Calendar calendar = Calendar.getInstance();
+                notif = (String) dataSnapshot.child("notifications").getValue();
+                String alarmTime = (String) dataSnapshot.child("alarmTime").getValue();
+                DateFormat df = new SimpleDateFormat("hh:mm aa");
+                DateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                Date date = null;
+                String output = "";
+                int hr = 0;
+                int min = 0;
 
-                if (notif.equals("yes")) {
-                    startAlarm(calendar);
+                try{
+                    date= df.parse(alarmTime);
+                    //Changing the format of date and storing it in String
+                    output = outputFormat.format(date);
+                    //Displaying the date
+                    hr = Integer.valueOf(output.substring(0,2));
+                    min = Integer.valueOf(output.substring(3,5));
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
+
+                if ((notif.equals("yes")) && (!alarmTime.equals(""))) {
+                    startAlarm(hr, min);
+                }
+
+                if (alarmTime.equals("")){
+                    Toast.makeText(getApplicationContext(), "You have no alarm time.", Toast.LENGTH_LONG).show();
+                }
+
             }
 
             @Override
@@ -137,22 +166,21 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         fragmentTransaction.commit();
     }
 
-    private void startAlarm(Calendar c) {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, NotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+    private void startAlarm(int sHour, int sMin) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.HOUR_OF_DAY, sHour);
+        calendar.set(calendar.MINUTE, sMin);
+        calendar.set(calendar.SECOND, 0);
+        calendar.set(calendar.MILLISECOND, 0);
+        long sdl = calendar.getTimeInMillis();
 
+        AlarmManager ALARM1 = (AlarmManager)getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        final int _id = (int) System.currentTimeMillis();
+        PendingIntent sender = PendingIntent.getBroadcast(this, _id, intent,PendingIntent.FLAG_ONE_SHOT);
+        ALARM1.setRepeating(AlarmManager.RTC_WAKEUP, sdl,
+                AlarmManager.INTERVAL_DAY, sender);
 
-        if (c.before(Calendar.getInstance())) {
-            c.add(Calendar.DATE, 1);
-        }
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-        alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-        );
     }
 
     public void finish() {

@@ -34,7 +34,7 @@ public class ProfileInterpretations extends Fragment {
 
         final TextView interp = (TextView) view.findViewById(R.id.interpText);
 
-//        userID = Profile.userID;
+        userID = Main.userID;
 //        database = FirebaseDatabase.getInstance();
 //        ref = database.getReference().child("Journal").child(userID);
 //        ref.addValueEventListener(new ValueEventListener() {

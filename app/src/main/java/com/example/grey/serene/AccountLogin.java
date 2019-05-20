@@ -2,6 +2,7 @@ package com.example.grey.serene;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,9 @@ public class AccountLogin extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.pwField);
         final Button loginButton = (Button) findViewById(R.id.loginButton);
         Button registerButton = (Button) findViewById(R.id.registerButton);
+
+        Button forgotPassButton = (Button) findViewById(R.id.forgotPWText);
+        forgotPassButton.setPaintFlags(forgotPassButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference().child("Users");
@@ -95,6 +99,15 @@ public class AccountLogin extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
+        });
+
+        forgotPassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent showForgotPw = new Intent(getApplicationContext(), ForgotPassword.class);
+                startActivity(showForgotPw);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
         });
     }
 }
