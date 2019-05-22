@@ -67,7 +67,6 @@ public class ForgotPassword extends AppCompatActivity {
                                     showChangePass.putExtra("userID", userKey);
                                     startActivity(showChangePass);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                    finish();
                                     break;
                                 }
                             }
@@ -84,7 +83,10 @@ public class ForgotPassword extends AppCompatActivity {
                 });
             }
         });
+    }
 
-
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

@@ -54,7 +54,7 @@ public class ChangePassword extends AppCompatActivity {
                         if (TextUtils.isEmpty(newPass) && TextUtils.isEmpty(confirmPass)) {
                             Toast.makeText(getApplicationContext(), "Please answer the following questions.", Toast.LENGTH_SHORT).show();
                         } else {
-                            if(newPass.equals(confirmPass)) {
+                            if (newPass.equals(confirmPass)) {
                                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                                     userKey = userSnapshot.getKey();
                                     confirmed = false;
@@ -66,10 +66,13 @@ public class ChangePassword extends AppCompatActivity {
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
-                                        Intent login = new Intent(getApplicationContext(), AccountLogin.class);
-                                        startActivity(login);
+
+                                        Toast.makeText(getApplicationContext(), "Changed password successfully!", Toast.LENGTH_SHORT).show();
+
+                                        Intent showLogin = new Intent(getApplicationContext(), AccountLogin.class);
+                                        startActivity(showLogin);
                                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                        finish();
+                                        finishAffinity();
                                         break;
                                     }
                                 }
@@ -87,6 +90,10 @@ public class ChangePassword extends AppCompatActivity {
                 });
             }
         });
+    }
 
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

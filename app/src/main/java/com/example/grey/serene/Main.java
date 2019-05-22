@@ -89,7 +89,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         });
 
 
-
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         frameLayout = findViewById(R.id.container);
 
@@ -114,14 +113,14 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                 int hr = 0;
                 int min = 0;
 
-                try{
-                    date= df.parse(alarmTime);
+                try {
+                    date = df.parse(alarmTime);
                     //Changing the format of date and storing it in String
                     output = outputFormat.format(date);
                     //Displaying the date
-                    hr = Integer.valueOf(output.substring(0,2));
-                    min = Integer.valueOf(output.substring(3,5));
-                }catch (Exception e){
+                    hr = Integer.valueOf(output.substring(0, 2));
+                    min = Integer.valueOf(output.substring(3, 5));
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -129,7 +128,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                     startAlarm(hr, min);
                 }
 
-                if (alarmTime.equals("")){
+                if (alarmTime.equals("")) {
                     Toast.makeText(getApplicationContext(), "You have no alarm time.", Toast.LENGTH_LONG).show();
                 }
 
@@ -174,10 +173,10 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         calendar.set(calendar.MILLISECOND, 0);
         long sdl = calendar.getTimeInMillis();
 
-        AlarmManager ALARM1 = (AlarmManager)getSystemService(ALARM_SERVICE);
+        AlarmManager ALARM1 = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
         final int _id = (int) System.currentTimeMillis();
-        PendingIntent sender = PendingIntent.getBroadcast(this, _id, intent,PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent sender = PendingIntent.getBroadcast(this, _id, intent, PendingIntent.FLAG_ONE_SHOT);
         ALARM1.setRepeating(AlarmManager.RTC_WAKEUP, sdl,
                 AlarmManager.INTERVAL_DAY, sender);
 

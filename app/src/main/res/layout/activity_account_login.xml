@@ -61,21 +61,16 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
 
-    <Button
+    <TextView
         android:id="@+id/forgotPWText"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/pwField"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="Forgot Password?"
-        android:textColor="#418094"
-        android:textSize="10sp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        android:layout_width="170dp"
-        android:layout_height="27dp"
-        android:gravity="left|center_vertical"
+        android:layout_marginTop="8dp"
+        android:textColor="@drawable/text_selector1"
+        android:textSize="13sp"
+        android:text="Forgot password?"
         />
 
     <Button
@@ -85,7 +80,7 @@
         android:layout_height="28dp"
         android:layout_below="@id/forgotPWText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_selector1"
         android:text="Log in"
         android:textAllCaps="false"

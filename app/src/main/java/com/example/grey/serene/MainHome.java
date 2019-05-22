@@ -36,7 +36,7 @@ public class MainHome extends Fragment {
     Articles articleData;
     String title, author, type, content, source;
 
-    boolean editable = true;
+    boolean editable;
 
     String userID = Main.userID;
     String date = Main.date;
@@ -70,6 +70,7 @@ public class MainHome extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference().child("suggestedArticles").child(userID);
+        savedRef = database.getReference().child("Saved Insights").child(userID);
 
 
         adapterRecent = new FirebaseListAdapter(articlesFirebaseListOptions) {

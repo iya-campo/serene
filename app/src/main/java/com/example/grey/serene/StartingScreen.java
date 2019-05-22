@@ -1,6 +1,7 @@
 package com.example.grey.serene;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -20,11 +21,26 @@ public class StartingScreen extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent showLogin = new Intent(StartingScreen.this, AccountLogin.class);
-                startActivity(showLogin);
-                finish();
+                CheckSession();
             }
         }, SPLASH_TIME_OUT);
 
+    }
+
+    public void CheckSession() {
+        Boolean check = Boolean.valueOf(SharedPrefs.readSharedSetting(StartingScreen.this, "Serene", "true"));
+        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("userID", 0);
+
+        if (check) {
+            Intent showLogin = new Intent(StartingScreen.this, AccountLogin.class);
+            showLogin.putExtra("Serene", check);
+            startActivity(showLogin);
+        } else {
+            Intent showMain = new Intent(StartingScreen.this, Main.class);
+            showMain.putExtra("userID", sharedPrefs.getString("userID", null));
+            startActivity(showMain);
+        }
+
+        finish();
     }
 }

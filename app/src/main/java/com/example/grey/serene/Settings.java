@@ -2,6 +2,7 @@ package com.example.grey.serene;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -124,6 +125,9 @@ public class Settings extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                /** Session End **/
+                SharedPrefs.saveSharedSetting(Settings.this, "Serene", "true");
+
                 Intent logout = new Intent(getApplicationContext(), AccountLogin.class);
                 startActivity(logout);
                 finishAffinity();

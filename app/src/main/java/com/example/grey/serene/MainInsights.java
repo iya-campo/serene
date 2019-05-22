@@ -191,7 +191,7 @@ public class MainInsights extends Fragment {
                         ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                id = dataSnapshot.child("id").getValue(Long.class); //Doesn't work. Returns 1???
+                                id = dataSnapshot.child("id").getValue(Long.class);
                                 title = dataSnapshot.child("title").getValue(String.class);
                                 author = dataSnapshot.child("author").getValue(String.class);
                                 type = dataSnapshot.child("type").getValue(String.class);
