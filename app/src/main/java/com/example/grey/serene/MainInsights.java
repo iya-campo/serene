@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,6 +58,8 @@ public class MainInsights extends Fragment {
     Articles articleData;
     String title, author, type, content, source;
     long id;
+
+    ArrayList savedArticles = new ArrayList();
 
     String userID = Main.userID;
 
@@ -128,6 +131,22 @@ public class MainInsights extends Fragment {
         ref = database.getReference().child("Articles");
         savedRef = database.getReference().child("Saved Insights").child(userID);
 
+        //Prevents saving article duplicates
+        savedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (!savedArticles.contains(snapshot.child("title").getValue(String.class))) {
+                        savedArticles.add(snapshot.child("title").getValue(String.class));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         adapter = new FirebaseListAdapter(articlesFirebaseListOptions) {
             @Override
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
@@ -191,19 +210,23 @@ public class MainInsights extends Fragment {
                         ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                id = dataSnapshot.child("id").getValue(Long.class);
-                                title = dataSnapshot.child("title").getValue(String.class);
-                                author = dataSnapshot.child("author").getValue(String.class);
-                                type = dataSnapshot.child("type").getValue(String.class);
-                                content = dataSnapshot.child("content").getValue(String.class);
-                                source = dataSnapshot.child("source").getValue(String.class);
+                                if (!savedArticles.contains(dataSnapshot.child("title").getValue(String.class))){
+                                    id = dataSnapshot.child("id").getValue(Long.class);
+                                    title = dataSnapshot.child("title").getValue(String.class);
+                                    author = dataSnapshot.child("author").getValue(String.class);
+                                    type = dataSnapshot.child("type").getValue(String.class);
+                                    content = dataSnapshot.child("content").getValue(String.class);
+                                    source = dataSnapshot.child("source").getValue(String.class);
 
-                                articleData = new Articles(id, title, author, type, content, source);
-                                savedRef.push().setValue(articleData);
+                                    articleData = new Articles(id, title, author, type, content, source);
+                                    savedRef.push().setValue(articleData);
 
-                                Toast.makeText(getContext(), "Added to Saved Insights", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Added to Saved Insights", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(getContext(), "This article is already in your Saved Insights", Toast.LENGTH_SHORT).show();
+                                }
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
@@ -228,7 +251,6 @@ public class MainInsights extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String title = dataSnapshot.getValue().toString();
                         articleTitle.setText(title);
-
                     }
 
                     @Override
@@ -283,6 +305,8 @@ public class MainInsights extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 savedRef.child(savedKey).removeValue();
+                                savedArticles.remove(dataSnapshot.child("title").getValue(String.class));
+                                MainHome.savedArticles.remove(dataSnapshot.child("title").getValue(String.class));
                                 Toast.makeText(getContext(), "Removed from Saved Insights", Toast.LENGTH_SHORT).show();
                             }
 

@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,13 +37,14 @@ public class MainHome extends Fragment {
     DatabaseReference ref, savedRef;
     Articles articleData;
     String title, author, type, content, source;
+    long id;
 
-    boolean editable;
+    public static ArrayList savedArticles = new ArrayList();
+
+    boolean editable = true;
 
     String userID = Main.userID;
     String date = Main.date;
-
-    long id;
 
     public MainHome() {
         // Required empty public constructor
@@ -72,6 +75,21 @@ public class MainHome extends Fragment {
         ref = database.getReference().child("suggestedArticles").child(userID);
         savedRef = database.getReference().child("Saved Insights").child(userID);
 
+        //Prevents saving article duplicates
+        savedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (!savedArticles.contains(snapshot.child("title").getValue(String.class))) {
+                        savedArticles.add(snapshot.child("title").getValue(String.class));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         adapterRecent = new FirebaseListAdapter(articlesFirebaseListOptions) {
             @Override
@@ -136,17 +154,22 @@ public class MainHome extends Fragment {
                         ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                id = dataSnapshot.child("id").getValue(Long.class); //Doesn't work. Returns 1???
-                                title = dataSnapshot.child("title").getValue(String.class);
-                                author = dataSnapshot.child("author").getValue(String.class);
-                                type = dataSnapshot.child("type").getValue(String.class);
-                                content = dataSnapshot.child("content").getValue(String.class);
-                                source = dataSnapshot.child("source").getValue(String.class);
+                                if (!savedArticles.contains(dataSnapshot.child("title").getValue(String.class))){
+                                    id = dataSnapshot.child("id").getValue(Long.class);
+                                    title = dataSnapshot.child("title").getValue(String.class);
+                                    author = dataSnapshot.child("author").getValue(String.class);
+                                    type = dataSnapshot.child("type").getValue(String.class);
+                                    content = dataSnapshot.child("content").getValue(String.class);
+                                    source = dataSnapshot.child("source").getValue(String.class);
 
-                                articleData = new Articles(id, title, author, type, content, source);
-                                savedRef.push().setValue(articleData);
+                                    articleData = new Articles(id, title, author, type, content, source);
+                                    savedRef.push().setValue(articleData);
 
-                                Toast.makeText(getContext(), "Added to Saved Insights", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Added to Saved Insights", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(getContext(), "This article is already in your Saved Insights", Toast.LENGTH_SHORT).show();
+                                }
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
