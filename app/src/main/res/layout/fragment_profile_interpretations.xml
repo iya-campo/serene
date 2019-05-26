@@ -10,10 +10,11 @@
     android:paddingRight="25dp"
     android:paddingBottom="25dp">
 
-    <TextView
-        android:id="@+id/interpText"
+    <ListView
+        android:id="@+id/interpListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="" />
+        android:layout_height="wrap_content" >
+
+    </ListView>
 
 </RelativeLayout>
