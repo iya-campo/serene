@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class SettingsPP extends AppCompatActivity {
 
     public static Activity settingsPP;
@@ -135,6 +137,7 @@ public class SettingsPP extends AppCompatActivity {
 
         TextView ppText = (TextView) findViewById(R.id.ppText);
         ppText.setText(Html.fromHtml(pp));
+        ppText.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
     }
 
     public void finish() {

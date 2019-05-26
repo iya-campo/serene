@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class Article extends AppCompatActivity {
 
     public static Activity article;
@@ -49,6 +51,7 @@ public class Article extends AppCompatActivity {
             articleTitleText.setText(setTitle);
             articleAuthorText.setText(Html.fromHtml(setAuthor));
             articleContentText.setText(setContent);
+            articleContentText.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
         }
 
         Button profileButton = (Button) findViewById(R.id.profileButton);

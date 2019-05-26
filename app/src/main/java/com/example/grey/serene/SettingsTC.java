@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class SettingsTC extends AppCompatActivity {
 
     public static Activity settingsTC;
@@ -168,6 +170,7 @@ public class SettingsTC extends AppCompatActivity {
 
         TextView tcText = (TextView) findViewById(R.id.tcText);
         tcText.setText(Html.fromHtml(tc));
+        tcText.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
     }
 
     public void finish() {

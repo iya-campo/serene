@@ -1,6 +1,8 @@
 package com.example.grey.serene;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -112,13 +114,33 @@ public class SettingsData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent login = new Intent(getApplicationContext(), AccountLogin.class);
-                startActivity(login);
-                finishAffinity();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                userRef.child(userID).removeValue();
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsData.this);
 
-                Toast.makeText(getApplicationContext(), "Your account has been deactivated.", Toast.LENGTH_SHORT).show();
+                builder.setMessage("Are you sure you want to deactivate your account?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Intent login = new Intent(getApplicationContext(), AccountLogin.class);
+                                startActivity(login);
+                                finishAffinity();
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                                userRef.child(userID).removeValue();
+
+                                Toast.makeText(getApplicationContext(), "Your account has been deactivated.", Toast.LENGTH_SHORT).show();
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
 
         });

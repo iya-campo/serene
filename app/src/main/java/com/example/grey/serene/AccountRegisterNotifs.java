@@ -101,6 +101,9 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
         yes = (Button) findViewById(R.id.yes1Button);
         no = (Button) findViewById(R.id.no1Button);
+        //Default state
+        no.setBackgroundResource(R.drawable.bg_button2_selected);
+        no.setTextColor(Color.parseColor("#b9e2ef"));
 
 
         yes.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +112,6 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             public void onClick(View v) {
                 if (notif.equals("no")) {
                     notif = "yes";
-                    yes.setBackgroundColor(0xFFFFFFFF);
                     yes.setBackgroundResource(R.drawable.bg_button2_selected);
                     yes.setTextColor(Color.parseColor("#b9e2ef"));
                     no.setBackgroundResource(R.drawable.bg_button2);

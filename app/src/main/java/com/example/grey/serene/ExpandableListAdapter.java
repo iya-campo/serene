@@ -67,7 +67,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView listHeader = (TextView) convertView.findViewById(R.id.listHeader);
         listHeader.setTypeface(null, Typeface.BOLD);
-        listHeader.setText(headerTitle);
+        listHeader.setText(MainInsights.itemName);
         return convertView;
     }
 

@@ -44,7 +44,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class MainInsights extends Fragment {
 
-    private static String itemName;
+    public static String itemName;
     private boolean menuState; //false close, true open
 
     private ListView listViewArticles;
@@ -74,7 +74,7 @@ public class MainInsights extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_insights, container, false);
 
-        itemName = "Menu";
+        listViewArticles = (ListView) view.findViewById(R.id.articleListView);
 
         menu = (ExpandableListView) view.findViewById(R.id.insightsMenu);
         initData();
@@ -89,7 +89,8 @@ public class MainInsights extends Fragment {
                 itemName = listItem.getText().toString();
                 if (itemName.equals("Serene Insights")) {
                     listViewArticles.setAdapter(adapter);
-                } else {
+                }
+                if (itemName.equals("Saved Insights")) {
                     listViewArticles.setAdapter(adapterSaved);
                 }
                 parent.collapseGroup(groupPosition);
@@ -112,8 +113,6 @@ public class MainInsights extends Fragment {
                 return false;
             }
         });
-
-        listViewArticles = (ListView) view.findViewById(R.id.articleListView);
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Articles");
         FirebaseListOptions<Articles> articlesFirebaseListOptions = new FirebaseListOptions.Builder<Articles>()
@@ -320,6 +319,9 @@ public class MainInsights extends Fragment {
                 });
             }
         };
+
+        itemName = "Serene Insights";
+        listViewArticles.setAdapter(adapter);
 
         return view;
     }

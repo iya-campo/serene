@@ -148,6 +148,25 @@ public class MainJournal extends Fragment {
 
                     }
                 });
+
+                refDate.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.exists()) {
+                            if (journalDate.equals(date)) {
+                                addEntry.setVisibility(View.VISIBLE);
+                                editable = true;
+                            } else {
+                                addEntry.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 

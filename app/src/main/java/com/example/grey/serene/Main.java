@@ -124,13 +124,13 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                     e.printStackTrace();
                 }
 
-                if ((notif.equals("yes")) && (!alarmTime.equals(""))) {
-                    startAlarm(hr, min);
-                }
-
-                if (alarmTime.equals("")) {
-                    Toast.makeText(getApplicationContext(), "You have no alarm time.", Toast.LENGTH_LONG).show();
-                }
+//                if ((notif.equals("yes")) && (!alarmTime.equals(""))) {
+//                    startAlarm(hr, min);
+//                }
+//
+//                if (alarmTime.equals("")) {
+//                    Toast.makeText(getApplicationContext(), "You have no alarm time.", Toast.LENGTH_LONG).show();
+//                }
 
             }
 
