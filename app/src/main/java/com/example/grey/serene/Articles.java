@@ -14,6 +14,7 @@ public class Articles {
 
     }
 
+
     Articles(long id, String title, String author, String type, String content, String source) {
         this.id = id;
         this.title = title;
@@ -22,6 +23,7 @@ public class Articles {
         this.content = content;
         this.source = source;
     }
+
 
     Articles(String title) {
         this.title = title;

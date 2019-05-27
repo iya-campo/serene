@@ -1,6 +1,9 @@
 package com.example.grey.serene;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -127,6 +130,13 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 /** Session End **/
                 SharedPrefs.saveSharedSetting(Settings.this, "Serene", "true");
+
+                AlarmManager ALARM1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        getApplicationContext(), 1, myIntent, 0);
+
+                ALARM1.cancel(pendingIntent);
 
                 Intent logout = new Intent(getApplicationContext(), AccountLogin.class);
                 startActivity(logout);

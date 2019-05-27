@@ -1,7 +1,10 @@
 package com.example.grey.serene;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -115,6 +118,7 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
             public void onClick(View v) {
                 //Function to delete alarm
                 ref.child("alarmTime").setValue("");
+                deleteAlarm();
             }
 
         });
@@ -148,6 +152,15 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
             hour = 12;
         addButton.setText(String.format("%02d:%02d %s", hour, minute, hourOfDay < 12 ? "am" : "pm"));
         changedTime = addButton.getText().toString();
+    }
+
+    private void deleteAlarm(){
+        AlarmManager ALARM1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent, 0);
+
+        ALARM1.cancel(pendingIntent);
     }
 
     public void finish() {

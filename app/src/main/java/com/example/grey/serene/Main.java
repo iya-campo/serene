@@ -124,13 +124,17 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                     e.printStackTrace();
                 }
 
-//                if ((notif.equals("yes")) && (!alarmTime.equals(""))) {
-//                    startAlarm(hr, min);
-//                }
-//
-//                if (alarmTime.equals("")) {
-//                    Toast.makeText(getApplicationContext(), "You have no alarm time.", Toast.LENGTH_LONG).show();
-//                }
+                if ((notif.equals("yes"))) {
+                    startAlarm(hr, min);
+                    Log.i("alarm", "this is working");
+                    Log.i("alarm", currentDate);
+
+                }
+
+
+                if(alarmTime.equals("")){
+                    deleteAlarm();
+                }
 
             }
 
@@ -181,6 +185,16 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                 AlarmManager.INTERVAL_DAY, sender);
 
     }
+
+    private void deleteAlarm(){
+        ALARM1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent, 0);
+
+        ALARM1.cancel(pendingIntent);
+    }
+
 
     public void finish() {
         super.finish();
