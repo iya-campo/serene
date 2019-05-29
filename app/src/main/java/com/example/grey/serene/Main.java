@@ -125,7 +125,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                     e.printStackTrace();
                 }
 
-                if ((notif.equals("yes"))) {
+                if ((notif.equals("yes")) && (!alarmTime.equals(""))) {
                     startAlarm(hr, min);
 //                    Log.i("alarm", "this is working");
 //                    Log.i("alarm", currentDate);
@@ -171,20 +171,24 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
     }
 
     private void startAlarm(int sHour, int sMin) {
+        ALARM1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        final int _id = (int) System.currentTimeMillis();
+        PendingIntent sender = PendingIntent.getBroadcast(this, _id, intent, PendingIntent.FLAG_ONE_SHOT);
         Calendar calendar = Calendar.getInstance();
+        long currentSDL = calendar.getTimeInMillis();
         calendar.set(calendar.HOUR_OF_DAY, sHour);
         calendar.set(calendar.MINUTE, sMin);
         calendar.set(calendar.SECOND, 0);
         calendar.set(calendar.MILLISECOND, 0);
         long sdl = calendar.getTimeInMillis();
 
-        ALARM1 = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        final int _id = (int) System.currentTimeMillis();
-        PendingIntent sender = PendingIntent.getBroadcast(this, _id, intent, PendingIntent.FLAG_ONE_SHOT);
-        ALARM1.setRepeating(AlarmManager.RTC_WAKEUP, sdl,
-                AlarmManager.INTERVAL_DAY, sender);
-        Log.i("alarm", ALARM1.getNextAlarmClock().toString());
+        ALARM1.setInexactRepeating(AlarmManager.RTC_WAKEUP, sdl ,AlarmManager.INTERVAL_DAY,sender);
+
+        if(currentSDL > sdl){
+            ALARM1.cancel(sender);
+        }
+
 
     }
 

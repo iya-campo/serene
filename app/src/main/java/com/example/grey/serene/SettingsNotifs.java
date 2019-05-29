@@ -113,9 +113,7 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
                 TimePickerFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
                 clicked = true;
-                if(changeNotifications.equals("yes")) {
-                    changeAlarm(changedTime);
-                }
+
             }
 
         });
@@ -170,29 +168,40 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
 
         ALARM1.cancel(pendingIntent);
     }
-
+/*
     private void changeAlarm(String changedTime){
         int sHour = Integer.valueOf(changedTime.substring(0, 2));
         int sMin = Integer.valueOf(changedTime.substring(3, 5));
+        AlarmManager ALARM1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar calendar = Calendar.getInstance();
+        long currentSDL = calendar.getTimeInMillis();
         calendar.set(calendar.HOUR_OF_DAY, sHour);
         calendar.set(calendar.MINUTE, sMin);
         calendar.set(calendar.SECOND, 0);
         calendar.set(calendar.MILLISECOND, 0);
-        AlarmManager ALARM1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        long sdl = calendar.getTimeInMillis();
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getApplicationContext(), 1, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        ALARM1.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        ALARM1.setInexactRepeating(AlarmManager.RTC_WAKEUP, sdl,
                 AlarmManager.INTERVAL_DAY, pendingIntent);
 
-    }
+        if(currentSDL > sdl){
+            ALARM1.cancel(pendingIntent);
+        }
+
+
+
+    } */
 
     public void finish() {
         if(clicked) {
             ref.child("alarmTime").setValue(changedTime);
+            if(changeNotifications.equals("yes")) {
+                //changeAlarm(changedTime);
+            }
         }else{
             ref.child("alarmTime").setValue(currentTime);
         }

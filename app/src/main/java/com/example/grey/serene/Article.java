@@ -51,7 +51,7 @@ public class Article extends AppCompatActivity {
             articleTitleText.setText(setTitle);
             articleAuthorText.setText(Html.fromHtml(setAuthor));
             articleContentText.setText(setContent);
-            articleContentText.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            //articleContentText.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
         }
 
         Button profileButton = (Button) findViewById(R.id.profileButton);

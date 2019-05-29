@@ -46,7 +46,8 @@
 
         <receiver android:name=".NotificationReceiver"
                   android:enabled="true"
-                  android:exported="true">
+                  android:exported="true"
+                  android:process=":remote">
             <intent-filter>
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
