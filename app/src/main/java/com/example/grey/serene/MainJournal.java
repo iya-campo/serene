@@ -41,7 +41,7 @@ public class MainJournal extends Fragment {
     private DatabaseReference refDate;
     private FirebaseDatabase database;
 
-    boolean editable;
+    boolean editable = true;
 
     String userID = Main.userID;
     String date = Main.date;

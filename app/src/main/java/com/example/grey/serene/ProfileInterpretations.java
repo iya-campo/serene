@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ProfileInterpretations extends Fragment {
 
     private static final String TAG = "ProfileInterpretations";
@@ -31,8 +34,10 @@ public class ProfileInterpretations extends Fragment {
     DatabaseReference ref;
     FirebaseListAdapter adapterInt;
 
-    String userID = Main.userID;
+    ArrayList interpTitles = new ArrayList();
+    long childCount;
 
+    String userID = Main.userID;
 
     @Nullable
     @Override
@@ -42,32 +47,35 @@ public class ProfileInterpretations extends Fragment {
 
         listViewInterp = (ListView) view.findViewById(R.id.interpListView);
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Interpretations");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Interpretations").child(userID);
         FirebaseListOptions<Interpretations> articlesFirebaseListOptions = new FirebaseListOptions.Builder<Interpretations>()
                 .setLayout(R.layout.interp_listview_layout)
                 .setQuery(query, Interpretations.class)
                 .build();
 
-        ref = database.getReference().child("Interpretations");
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference().child("Interpretations").child(userID);
 
         adapterInt = new FirebaseListAdapter(articlesFirebaseListOptions) {
             @Override
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
                 final TextView interpDate = v.findViewById(R.id.interpText);
                 final Button interpButton = v.findViewById(R.id.interpButton);
+                final String interpKey = this.getRef(position).getKey();
 
-                FirebaseDatabase.getInstance().getReference().child("Interpretations").addListenerForSingleValueEvent(new ValueEventListener() {
+                ref.child(interpKey).addValueEventListener(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String title = dataSnapshot.getValue().toString();
-                        interpDate.setText(title);
+                        String interpTitle = dataSnapshot.child("Date").getValue().toString();
+                        interpDate.setText(String.valueOf(interpTitle));
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
+
                 });
 
                 interpButton.setTag(position);
@@ -75,17 +83,15 @@ public class ProfileInterpretations extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        final int position = (Integer) v.getTag() + 1;
-
-                        ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
+                        ref.child(interpKey).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Intent showInterp = new Intent(getActivity().getApplicationContext(), PopInterp.class);
 
-                               showInterp.putExtra("observation", dataSnapshot.child("Observation").getValue(String.class));
+                                showInterp.putExtra("InterpDate", dataSnapshot.child("Date").getValue(String.class));
+                                showInterp.putExtra("InterpContent", dataSnapshot.child("Observation").getValue(String.class));
 
                                 startActivity(showInterp);
-                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
 
                             @Override

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class PopInterp extends Activity {
 
-    String interp;
+    String date, content;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -18,8 +18,9 @@ public class PopInterp extends Activity {
         setContentView(R.layout.pop_interp);
 
         Intent myIntent = getIntent();
-        if (myIntent.hasExtra("observation")) {
-            interp = myIntent.getStringExtra("observation");
+        if (myIntent.hasExtra("InterpDate") && myIntent.hasExtra("InterpContent")) {
+            date = myIntent.getStringExtra("InterpDate");
+            content = myIntent.getStringExtra("InterpContent");
         }
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -30,8 +31,9 @@ public class PopInterp extends Activity {
 
         getWindow().setLayout((int)(width * 0.6), (int)(height * 0.2));
 
-        TextView medsContentText = (TextView) findViewById(R.id.interpContent);
-        medsContentText.setText(Html.fromHtml(interp));
+        TextView interpTitleText = (TextView) findViewById(R.id.interpTitle);
+        TextView interpContentText = (TextView) findViewById(R.id.interpContent);
+        interpTitleText.setText(Html.fromHtml(date));
+        interpContentText.setText(Html.fromHtml(content));
     }
-
 }

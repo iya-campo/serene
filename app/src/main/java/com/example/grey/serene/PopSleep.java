@@ -31,10 +31,15 @@ public class PopSleep extends Activity {
 
         getWindow().setLayout((int)(width * 0.6), (int)(height * 0.2));
 
-        int avgSleep = Integer.parseInt(sleep)/Integer.parseInt(entry);
-
         TextView sleepContentText = (TextView) findViewById(R.id.sleepContent);
-        sleepContentText.setText(Html.fromHtml("Total No. of Hours Slept: " + sleep + "\n" +
-                "Average Sleep Hours: " + avgSleep));
+
+        if (!entry.equals("0")) {
+            int avgSleep = Integer.parseInt(sleep) / Integer.parseInt(entry);
+            sleepContentText.setText(Html.fromHtml("Total No. of Hours Slept: " + sleep + "\n" +
+                    "Average Sleep Hours: " + avgSleep));
+        } else {
+            sleepContentText.setText(Html.fromHtml("Total No. of Hours Slept: 0" + "\n" +
+                    "Average Sleep Hours: 0"));
+        }
     }
 }

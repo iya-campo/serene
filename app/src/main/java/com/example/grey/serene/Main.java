@@ -58,8 +58,8 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     public static String userID;
     public static String date;
-    AlarmManager ALARM1;
 
+    AlarmManager ALARM1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,13 +127,13 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
                 if ((notif.equals("yes"))) {
                     startAlarm(hr, min);
-                    Log.i("alarm", "this is working");
-                   // Log.i("alarm", currentDate);
-
+//                    Log.i("alarm", "this is working");
+//                    Log.i("alarm", currentDate);
+//
                 }
 
 
-                if(alarmTime.equals("")){
+                if (alarmTime.equals("")) {
                     deleteAlarm();
                 }
 
@@ -188,7 +188,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     }
 
-    private void deleteAlarm(){
+    private void deleteAlarm() {
         ALARM1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(

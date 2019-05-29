@@ -31,7 +31,7 @@ public class ProfileJourney extends Fragment {
     private Button medicineButton;
     private Button sleepButton;
     long duration;
-    int medStats, sleepStats, entryCount;
+    int medStats, sleepStats, entryCount = 0;
 
     String userID = Main.userID;
     String date = Main.date;
@@ -46,9 +46,6 @@ public class ProfileJourney extends Fragment {
         durationDetails = (TextView) view.findViewById(R.id.durationDetails);
         medicineButton = (Button) view.findViewById(R.id.medicineButton);
         sleepButton = (Button) view.findViewById(R.id.sleepButton);
-
-        medStats = 0;
-        sleepStats = 0;
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         final DatabaseReference journalRef = FirebaseDatabase.getInstance().getReference().child("Journal").child(userID);

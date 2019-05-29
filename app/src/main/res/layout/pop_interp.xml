@@ -11,20 +11,21 @@
 
         <TextView
             android:id="@+id/interpTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
+            android:textAlignment="center"
             android:textSize="14dp"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textColor="#234A56"
-            android:text="Observation:" />
+            android:textColor="#234A56" />
 
         <TextView
             android:id="@+id/interpContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/medsTitle"
+            android:layout_below="@id/interpTitle"
+            android:layout_centerHorizontal="true"
             android:textColor="#234A56"
             android:textSize="12dp" />
 

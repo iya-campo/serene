@@ -40,6 +40,7 @@
         <activity android:name=".PopTC" android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".PopMeds" android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".PopSleep" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".PopInterp" android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".ForgotPassword" />
         <activity android:name=".ChangePassword" />
 

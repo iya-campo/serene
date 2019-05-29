@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/serenebg_inv"
-    android:paddingLeft="25dp"
-    android:paddingTop="25dp"
-    android:paddingRight="25dp"
-    android:paddingBottom="25dp">
+    android:background="@drawable/serenebg_inv">
 
     <ListView
         android:id="@+id/interpListView"
@@ -16,11 +12,5 @@
         android:layout_height="wrap_content" >
 
     </ListView>
-
-    <ListView
-        android:id="@+id/interpListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerContainer"></ListView>
 
 </RelativeLayout>
