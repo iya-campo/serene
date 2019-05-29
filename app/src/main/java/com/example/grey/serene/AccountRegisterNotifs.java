@@ -38,8 +38,9 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
 
     Users user;
     long maxid;
-    String username, password, email, nickname, alarmTime;
-    String alarm, notif, interpreter, startDate;
+    String username, password, email, nickname;
+    String notif, interpreter, startDate;
+    String alarm, alarmTime = "";
     int age;
 
     DatabaseReference ref;
@@ -140,8 +141,11 @@ public class AccountRegisterNotifs extends AppCompatActivity implements TimePick
             public void onClick(View v) {
 
                 alarm = alarmField.getText().toString();
-                if (alarm.equals("")) {
-                    alarm = "Untitled Alarm";
+                if (alarm.equals("") && !alarmTime.equals("")) {
+                    alarm = "my alarm";
+                }
+                if (!alarm.equals("") && alarmTime.equals("")) {
+                    alarm = "";
                 }
                 interpreter = psychField.getText().toString();
 

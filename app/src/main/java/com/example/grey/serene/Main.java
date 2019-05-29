@@ -127,9 +127,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
                 if ((notif.equals("yes")) && (!alarmTime.equals(""))) {
                     startAlarm(hr, min);
-//                    Log.i("alarm", "this is working");
-//                    Log.i("alarm", currentDate);
-//
                 }
 
 

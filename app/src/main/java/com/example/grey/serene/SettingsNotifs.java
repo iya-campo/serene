@@ -22,21 +22,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
-public class SettingsNotifs extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
+public class SettingsNotifs extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     public static Activity settingsNotifs;
 
+    Button addButton, deleteButton, onButton, offButton;
     DatabaseReference ref;
 
-    String userID = Main.userID;
-
-    Button addButton;
-
-    String currentTime, changedTime;
-
+    String changeNotifications;
+    String currentName, currentTime, changedTime;
     Boolean clicked = false;
 
-    String changeNotifications;
+    String userID = Main.userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +41,18 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
         setContentView(R.layout.activity_settings_notifs);
 
         settingsNotifs = this;
+
+        //Header Buttons
+        Button profileButton = (Button) findViewById(R.id.profileButton);
+
+        //Return Button
+        Button settingsTitleButton = (Button) findViewById(R.id.settingsTitleButton);
+
+        //Settings Buttons
+        addButton = (Button) findViewById(R.id.addButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
+        onButton = (Button) findViewById(R.id.onButton);
+        offButton = (Button) findViewById(R.id.offButton);
 
         final TextView userText = (TextView) findViewById(R.id.userText);
 
@@ -57,12 +66,21 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
                 changeNotifications = dataSnapshot.child("notifications").getValue().toString();
                 userText.setText(fbNickname);
 
-
-                if((alarmName != null) && (alarmTime != null)){
+                if (alarmName.equals("") && alarmTime.equals("")) {
+                    addButton.setText("Add");
+                } else {
                     addButton.setText("Change");
                 }
-                if(!clicked){
+
+                if (!clicked) {
+                    currentName = alarmName;
                     currentTime = alarmTime;
+                }
+
+                if (changeNotifications.equals("yes")) {
+                    onButton.setBackgroundResource(R.drawable.btn_journal_selected);
+                } else {
+                    offButton.setBackgroundResource(R.drawable.btn_journal_selected);
                 }
             }
 
@@ -72,18 +90,6 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
             }
         });
 
-
-        //Header Buttons
-        Button profileButton = (Button) findViewById(R.id.profileButton);
-
-        //Return Button
-        Button settingsTitleButton = (Button) findViewById(R.id.settingsTitleButton);
-
-        //Settings Buttons
-        addButton = (Button) findViewById(R.id.addButton);
-        Button deleteButton = (Button) findViewById(R.id.deleteButton);
-        Button onButton = (Button) findViewById(R.id.onButton);
-        Button offButton = (Button) findViewById(R.id.offButton);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
 
@@ -110,12 +116,11 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
             @Override
             public void onClick(View v) {
                 //Function to add alarm
+                clicked = true;
+                currentName = "my alarm";
                 TimePickerFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
-                clicked = true;
-
             }
-
         });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -133,8 +138,12 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
 
             @Override
             public void onClick(View v) {
-                changeNotifications = "yes";
-                ref.child("notifications").setValue(changeNotifications);
+                if (changeNotifications.equals("no")) {
+                    changeNotifications = "yes";
+                    ref.child("notifications").setValue(changeNotifications);
+                    onButton.setBackgroundResource(R.drawable.btn_journal_selected);
+                    offButton.setBackgroundResource(R.drawable.btn_selector2);
+                }
             }
 
         });
@@ -143,9 +152,12 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
 
             @Override
             public void onClick(View v) {
-                changeNotifications = "no";
-                ref.child("notifications").setValue(changeNotifications);
-
+                if (changeNotifications.equals("yes")) {
+                    changeNotifications = "no";
+                    ref.child("notifications").setValue(changeNotifications);
+                    offButton.setBackgroundResource(R.drawable.btn_journal_selected);
+                    onButton.setBackgroundResource(R.drawable.btn_selector2);
+                }
             }
 
         });
@@ -160,7 +172,7 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
         changedTime = addButton.getText().toString();
     }
 
-    private void deleteAlarm(){
+    private void deleteAlarm() {
         AlarmManager ALARM1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -169,7 +181,7 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
         ALARM1.cancel(pendingIntent);
     }
 /*
-    private void changeAlarm(String changedTime){
+    private void changeAlarm(String changedTime) {
         int sHour = Integer.valueOf(changedTime.substring(0, 2));
         int sMin = Integer.valueOf(changedTime.substring(3, 5));
         AlarmManager ALARM1 = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -197,12 +209,14 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
     } */
 
     public void finish() {
-        if(clicked) {
+        if (clicked) {
+            ref.child("alarm").setValue(currentName);
             ref.child("alarmTime").setValue(changedTime);
-            if(changeNotifications.equals("yes")) {
+            if (changeNotifications.equals("yes")) {
                 //changeAlarm(changedTime);
             }
-        }else{
+        } else {
+            ref.child("alarm").setValue(currentName);
             ref.child("alarmTime").setValue(currentTime);
         }
         super.finish();
