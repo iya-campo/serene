@@ -29,13 +29,12 @@ public class ProfileInterpretations extends Fragment {
 
     private static final String TAG = "ProfileInterpretations";
 
+    private TextView emptyInterp;
     private ListView listViewInterp;
+
     FirebaseDatabase database;
     DatabaseReference ref;
     FirebaseListAdapter adapterInt;
-
-    ArrayList interpTitles = new ArrayList();
-    long childCount;
 
     String userID = Main.userID;
 
@@ -43,8 +42,9 @@ public class ProfileInterpretations extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_profile_interpretations, container, false);
+        final View view = inflater.inflate(R.layout.fragment_profile_interpretations, container, false);
 
+        emptyInterp = (TextView) view.findViewById(R.id.emptyInterpText);
         listViewInterp = (ListView) view.findViewById(R.id.interpListView);
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Interpretations").child(userID);
@@ -55,6 +55,22 @@ public class ProfileInterpretations extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference().child("Interpretations").child(userID);
+
+        ref.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    emptyInterp.setVisibility(view.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
 
         adapterInt = new FirebaseListAdapter(articlesFirebaseListOptions) {
             @Override

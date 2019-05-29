@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/serenebg_inv">
 
+    <TextView
+        android:id="@+id/emptyInterpText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#234A56"
+        android:textAlignment="center"
+        android:padding="50dp"
+        android:textSize="14sp"
+        android:text="Your results are yet to be interpreted. :(" />
+
     <ListView
         android:id="@+id/interpListView"
         android:layout_width="match_parent"
