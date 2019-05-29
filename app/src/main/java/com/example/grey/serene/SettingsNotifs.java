@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class SettingsNotifs extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
     public static Activity settingsNotifs;
@@ -33,6 +35,8 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
     String currentTime, changedTime;
 
     Boolean clicked = false;
+
+    String changeNotifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
                 String fbNickname = dataSnapshot.child("nickname").getValue().toString();
                 String alarmName = dataSnapshot.child("alarm").getValue().toString();
                 String alarmTime = dataSnapshot.child("alarmTime").getValue().toString();
+                changeNotifications = dataSnapshot.child("notifications").getValue().toString();
                 userText.setText(fbNickname);
 
 
@@ -108,6 +113,9 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
                 TimePickerFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
                 clicked = true;
+                if(changeNotifications.equals("yes")) {
+                    changeAlarm(changedTime);
+                }
             }
 
         });
@@ -127,7 +135,7 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
 
             @Override
             public void onClick(View v) {
-                String changeNotifications = "yes";
+                changeNotifications = "yes";
                 ref.child("notifications").setValue(changeNotifications);
             }
 
@@ -137,7 +145,7 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
 
             @Override
             public void onClick(View v) {
-                String changeNotifications = "no";
+                changeNotifications = "no";
                 ref.child("notifications").setValue(changeNotifications);
 
             }
@@ -161,6 +169,25 @@ public class SettingsNotifs extends AppCompatActivity implements TimePickerDialo
                 getApplicationContext(), 1, myIntent, 0);
 
         ALARM1.cancel(pendingIntent);
+    }
+
+    private void changeAlarm(String changedTime){
+        int sHour = Integer.valueOf(changedTime.substring(0, 2));
+        int sMin = Integer.valueOf(changedTime.substring(3, 5));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.HOUR_OF_DAY, sHour);
+        calendar.set(calendar.MINUTE, sMin);
+        calendar.set(calendar.SECOND, 0);
+        calendar.set(calendar.MILLISECOND, 0);
+        AlarmManager ALARM1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        ALARM1.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+
     }
 
     public void finish() {

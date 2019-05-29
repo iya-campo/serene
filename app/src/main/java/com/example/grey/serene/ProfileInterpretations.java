@@ -80,10 +80,9 @@ public class ProfileInterpretations extends Fragment {
                         ref.child(String.valueOf(position)).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Intent showInterp = new Intent(getActivity().getApplicationContext(), Article.class);
+                                Intent showInterp = new Intent(getActivity().getApplicationContext(), PopInterp.class);
 
-                                showInterp.putExtra("date", dataSnapshot.child("date").getValue(String.class));
-                                showInterp.putExtra("content", dataSnapshot.child("content").getValue(String.class));
+                               showInterp.putExtra("observation", dataSnapshot.child("Observation").getValue(String.class));
 
                                 startActivity(showInterp);
                                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

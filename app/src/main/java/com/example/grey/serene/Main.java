@@ -58,6 +58,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
 
     public static String userID;
     public static String date;
+    AlarmManager ALARM1;
 
 
     @Override
@@ -127,7 +128,7 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                 if ((notif.equals("yes"))) {
                     startAlarm(hr, min);
                     Log.i("alarm", "this is working");
-                    Log.i("alarm", currentDate);
+                   // Log.i("alarm", currentDate);
 
                 }
 
@@ -177,12 +178,13 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
         calendar.set(calendar.MILLISECOND, 0);
         long sdl = calendar.getTimeInMillis();
 
-        AlarmManager ALARM1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+        ALARM1 = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
         final int _id = (int) System.currentTimeMillis();
         PendingIntent sender = PendingIntent.getBroadcast(this, _id, intent, PendingIntent.FLAG_ONE_SHOT);
         ALARM1.setRepeating(AlarmManager.RTC_WAKEUP, sdl,
                 AlarmManager.INTERVAL_DAY, sender);
+        Log.i("alarm", ALARM1.getNextAlarmClock().toString());
 
     }
 
